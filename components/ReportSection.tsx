@@ -4,6 +4,8 @@ import EchoBoard from './sections/EchoBoard'
 import ProjectCycleTime from './sections/ProjectCycleTime'
 import ProjectDone from './sections/ProjectDone'
 import ProjectInProgress from './sections/ProjectInProgress'
+import ProjectLimits from './sections/ProjectLimits'
+import ProjectNew from './sections/ProjectNew'
 import RepoIssues from './sections/RepoIssues'
 
 type Props = {
@@ -23,6 +25,12 @@ export default function ReportSectionComponent(props: Props) {
       break
     case 'project-in-progress':
       SectionComponent = ProjectInProgress
+      break
+    case 'project-limits':
+      SectionComponent = ProjectLimits
+      break
+    case 'project-new':
+      SectionComponent = ProjectNew
       break
     case 'echo-board':
       SectionComponent = EchoBoard

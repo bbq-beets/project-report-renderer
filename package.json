@@ -32,8 +32,8 @@
     "build": "next build",
     "export": "next export",
     "check": "run-s check:format check:lint",
-    "check:format": "prettier --write pages lib",
-    "check:lint": "eslint *.ts **/*.ts pages lib"
+    "check:format": "prettier --write components lib pages",
+    "check:lint": "eslint components lib pages"
   },
   "dependencies": {
     "@actions/core": "^1.2.4"

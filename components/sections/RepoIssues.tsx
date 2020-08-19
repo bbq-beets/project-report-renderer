@@ -1,4 +1,7 @@
+import {useMemo} from 'react'
+import {Column, useTable} from 'react-table'
 import {ReportSection} from '../../lib/reports'
+import Table from '../Table'
 
 type Props = ReportSection['data']
 
@@ -9,30 +12,38 @@ export default function RepoIssues(props: Props) {
 
   const issues = props.issues as any[]
 
+  const columns: Array<Column<any>> = useMemo(
+    () => [
+      {
+        Header: 'Label',
+        accessor: 'label',
+        Cell: ({cell: {value}}) => <code>{value}</code>
+      },
+      {
+        Header: 'Count',
+        accessor: (row: any) => row,
+        Cell: ({data, cell: {value}}) => {
+          return data
+            .filter(datum => datum.data.length)
+            .filter(datum => datum.label === value.label).length
+        }
+      }
+    ],
+    []
+  )
+
+  const data = Object.entries(issues).map(([label, data]) => ({
+    label,
+    data
+  })) as any[]
+
+  const table = useTable({columns, data})
+
   return (
     <>
       <h2>Issues for XXX</h2>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Label</th>
-            <th>Count</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {Object.entries(issues).map(([label, issue]) => (
-            <tr key={issue.number}>
-              <td>
-                <code>{label}</code>
-              </td>
-
-              <td>{issues[label as keyof typeof issues].length}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Table table={table} />
     </>
   )
 }

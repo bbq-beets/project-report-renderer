@@ -1,4 +1,7 @@
+import {useMemo} from 'react'
+import {Column, useTable} from 'react-table'
 import {ReportSection} from '../../lib/reports'
+import Table from '../Table'
 
 type Props = ReportSection['data']
 
@@ -11,33 +14,45 @@ export default function ProjectCycleTime(props: Props) {
 
   const getLimit = (limit: number) => (limit >= 0 ? `${limit}` : '')
 
+  const columns: Array<Column> = useMemo(
+    () => [
+      {
+        Header: 'Label',
+        accessor: 'label'
+      },
+      {
+        Header: 'Count',
+        accessor: 'data.count'
+      },
+      {
+        Header: 'Cycle Time (days)',
+        accessor: (row: any) => ({
+          cycleTime: row.data.cycletime,
+          flag: row.data.flag
+        }),
+        Cell: ({cell: {value}}) =>
+          `${getCycleTime(value.cycleTime)} ${value.flag ? '🚩' : ''}`
+      },
+      {
+        Header: 'Limit',
+        accessor: 'data.limit',
+        Cell: ({cell: {value}}) => getLimit(value)
+      }
+    ],
+    []
+  )
+
+  const data = Object.entries(cycleData).map(([label, data]) => ({
+    label,
+    data
+  })) as any[]
+  const table = useTable({columns, data})
+
   return (
     <>
       <h2>Issue Count and Cycle Time</h2>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Labels</th>
-            <th>Count</th>
-            <th>Cycle Time (days)</th>
-            <th>Limit</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {Object.entries(cycleData).map(([label, data]) => (
-            <tr key={label}>
-              <td>{label}</td>
-              <td>{data.count}</td>
-              <td>
-                {getCycleTime(data.cycletime)}&nbsp;{data.flag && '🚩'}
-              </td>
-              <td>{getLimit(data.limit)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Table table={table} />
     </>
   )
 }

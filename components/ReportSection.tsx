@@ -1,4 +1,6 @@
 import {ReportSection} from '../lib/reports'
+import BaseSection from './sections/BaseSection'
+import RepoIssues from './sections/RepoIssues'
 
 type Props = {
   name: string
@@ -6,9 +8,19 @@ type Props = {
 }
 
 export default function ReportSectionComponent(props: Props) {
+  let SectionComponent
+
+  switch (props.data.type) {
+    case 'repo-issues':
+      SectionComponent = RepoIssues
+      break
+    default:
+      SectionComponent = BaseSection
+  }
+
   return (
-    <>
-      <h2>{props.name}</h2>
-    </>
+    <div>
+      <SectionComponent {...props.data.data} />
+    </div>
   )
 }

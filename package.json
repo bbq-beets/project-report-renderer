@@ -3,6 +3,7 @@
   "description": "Renders project reports to static pages",
   "devDependencies": {
     "@primer/components": "^20.0.0",
+    "@primer/css": "^15.1.0",
     "@types/node": "^14.6.0",
     "@types/react": "^16.9.46",
     "@types/styled-components": "^5.1.2",

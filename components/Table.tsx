@@ -10,7 +10,7 @@ import {
 } from 'react-table'
 
 /* eslint-disable-next-line @typescript-eslint/ban-types */
-type Props<T> = TableOptions<T>
+type Props<T extends object> = TableOptions<T>
 
 const TableRow = dynamic(() => import('./table/TableRow'))
 

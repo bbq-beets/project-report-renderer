@@ -32,7 +32,9 @@ export default function ProjectNew(props: Props) {
       {
         Header: 'Added',
         accessor: 'project_added_at',
-        Cell: ({cell: {value}}) => moment().to(value)
+        Cell: ({cell: {value}}) => (
+          <span suppressHydrationWarning>{moment().to(value)}</span>
+        )
       }
     ],
     []

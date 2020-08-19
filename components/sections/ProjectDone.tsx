@@ -33,7 +33,9 @@ export default function ProjectDone(props: Props) {
         Header: 'Completed',
         id: 'completed',
         accessor: 'project_done_at',
-        Cell: ({cell}) => moment().to(cell.value)
+        Cell: ({cell}) => (
+          <span suppressHydrationWarning>{moment().to(cell.value)}</span>
+        )
       }
     ],
     []

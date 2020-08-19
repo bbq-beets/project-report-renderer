@@ -1,3 +1,5 @@
 /.next/
+/.reports/
 /.vscode/
+/docs/
 /node_modules/

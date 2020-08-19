@@ -7,10 +7,7 @@ FROM node:alpine
 COPY package* /opt/build/
 RUN npm ci --prefix /opt/build
 
-# Copy code for the Next.js site
-COPY pages /opt/build/pages
-
-# Copy our build script
-COPY entrypoint.sh /opt/build/entrypoint.sh
+# Copy our build configuration
+COPY . /opt/build/
 
 ENTRYPOINT ["/opt/build/entrypoint.sh"]

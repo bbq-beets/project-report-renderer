@@ -20,8 +20,16 @@ After cloning the repository, copy a report directory to `./.reports`, and
 then run `./test.sh`. This script builds the container and runs it in a
 similar fashion to the action itself.
 
+If you want to run the Next.js server without Docker, you can do something
+like this:
+
+```shell
+INPUT_REPORTSPATH=.reports npx next
+``
+
 ## How it Works
 
 When this action runs in a repository where project reports have been
 generated, it uses that data in order to build the static site defined in
 this action's [/pages](/pages) directory using [Next.js](https://nextjs.org).
+```

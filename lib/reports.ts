@@ -9,6 +9,11 @@ const stat = promisify(fs.stat)
 const isDir = async (node: string) => (await stat(node)).isDirectory()
 const REPORT_REGEX = /^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}$/
 
+type ReportData = {
+  type: string
+  data: {[key: string]: any} // TODO: Collect types
+}
+
 /**
  * For each report, get its latest data for each of its sections.
  */
@@ -33,11 +38,16 @@ async function getLatestReportData(reportPath: string) {
   const latestReport = reports.sort().reverse()[0]
   const sections = await getDirsMatching(path.join(latestReport, 'data'))
 
-  const reportData: Record<string, any> = {}
+  const reportData: Record<string, ReportData> = {}
 
   for (const section of sections) {
     const rawData = await readFile(path.join(section, 'processed.json'))
-    reportData[path.basename(section)] = JSON.parse(rawData.toString())
+    const type = path.basename(section)
+
+    reportData[type] = {
+      type,
+      data: JSON.parse(rawData.toString())
+    }
   }
 
   return reportData

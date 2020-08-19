@@ -23,6 +23,8 @@
   },
   "private": true,
   "scripts": {
+    "build": "next build",
+    "export": "next export",
     "check": "run-s check:format check:lint",
     "check:format": "prettier --write pages",
     "check:lint": "eslint *.ts **/*.ts pages"

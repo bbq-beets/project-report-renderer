@@ -1,3 +1,5 @@
 !/.vscode/
 /.next/
+/.reports/
+/docs/
 /node_modules/

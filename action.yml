@@ -1,0 +1,10 @@
+name: Project Report Renderer
+description: Renders project reports to static HTML, CSS, and JavaScript
+inputs:
+  reports-path:
+    description: The path relative to the repo root where the reports are stored
+    required: false
+    default: _reports
+runs:
+  using: docker
+  image: Dockerfile

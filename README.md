@@ -2,6 +2,15 @@
 
 This action builds project reports to static HTML, JavaScript, and CSS.
 
+## Use
+
+```yaml
+steps:
+  # After generating reports
+  - name: Render reports
+    uses: bbq-beets/project-report-renderer@v1
+```
+
 ## Development
 
 After cloning the repository, copy a report directory to `./.reports`, and

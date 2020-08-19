@@ -35,9 +35,10 @@
   "scripts": {
     "build": "next build",
     "export": "next export",
-    "check": "run-s check:format check:lint",
+    "check": "run-s check:format check:lint check:compile",
     "check:format": "prettier --write components lib pages types",
-    "check:lint": "eslint components lib pages types"
+    "check:lint": "eslint components lib pages types",
+    "check:compile": "tsc"
   },
   "dependencies": {
     "@actions/core": "^1.2.4",

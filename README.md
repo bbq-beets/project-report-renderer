@@ -11,6 +11,9 @@ steps:
     uses: bbq-beets/project-report-renderer@v1
 ```
 
+See [action.yml](/action.yml) for a description of the inputs that can be
+provided to this action.
+
 ## Development
 
 After cloning the repository, copy a report directory to `./.reports`, and

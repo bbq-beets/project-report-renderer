@@ -9,4 +9,4 @@ cp -R $INPUT_REPORTS_PATH $build_dir/.reports
 
 cd $build_dir
 npm run build
-npm run export -- -o "$GITHUB_WORKSPACE/docs"
+npm run export -- -o "$GITHUB_WORKSPACE/$INPUT_OUTPUTS_PATH"

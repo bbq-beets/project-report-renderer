@@ -5,6 +5,10 @@ inputs:
     description: The path relative to the repo root where the reports are stored
     required: false
     default: _reports
+  outputs-path:
+    description: The path relative to the repo root where the exported site should be placed
+    required: false
+    default: docs
 runs:
   using: docker
   image: Dockerfile

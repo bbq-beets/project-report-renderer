@@ -1,11 +1,11 @@
 name: Project Report Renderer
 description: Renders project reports to static HTML, CSS, and JavaScript
 inputs:
-  reports-path:
+  reportsPath:
     description: The path relative to the repo root where the reports are stored
     required: false
     default: _reports
-  outputs-path:
+  outputsPath:
     description: The path relative to the repo root where the exported site should be placed
     required: false
     default: docs

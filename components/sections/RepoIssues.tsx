@@ -13,7 +13,7 @@ export default function RepoIssues(props: Props) {
     <>
       <h2>Issues for XXX</h2>
 
-      <table className="TableObject">
+      <table>
         <thead>
           <tr>
             <th>Label</th>

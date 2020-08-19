@@ -7,6 +7,7 @@ import {
 } from 'project-reports/project-limits'
 import {useMemo} from 'react'
 import {CellProps, Column, useTable} from 'react-table'
+import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
 type Props = ProjectLimitsData
@@ -49,7 +50,7 @@ export default function ProjectLimits(props: Props) {
 
   return (
     <>
-      <h2>🚢 {typeLabel} Limits</h2>
+      <SectionTitle>🚢 {typeLabel} Limits</SectionTitle>
       <Table table={table} />
     </>
   )

@@ -3,6 +3,7 @@ import {Card, ProjectDoneData} from 'project-reports/project-done'
 import {useMemo} from 'react'
 import {CellProps, Column, useTable} from 'react-table'
 import CardAssignee from '../CardAssignee'
+import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
 type Props = ProjectDoneData
@@ -45,9 +46,9 @@ export default function ProjectDone(props: Props) {
 
   return (
     <>
-      <h2>
+      <SectionTitle>
         🏁 Completed {typeLabel} Last {props.daysAgo} Days
-      </h2>
+      </SectionTitle>
 
       {cards.length ? <Table table={table} /> : `No ${props.cardType}s found`}
     </>

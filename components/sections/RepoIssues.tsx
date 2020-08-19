@@ -1,6 +1,7 @@
 import {Bug, RepoIssuesData} from 'project-reports/repo-issues'
 import {useMemo} from 'react'
 import {Column, useTable} from 'react-table'
+import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
 type Props = RepoIssuesData
@@ -48,7 +49,7 @@ export default function RepoIssues(props: Props) {
 
   return (
     <>
-      <h2>Issues for XXX</h2>
+      <SectionTitle>Issues for XXX</SectionTitle>
 
       <Table table={table} />
     </>

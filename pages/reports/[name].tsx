@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import ReportSectionComponent from '../../components/ReportSection'
 import {getLatestReportsData, ReportSection} from '../../lib/reports'
 
@@ -10,13 +9,7 @@ type Props = {
 export default function ReportPage(props: Props) {
   return (
     <>
-      <h1>
-        <Link href="/">
-          <a>Reports</a>
-        </Link>
-      </h1>
-
-      <h1>{props.title}</h1>
+      <h2 className="mb-2">{props.title}</h2>
 
       {Object.entries(props.report).map(([name, section]) => (
         <ReportSectionComponent key={name} name={name} data={section} />

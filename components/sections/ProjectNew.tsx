@@ -3,6 +3,7 @@ import {Card, ProjectNewData} from 'project-reports/project-new'
 import {useMemo} from 'react'
 import {CellProps, Column, useTable} from 'react-table'
 import CardAssignee from '../CardAssignee'
+import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
 type Props = ProjectNewData
@@ -44,9 +45,9 @@ export default function ProjectNew(props: Props) {
 
   return (
     <>
-      <h2>
+      <SectionTitle>
         👋 Added {typeLabel} Last {props.daysAgo} Days
-      </h2>
+      </SectionTitle>
 
       <Table table={table} />
     </>

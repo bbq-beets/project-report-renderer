@@ -1,6 +1,7 @@
 import {Epic, ProjectCycleTimeData} from 'project-reports/project-cycle-time'
 import {useMemo} from 'react'
 import {CellProps, Column, useTable} from 'react-table'
+import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
 type Props = ProjectCycleTimeData
@@ -54,7 +55,7 @@ export default function ProjectCycleTime(props: Props) {
 
   return (
     <>
-      <h2>Issue Count and Cycle Time</h2>
+      <SectionTitle>Issue Count and Cycle Time</SectionTitle>
 
       <Table table={table} />
     </>

@@ -8,8 +8,6 @@ type Props = {
 export default function IndexPage(props: Props) {
   return (
     <>
-      <h1>Reports</h1>
-
       <ul>
         {props.reportNames.map(reportName => (
           <li key={reportName}>

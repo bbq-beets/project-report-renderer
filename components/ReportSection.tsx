@@ -1,3 +1,4 @@
+import {ComponentType, PropsWithChildren} from 'react'
 import {ReportSection} from '../lib/reports'
 import BaseSection from './sections/BaseSection'
 import EchoBoard from './sections/EchoBoard'
@@ -11,6 +12,11 @@ import RepoIssues from './sections/RepoIssues'
 type Props = {
   name: string
   data: ReportSection
+}
+
+export type PropsWithTitle<T> = {
+  data: T
+  TitleComponent: ComponentType<PropsWithChildren<unknown>>
 }
 
 export default function ReportSectionComponent(props: Props) {
@@ -43,7 +49,7 @@ export default function ReportSectionComponent(props: Props) {
   }
 
   return (
-    <div>
+    <div className="mb-4">
       <SectionComponent {...(props.data.data as any)} />
     </div>
   )

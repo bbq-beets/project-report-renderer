@@ -3,6 +3,7 @@ import {useMemo} from 'react'
 import {CellProps, Column, useTable} from 'react-table'
 import {getStatusEmoji} from '../../lib/util'
 import CardAssignee from '../CardAssignee'
+import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
 type Props = ProjectInProgressData
@@ -64,7 +65,7 @@ export default function ProjectInProgress(props: Props) {
 
   return (
     <>
-      <h2>⏳ In Progress {props.cardType}</h2>
+      <SectionTitle>⏳ In Progress {props.cardType}</SectionTitle>
 
       <p>Sorted by status and then in progress time descending</p>
 

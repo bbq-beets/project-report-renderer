@@ -1,8 +1,8 @@
 import moment from 'moment'
 import {Card, ProjectDoneData} from 'project-reports/project-done'
 import {useMemo} from 'react'
-import {CellProps, Column, useTable} from 'react-table'
-import CardAssignee from '../CardAssignee'
+import {CellProps, Column} from 'react-table'
+import CardAssignee, {getAssignee} from '../CardAssignee'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
@@ -17,17 +17,17 @@ export default function ProjectDone(props: Props) {
       {
         Header: 'Assignee',
         id: 'assignee',
-        accessor: row => row,
-        Cell: ({cell}: CellProps<Card, Card>) => (
-          <CardAssignee card={cell.value} />
+        accessor: row => getAssignee(row)?.login,
+        Cell: ({row}: CellProps<Card, string>) => (
+          <CardAssignee card={row.original} />
         )
       },
       {
         Header: 'Title',
         id: 'title',
-        accessor: row => ({href: row.html_url, title: row.title}),
-        Cell: ({cell}: CellProps<Card, {href: string; title: string}>) => (
-          <a href={cell.value.href}>{cell.value.title}</a>
+        accessor: row => row.title,
+        Cell: ({row, cell}: CellProps<Card, string>) => (
+          <a href={row.original.html_url}>{cell.value}</a>
         )
       },
       {
@@ -42,15 +42,17 @@ export default function ProjectDone(props: Props) {
     []
   )
 
-  const table = useTable({columns, data: cards})
-
   return (
     <>
       <SectionTitle>
         🏁 Completed {typeLabel} Last {props.daysAgo} Days
       </SectionTitle>
 
-      {cards.length ? <Table table={table} /> : `No ${props.cardType}s found`}
+      {cards.length ? (
+        <Table columns={columns} data={cards} />
+      ) : (
+        `No ${props.cardType}s found`
+      )}
     </>
   )
 }

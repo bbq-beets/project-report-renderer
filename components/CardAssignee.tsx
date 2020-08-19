@@ -1,11 +1,7 @@
 type Props = any
 
 export default function CardAssignee({card}: Props) {
-  const assignee = card.assignee
-    ? card.assignee
-    : card.assignees
-    ? card.assignees[0]
-    : null
+  const assignee = getAssignee(card)
 
   if (assignee) {
     return (
@@ -22,4 +18,17 @@ export default function CardAssignee({card}: Props) {
   } else {
     return <>🚩</>
   }
+}
+
+export function getAssignee(card: {
+  assignee?: unknown
+  assignees?: unknown[]
+}): any {
+  const assignee = card.assignee
+    ? card.assignee
+    : card.assignees
+    ? card.assignees[0]
+    : null
+
+  return assignee
 }

@@ -1,8 +1,8 @@
 import {Card, ProjectInProgressData} from 'project-reports/project-in-progress'
 import {useMemo} from 'react'
-import {CellProps, Column, useTable} from 'react-table'
+import {CellProps, Column} from 'react-table'
 import {getStatusEmoji} from '../../lib/util'
-import CardAssignee from '../CardAssignee'
+import CardAssignee, {getAssignee} from '../CardAssignee'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
@@ -24,18 +24,18 @@ export default function ProjectInProgress(props: Props) {
       {
         Header: 'Assignee',
         id: 'assignee',
-        accessor: row => row,
-        Cell: ({cell}: CellProps<Card, Card>) => (
-          <CardAssignee card={cell.value} />
+        accessor: row => getAssignee(row)?.login,
+        Cell: ({row}: CellProps<Card, string>) => (
+          <CardAssignee card={row.original} />
         )
       },
       {
         Header: 'Title',
         id: 'title',
-        accessor: row => ({href: row.html_url, title: row.title}),
-        Cell: ({cell}: CellProps<Card, {href: string; title: string}>) => {
-          return <a href={cell.value.href}>{cell.value.title}</a>
-        }
+        accessor: row => row.title,
+        Cell: ({row, cell}: CellProps<Card, string>) => (
+          <a href={row.original.html_url}>{cell.value}</a>
+        )
       },
       {
         Header: 'Status',
@@ -50,8 +50,8 @@ export default function ProjectInProgress(props: Props) {
       {
         Header: 'Previous Status',
         id: 'prevStatus',
-        accessor: row => row,
-        Cell: (props: CellProps<Card, Card>) => lastUpdated(props.cell.value)
+        accessor: row => row.lastUpdatedAgo,
+        Cell: ({row}: CellProps<Card, string>) => lastUpdated(row.original)
       },
       {
         Header: 'In Progress',
@@ -61,15 +61,15 @@ export default function ProjectInProgress(props: Props) {
     []
   )
 
-  const table = useTable({columns, data: cards})
-
   return (
     <>
       <SectionTitle>⏳ In Progress {props.cardType}</SectionTitle>
 
-      <p>Sorted by status and then in progress time descending</p>
+      <p className="text-small text-italic">
+        Sorted by status and then in progress time descending
+      </p>
 
-      <Table table={table} />
+      <Table columns={columns} data={cards} />
     </>
   )
 }

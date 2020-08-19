@@ -1,10 +1,8 @@
 import dynamic from 'next/dynamic'
-import {TableInstance} from 'react-table'
+import {TableOptions, useSortBy, useTable} from 'react-table'
 
 /* eslint-disable-next-line @typescript-eslint/ban-types */
-type Props<T extends object> = {
-  table: TableInstance<T>
-}
+type Props<T> = TableOptions<T>
 
 const TableRow = dynamic(() => import('./table/TableRow'))
 
@@ -16,7 +14,7 @@ export default function Table<T extends object>(props: Props<T>) {
     headerGroups,
     rows,
     prepareRow
-  } = props.table
+  } = useTable(props, useSortBy)
 
   return (
     <div className="width-full width-fit overflow-x-auto">
@@ -25,8 +23,18 @@ export default function Table<T extends object>(props: Props<T>) {
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()} className="border p-2">
+                <th
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                  className="border p-2 user-select-none"
+                >
                   {column.render('Header')}
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? ' 🔽'
+                        : ' 🔼'
+                      : ''}
+                  </span>
                 </th>
               ))}
             </tr>

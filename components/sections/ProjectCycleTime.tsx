@@ -1,6 +1,6 @@
 import {Epic, ProjectCycleTimeData} from 'project-reports/project-cycle-time'
 import {useMemo} from 'react'
-import {CellProps, Column, useTable} from 'react-table'
+import {CellProps, Column} from 'react-table'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
@@ -30,11 +30,9 @@ export default function ProjectCycleTime(props: Props) {
       {
         Header: 'Cycle Time (days)',
         id: 'cycleTime',
-        accessor: row => row,
-        Cell: ({cell}: CellProps<LabelData, LabelData>) =>
-          `${getCycleTime(cell.value.data.cycletime)} ${
-            cell.value.data.flag ? '🚩' : ''
-          }`
+        accessor: row => row.data.cycletime,
+        Cell: ({cell, row}: CellProps<LabelData, number>) =>
+          `${getCycleTime(cell.value)} ${row.original.data.flag ? '🚩' : ''}`
       },
       {
         Header: 'Limit',
@@ -51,13 +49,11 @@ export default function ProjectCycleTime(props: Props) {
     data
   }))
 
-  const table = useTable({columns, data})
-
   return (
     <>
       <SectionTitle>Issue Count and Cycle Time</SectionTitle>
 
-      <Table table={table} />
+      <Table columns={columns} data={data} />
     </>
   )
 }

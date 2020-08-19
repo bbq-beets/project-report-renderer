@@ -6,7 +6,7 @@ import {
   Proposed
 } from 'project-reports/project-limits'
 import {useMemo} from 'react'
-import {CellProps, Column, useTable} from 'react-table'
+import {CellProps, Column} from 'react-table'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
@@ -26,9 +26,9 @@ export default function ProjectLimits(props: Props) {
       {
         Header: 'Count',
         id: 'count',
-        accessor: cell => cell.data,
-        Cell: ({cell}: CellProps<StageData, Stage>) =>
-          `${cell.value.items.length} ${cell.value.flag ? '🚩' : ''}`
+        accessor: cell => cell.data.items.length,
+        Cell: ({row, cell}: CellProps<StageData, number>) =>
+          `${cell.value} ${row.original.data.flag ? '🚩' : ''}`
       },
       {
         Header: 'Limit',
@@ -46,12 +46,10 @@ export default function ProjectLimits(props: Props) {
     data
   }))
 
-  const table = useTable({columns, data})
-
   return (
     <>
       <SectionTitle>🚢 {typeLabel} Limits</SectionTitle>
-      <Table table={table} />
+      <Table columns={columns} data={data} />
     </>
   )
 }

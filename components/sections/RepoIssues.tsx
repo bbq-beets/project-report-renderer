@@ -1,6 +1,6 @@
 import {Bug, RepoIssuesData} from 'project-reports/repo-issues'
 import {useMemo} from 'react'
-import {Column, useTable} from 'react-table'
+import {Column, useSortBy} from 'react-table'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
@@ -23,35 +23,24 @@ export default function RepoIssues(props: Props) {
       },
       {
         Header: 'Count',
-        accessor: row => row,
-        Cell: ({
-          data,
-          cell: {value}
-        }: {
-          data: LabelData[]
-          cell: {value: LabelData}
-        }) => {
-          return data
-            .filter(datum => datum.data.length)
-            .filter(datum => datum.label === value.label).length
-        }
+        accessor: row => row.data.length
       }
     ],
     []
   )
 
-  const data: LabelData[] = Object.entries(issues).map(([label, data]) => ({
-    label,
-    data
-  }))
-
-  const table = useTable({columns, data})
+  const data: LabelData[] = Object.entries(issues).map(
+    ([label, data]) => ({
+      label,
+      data
+    }),
+    useSortBy
+  )
 
   return (
     <>
       <SectionTitle>Issues for XXX</SectionTitle>
-
-      <Table table={table} />
+      <Table columns={columns} data={data} />
     </>
   )
 }

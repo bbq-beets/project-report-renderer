@@ -1,12 +1,13 @@
+import {Epic, ProjectCycleTimeData} from 'project-reports/project-cycle-time'
 import {useMemo} from 'react'
-import {Column, useTable} from 'react-table'
-import {ReportSection} from '../../lib/reports'
+import {CellProps, Column, useTable} from 'react-table'
 import Table from '../Table'
 
-type Props = ReportSection['data']
+type Props = ProjectCycleTimeData
+type LabelData = {label: string; data: Epic}
 
 export default function ProjectCycleTime(props: Props) {
-  const cycleData: {[key: string]: any} = props
+  const cycleData = props
 
   const getCycleTime = (cycleTime: number) => {
     return cycleTime ? cycleTime.toFixed(2) : ''
@@ -14,7 +15,7 @@ export default function ProjectCycleTime(props: Props) {
 
   const getLimit = (limit: number) => (limit >= 0 ? `${limit}` : '')
 
-  const columns: Array<Column> = useMemo(
+  const columns = useMemo<Column<LabelData>[]>(
     () => [
       {
         Header: 'Label',
@@ -22,21 +23,23 @@ export default function ProjectCycleTime(props: Props) {
       },
       {
         Header: 'Count',
-        accessor: 'data.count'
+        id: 'count',
+        accessor: row => row.data.count
       },
       {
         Header: 'Cycle Time (days)',
-        accessor: (row: any) => ({
-          cycleTime: row.data.cycletime,
-          flag: row.data.flag
-        }),
-        Cell: ({cell: {value}}) =>
-          `${getCycleTime(value.cycleTime)} ${value.flag ? '🚩' : ''}`
+        id: 'cycleTime',
+        accessor: row => row,
+        Cell: ({cell}: CellProps<LabelData, LabelData>) =>
+          `${getCycleTime(cell.value.data.cycletime)} ${
+            cell.value.data.flag ? '🚩' : ''
+          }`
       },
       {
         Header: 'Limit',
-        accessor: 'data.limit',
-        Cell: ({cell: {value}}) => getLimit(value)
+        id: 'limit',
+        accessor: row => row.data.limit,
+        Cell: ({cell}: CellProps<LabelData, number>) => getLimit(cell.value)
       }
     ],
     []
@@ -45,7 +48,8 @@ export default function ProjectCycleTime(props: Props) {
   const data = Object.entries(cycleData).map(([label, data]) => ({
     label,
     data
-  })) as any[]
+  }))
+
   const table = useTable({columns, data})
 
   return (

@@ -1,35 +1,39 @@
+import {Card, ProjectInProgressData} from 'project-reports/project-in-progress'
 import {useMemo} from 'react'
-import {Column, useTable} from 'react-table'
-import {ReportSection} from '../../lib/reports'
+import {CellProps, Column, useTable} from 'react-table'
 import {getStatusEmoji} from '../../lib/util'
 import CardAssignee from '../CardAssignee'
 import Table from '../Table'
 
-type Props = ReportSection['data']
+type Props = ProjectInProgressData
 
 export default function ProjectInProgress(props: Props) {
-  const cards = props.cards as any[]
+  const cards = props.cards
 
-  const lastUpdated = (card: any) => {
+  const lastUpdated = (card: Card) => {
     let lastUpdated = card.lastUpdatedAgo
-    if (card.flagLastHoursUpdated) {
+    if (card.flagHoursLastUpdated) {
       return (lastUpdated += ' 🚩')
     }
     return lastUpdated
   }
 
-  const columns: Array<Column> = useMemo(
+  const columns = useMemo<Column<Card>[]>(
     () => [
       {
         Header: 'Assignee',
+        id: 'assignee',
         accessor: row => row,
-        Cell: props => <CardAssignee card={props.cell.value} />
+        Cell: ({cell}: CellProps<Card, Card>) => (
+          <CardAssignee card={cell.value} />
+        )
       },
       {
         Header: 'Title',
-        accessor: (row: any) => ({href: row.html_url, title: row.title}),
-        Cell: ({cell: {value}}) => {
-          return <a href={value.href}>{value.title}</a>
+        id: 'title',
+        accessor: row => ({href: row.html_url, title: row.title}),
+        Cell: ({cell}: CellProps<Card, {href: string; title: string}>) => {
+          return <a href={cell.value.href}>{cell.value.title}</a>
         }
       },
       {
@@ -44,8 +48,9 @@ export default function ProjectInProgress(props: Props) {
       },
       {
         Header: 'Previous Status',
-        accessor: (row: any) => row,
-        Cell: ({cell: {value}}) => lastUpdated(value)
+        id: 'prevStatus',
+        accessor: row => row,
+        Cell: (props: CellProps<Card, Card>) => lastUpdated(props.cell.value)
       },
       {
         Header: 'In Progress',

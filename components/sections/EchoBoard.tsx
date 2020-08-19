@@ -1,6 +1,7 @@
-import {ReportSection} from '../../lib/reports'
+import {EchoBoardData} from 'project-reports/echo-board'
 
-type Props = ReportSection['data']
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+type Props = EchoBoardData
 
 export default function EchoBoard(props: Props) {
   return (

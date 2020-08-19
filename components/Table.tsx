@@ -1,7 +1,7 @@
 import {TableInstance} from 'react-table'
 
 type Props = {
-  table: TableInstance
+  table: TableInstance<any>
 }
 
 export default function Table(props: Props) {

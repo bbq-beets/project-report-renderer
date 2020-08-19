@@ -44,7 +44,7 @@ export default function ReportSectionComponent(props: Props) {
 
   return (
     <div>
-      <SectionComponent {...props.data.data} />
+      <SectionComponent {...(props.data.data as any)} />
     </div>
   )
 }

@@ -34,7 +34,7 @@ export default function Table<T extends object>(props: Props<T>) {
             {headerGroup.headers.map(column => (
               <th
                 {...column.getHeaderProps(column.getSortByToggleProps())}
-                className="border p-2 user-select-none"
+                className="border p-2 select-none"
               >
                 {column.render('Header')}
                 <span>

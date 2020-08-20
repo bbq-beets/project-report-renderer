@@ -13,7 +13,7 @@ type Props = PropsWithReportsNav<{
 export default withReportsNav(function ReportPage(props: Props) {
   return (
     <>
-      <h2 className="mb-4">Report: {props.title}</h2>
+      <h2 className="mb-4">{props.title}</h2>
 
       {Object.entries(props.report).map(([name, section]) => (
         <ReportSectionComponent key={name} name={name} data={section} />

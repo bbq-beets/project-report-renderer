@@ -50,7 +50,7 @@ export default function ReportSectionComponent(props: Props) {
 
   return (
     <div className="mb-4">
-      <SectionComponent {...(props.data.data as any)} />
+      <SectionComponent {...(props.data.output as any)} />
     </div>
   )
 }

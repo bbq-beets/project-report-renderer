@@ -7,11 +7,11 @@ const readFile = promisify(fs.readFile)
 const readdir = promisify(fs.readdir)
 const stat = promisify(fs.stat)
 const isDir = async (node: string) => (await stat(node)).isDirectory()
-const REPORT_REGEX = /^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}$/
+const REPORT_REGEX = /^\d{4}\d{2}\d{2}T\d{2}\d{2}\d{2}\.\d{3}Z$/
 
 export type ReportSection = {
   type: string
-  data: {[key: string]: unknown} // TODO: Collect types
+  output: {[key: string]: unknown} // TODO: Collect types
 }
 
 /**
@@ -41,13 +41,9 @@ async function getLatestReportData(reportPath: string) {
   const reportData: Record<string, ReportSection> = {}
 
   for (const section of sections) {
-    const rawData = await readFile(path.join(section, 'processed.json'))
-    const type = path.basename(section)
-
-    reportData[type] = {
-      type,
-      data: JSON.parse(rawData.toString())
-    }
+    const rawData = await readFile(path.join(section, 'output.json'))
+    const sectionID = path.basename(section)
+    reportData[sectionID] = JSON.parse(rawData.toString())
   }
 
   return reportData

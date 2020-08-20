@@ -6,6 +6,7 @@ import CardAssignee, {getAssignee} from '../CardAssignee'
 import DataWithFlag from '../DataWithFlag'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
+import TimeAgo from '../TimeAgo'
 
 type Props = ProjectInProgressData
 
@@ -43,16 +44,17 @@ export default function ProjectInProgress(props: Props) {
       {
         Header: 'Previous Status',
         id: 'prevStatus',
-        accessor: row => row.lastUpdatedAgo,
+        accessor: 'lastUpdatedAt',
         Cell: ({row, cell}: CellProps<Card, string>) => (
           <DataWithFlag flag={row.original.flagHoursLastUpdated}>
-            {cell.value}
+            {cell.value ? <TimeAgo dateTime={cell.value} /> : null}
           </DataWithFlag>
         )
       },
       {
         Header: 'In Progress',
-        accessor: 'inProgressSince'
+        accessor: 'project_in_progress_at',
+        Cell: ({cell}) => <TimeAgo dateTime={cell.value} />
       }
     ],
     []

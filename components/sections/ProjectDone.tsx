@@ -1,10 +1,10 @@
-import moment from 'moment'
 import {Card, ProjectDoneData} from 'project-reports/project-done'
 import {useMemo} from 'react'
 import {CellProps, Column} from 'react-table'
 import CardAssignee, {getAssignee} from '../CardAssignee'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
+import TimeAgo from '../TimeAgo'
 
 type Props = ProjectDoneData
 
@@ -34,9 +34,7 @@ export default function ProjectDone(props: Props) {
         Header: 'Completed',
         id: 'completed',
         accessor: 'project_done_at',
-        Cell: ({cell}) => (
-          <span suppressHydrationWarning>{moment().to(cell.value)}</span>
-        )
+        Cell: ({cell}) => <TimeAgo dateTime={cell.value} />
       }
     ],
     []

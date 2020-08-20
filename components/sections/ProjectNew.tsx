@@ -1,10 +1,10 @@
-import moment from 'moment'
 import {Card, ProjectNewData} from 'project-reports/project-new'
 import {useMemo} from 'react'
 import {CellProps, Column} from 'react-table'
 import CardAssignee, {getAssignee} from '../CardAssignee'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
+import TimeAgo from '../TimeAgo'
 
 type Props = ProjectNewData
 
@@ -33,9 +33,7 @@ export default function ProjectNew(props: Props) {
       {
         Header: 'Added',
         accessor: 'project_added_at',
-        Cell: ({cell: {value}}) => (
-          <span suppressHydrationWarning>{moment().to(value)}</span>
-        )
+        Cell: ({cell}) => <TimeAgo dateTime={cell.value} />
       }
     ],
     []

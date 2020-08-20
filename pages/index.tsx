@@ -1,32 +1,19 @@
-import Link from 'next/link'
+import {GetStaticPropsResult} from 'next'
+import withReportsNav, {PropsWithReportsNav} from '../components/withReportsNav'
 import {getLatestReportsData} from '../lib/reports'
 
-type Props = {
-  reportNames: string[]
-}
+type Props = PropsWithReportsNav<unknown>
 
-export default function IndexPage(props: Props) {
-  return (
-    <>
-      <ul className="list-disc list-inside">
-        {props.reportNames.map(reportName => (
-          <li key={reportName}>
-            <Link href="/reports/[name]" as={`/reports/${reportName}`}>
-              <a>{reportName}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </>
-  )
-}
+export default withReportsNav(function IndexPage() {
+  return <p>Choose a report to view.</p>
+})
 
-export async function getStaticProps() {
-  const reports = await getLatestReportsData()
+export async function getStaticProps(): Promise<GetStaticPropsResult<Props>> {
+  const reportNames = Object.keys(await getLatestReportsData())
 
   return {
     props: {
-      reportNames: Object.keys(reports)
+      reportNames
     }
   }
 }

@@ -1,12 +1,16 @@
+import {GetStaticPropsResult} from 'next'
 import ReportSectionComponent from '../../components/ReportSection'
+import withReportsNav, {
+  PropsWithReportsNav
+} from '../../components/withReportsNav'
 import {getLatestReportsData, ReportSection} from '../../lib/reports'
 
-type Props = {
+type Props = PropsWithReportsNav<{
   title: string
   report: Record<string, ReportSection>
-}
+}>
 
-export default function ReportPage(props: Props) {
+export default withReportsNav(function ReportPage(props: Props) {
   return (
     <>
       <h2 className="mb-4">Report: {props.title}</h2>
@@ -16,20 +20,23 @@ export default function ReportPage(props: Props) {
       ))}
     </>
   )
-}
+})
 
 export async function getStaticProps({
   params
 }: {
   params: Record<string, string>
-}) {
+}): Promise<GetStaticPropsResult<Props>> {
   const name = params.name
-  const report = (await getLatestReportsData())[name]
+  const reports = await getLatestReportsData()
+  const reportNames = Object.keys(reports)
+  const report = reports[name]
 
   return {
     props: {
       title: params.name,
-      report
+      report,
+      reportNames
     }
   }
 }

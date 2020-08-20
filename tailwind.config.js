@@ -8,10 +8,15 @@ module.exports = {
     './styles/**/*.css'
   ],
   theme: {
-    extend: {}
+    extend: {
+      gridTemplateColumns: {
+        'sidebar-content': '200px minmax(0, 1fr)'
+      }
+    }
   },
   variants: {
-    backgroundColor: ['even']
+    backgroundColor: ['even'],
+    borderWidth: ['last', 'responsive']
   },
   plugins: []
 }

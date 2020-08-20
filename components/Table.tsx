@@ -27,52 +27,58 @@ export default function Table<T extends object>(props: Props<T>) {
   } = useTable(props, useGlobalFilter, useSortBy)
 
   return (
-    <table {...getTableProps()} className="border">
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th
-                {...column.getHeaderProps(column.getSortByToggleProps())}
-                className="border p-2 select-none"
-              >
-                {column.render('Header')}
-                <span>
-                  {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                </span>
-              </th>
-            ))}
-          </tr>
-        ))}
-        {preGlobalFilteredRows.length > FILTER_THRESHOLD ? (
-          <tr key="filter">
-            <th colSpan={visibleColumns.length} className="text-left p-2">
-              <GlobalFilter
-                preGlobalFilteredRows={preGlobalFilteredRows}
-                globalFilter={state.globalFilter}
-                setGlobalFilter={setGlobalFilter}
-              />
-            </th>
-          </tr>
-        ) : null}
-      </thead>
-
-      <tbody {...getTableBodyProps()}>
-        {rows.map(row => {
-          prepareRow(row)
-
-          return (
-            <tr {...row.getRowProps()} className="even:bg-gray-200">
-              {row.cells.map(cell => (
-                <td {...cell.getCellProps()} className="border p-2">
-                  {cell.render('Cell')}
-                </td>
+    <div className="overflow-x-auto">
+      <table {...getTableProps()} className="border">
+        <thead>
+          {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                <th
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                  className="border p-2 select-none"
+                >
+                  {column.render('Header')}
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? ' 🔽'
+                        : ' 🔼'
+                      : ''}
+                  </span>
+                </th>
               ))}
             </tr>
-          )
-        })}
-      </tbody>
-    </table>
+          ))}
+          {preGlobalFilteredRows.length > FILTER_THRESHOLD ? (
+            <tr key="filter">
+              <th colSpan={visibleColumns.length} className="text-left p-2">
+                <GlobalFilter
+                  preGlobalFilteredRows={preGlobalFilteredRows}
+                  globalFilter={state.globalFilter}
+                  setGlobalFilter={setGlobalFilter}
+                />
+              </th>
+            </tr>
+          ) : null}
+        </thead>
+
+        <tbody {...getTableBodyProps()}>
+          {rows.map(row => {
+            prepareRow(row)
+
+            return (
+              <tr {...row.getRowProps()} className="even:bg-gray-200">
+                {row.cells.map(cell => (
+                  <td {...cell.getCellProps()} className="border p-2">
+                    {cell.render('Cell')}
+                  </td>
+                ))}
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
   )
 }
 

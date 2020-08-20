@@ -65,7 +65,7 @@ export default function ProjectInProgress(props: Props) {
     <>
       <SectionTitle>⏳ In Progress {props.cardType}</SectionTitle>
 
-      <p className="text-small text-italic">
+      <p className="subtitle">
         Sorted by status and then in progress time descending
       </p>
 

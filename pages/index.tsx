@@ -8,7 +8,7 @@ type Props = {
 export default function IndexPage(props: Props) {
   return (
     <>
-      <ul>
+      <ul className="list-disc list-inside">
         {props.reportNames.map(reportName => (
           <li key={reportName}>
             <Link href="/reports/[name]" as={`/reports/${reportName}`}>

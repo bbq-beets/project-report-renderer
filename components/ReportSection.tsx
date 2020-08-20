@@ -1,6 +1,5 @@
 import {ComponentType, PropsWithChildren} from 'react'
 import {ReportSection} from '../lib/reports'
-import BaseSection from './sections/BaseSection'
 import EchoBoard from './sections/EchoBoard'
 import ProjectCycleTime from './sections/ProjectCycleTime'
 import ProjectDone from './sections/ProjectDone'
@@ -38,18 +37,15 @@ export default function ReportSectionComponent(props: Props) {
     case 'project-new':
       SectionComponent = ProjectNew
       break
-    case 'echo-board':
-      SectionComponent = EchoBoard
-      break
     case 'repo-issues':
       SectionComponent = RepoIssues
       break
     default:
-      SectionComponent = BaseSection
+      SectionComponent = EchoBoard
   }
 
   return (
-    <div className="mb-4">
+    <div className="mb-8">
       <SectionComponent {...(props.data.output as any)} />
     </div>
   )

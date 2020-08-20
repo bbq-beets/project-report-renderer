@@ -1,5 +1,3 @@
-import {TextInput} from '@primer/components'
-import dynamic from 'next/dynamic'
 import {useState} from 'react'
 import {
   Row,
@@ -11,8 +9,6 @@ import {
 
 /* eslint-disable-next-line @typescript-eslint/ban-types */
 type Props<T extends object> = TableOptions<T>
-
-const TableRow = dynamic(() => import('./table/TableRow'))
 
 const FILTER_THRESHOLD = 4
 
@@ -31,58 +27,52 @@ export default function Table<T extends object>(props: Props<T>) {
   } = useTable(props, useGlobalFilter, useSortBy)
 
   return (
-    <div className="width-full width-fit overflow-x-auto">
-      <table {...getTableProps()} className="border">
-        <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="border p-2 user-select-none"
-                >
-                  {column.render('Header')}
-                  <span>
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? ' 🔽'
-                        : ' 🔼'
-                      : ''}
-                  </span>
-                </th>
+    <table {...getTableProps()} className="border">
+      <thead>
+        {headerGroups.map(headerGroup => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map(column => (
+              <th
+                {...column.getHeaderProps(column.getSortByToggleProps())}
+                className="border p-2 user-select-none"
+              >
+                {column.render('Header')}
+                <span>
+                  {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                </span>
+              </th>
+            ))}
+          </tr>
+        ))}
+        {preGlobalFilteredRows.length > FILTER_THRESHOLD ? (
+          <tr key="filter">
+            <th colSpan={visibleColumns.length} className="text-left p-2">
+              <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={state.globalFilter}
+                setGlobalFilter={setGlobalFilter}
+              />
+            </th>
+          </tr>
+        ) : null}
+      </thead>
+
+      <tbody {...getTableBodyProps()}>
+        {rows.map(row => {
+          prepareRow(row)
+
+          return (
+            <tr {...row.getRowProps()} className="even:bg-gray-200">
+              {row.cells.map(cell => (
+                <td {...cell.getCellProps()} className="border p-2">
+                  {cell.render('Cell')}
+                </td>
               ))}
             </tr>
-          ))}
-          {preGlobalFilteredRows.length > FILTER_THRESHOLD ? (
-            <tr key="filter">
-              <th colSpan={visibleColumns.length} className="text-left p-2">
-                <GlobalFilter
-                  preGlobalFilteredRows={preGlobalFilteredRows}
-                  globalFilter={state.globalFilter}
-                  setGlobalFilter={setGlobalFilter}
-                />
-              </th>
-            </tr>
-          ) : null}
-        </thead>
-
-        <tbody {...getTableBodyProps()}>
-          {rows.map(row => {
-            prepareRow(row)
-
-            return (
-              <TableRow {...row.getRowProps()}>
-                {row.cells.map(cell => (
-                  <td {...cell.getCellProps()} className="border p-2">
-                    {cell.render('Cell')}
-                  </td>
-                ))}
-              </TableRow>
-            )
-          })}
-        </tbody>
-      </table>
-    </div>
+          )
+        })}
+      </tbody>
+    </table>
   )
 }
 
@@ -108,16 +98,17 @@ function GlobalFilter({
   const onChange = (value: string) => setGlobalFilter(value)
 
   return (
-    <span className="d-flex flex-items-center">
+    <span className="flex items-center">
       <span>Filter:</span>
-      <TextInput
+      <input
+        type="text"
         value={value || ''}
         onChange={e => {
           setValue(e.target.value)
           onChange(e.target.value)
         }}
         placeholder={`${count} records...`}
-        className="flex-1 ml-2 text-normal"
+        className="flex-1 ml-2 p-2 border rounded shadow-inner"
       />
     </span>
   )

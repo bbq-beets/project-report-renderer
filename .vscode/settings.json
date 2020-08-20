@@ -3,6 +3,9 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
+  "files.associations": {
+    "*.css": "postcss"
+  },
   "files.exclude": {
     "**/.next": true,
     "**/node_modules": true

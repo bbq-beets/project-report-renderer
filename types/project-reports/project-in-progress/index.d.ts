@@ -22,7 +22,7 @@ declare module 'project-reports/project-in-progress' {
     project_added_at: Date
     project_stage: string
     lastUpdatedAgo: string
-    lastUpdatedAt?: string
+    lastUpdatedAt: string | undefined
     flagHoursLastUpdated: boolean
     status: string
     previousStatus: string

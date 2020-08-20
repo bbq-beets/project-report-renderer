@@ -42,8 +42,8 @@ export default function ProjectInProgress(props: Props) {
         Cell: ({cell: {value}}) => getStatusEmoji(value)
       },
       {
-        Header: 'Previous Status',
-        id: 'prevStatus',
+        Header: 'Last Update',
+        id: 'lastUpdate',
         accessor: 'lastUpdatedAt',
         Cell: ({row, cell}: CellProps<Card, string>) => (
           <DataWithFlag flag={row.original.flagHoursLastUpdated}>

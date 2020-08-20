@@ -33,6 +33,7 @@ export default function ProjectNew(props: Props) {
       {
         Header: 'Added',
         accessor: 'project_added_at',
+        sortInverted: true,
         Cell: ({cell}) => <TimeAgo dateTime={cell.value} />
       }
     ],

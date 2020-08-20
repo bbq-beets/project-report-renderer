@@ -34,6 +34,7 @@ export default function ProjectDone(props: Props) {
         Header: 'Completed',
         id: 'completed',
         accessor: 'project_done_at',
+        sortInverted: true,
         Cell: ({cell}) => <TimeAgo dateTime={cell.value} />
       }
     ],

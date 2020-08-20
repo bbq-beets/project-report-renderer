@@ -117,7 +117,7 @@ function GlobalFilter({
           onChange(e.target.value)
         }}
         placeholder={`${count} records...`}
-        className="flex-1 ml-2"
+        className="flex-1 ml-2 text-normal"
       />
     </span>
   )

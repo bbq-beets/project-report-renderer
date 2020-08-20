@@ -10,8 +10,7 @@ export default function CardAssignee({card}: Props) {
       {assignee && (
         <a href={assignee.html_url} className="flex">
           <img
-            height="20px"
-            width="20px"
+            style={{height: '20px', width: '20px'}}
             alt={`@${assignee.login}`}
             src={assignee.avatar_url}
           />

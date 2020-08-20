@@ -3,6 +3,7 @@ import {useMemo} from 'react'
 import {CellProps, Column} from 'react-table'
 import {getStatusEmoji} from '../../lib/util'
 import CardAssignee, {getAssignee} from '../CardAssignee'
+import DataWithFlag from '../DataWithFlag'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
@@ -10,14 +11,6 @@ type Props = ProjectInProgressData
 
 export default function ProjectInProgress(props: Props) {
   const cards = props.cards
-
-  const lastUpdated = (card: Card) => {
-    let lastUpdated = card.lastUpdatedAgo
-    if (card.flagHoursLastUpdated) {
-      return (lastUpdated += ' 🚩')
-    }
-    return lastUpdated
-  }
 
   const columns = useMemo<Column<Card>[]>(
     () => [
@@ -51,7 +44,11 @@ export default function ProjectInProgress(props: Props) {
         Header: 'Previous Status',
         id: 'prevStatus',
         accessor: row => row.lastUpdatedAgo,
-        Cell: ({row}: CellProps<Card, string>) => lastUpdated(row.original)
+        Cell: ({row, cell}: CellProps<Card, string>) => (
+          <DataWithFlag flag={row.original.flagHoursLastUpdated}>
+            {cell.value}
+          </DataWithFlag>
+        )
       },
       {
         Header: 'In Progress',

@@ -28,7 +28,7 @@ export default function Table<T extends object>(props: Props<T>) {
 
   return (
     <div className="overflow-x-auto">
-      <table {...getTableProps()} className="border">
+      <table {...getTableProps()} className="border min-w-full lg:min-w-1/2">
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>

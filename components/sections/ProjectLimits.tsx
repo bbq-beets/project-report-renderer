@@ -7,6 +7,7 @@ import {
 } from 'project-reports/project-limits'
 import {useMemo} from 'react'
 import {CellProps, Column} from 'react-table'
+import DataWithFlag from '../DataWithFlag'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
@@ -27,8 +28,11 @@ export default function ProjectLimits(props: Props) {
         Header: 'Count',
         id: 'count',
         accessor: cell => cell.data.items.length,
-        Cell: ({row, cell}: CellProps<StageData, number>) =>
-          `${cell.value} ${row.original.data.flag ? '🚩' : ''}`
+        Cell: ({row, cell}: CellProps<StageData, number>) => (
+          <DataWithFlag flag={row.original.data.flag}>
+            {cell.value}
+          </DataWithFlag>
+        )
       },
       {
         Header: 'Limit',

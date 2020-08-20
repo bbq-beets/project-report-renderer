@@ -19,6 +19,14 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         'sidebar-content': '200px minmax(0, 1fr)'
+      },
+      width: {
+        '1/2': '50%'
+      },
+      minWidth: {
+        '1/4': '25%',
+        '1/2': '50%',
+        '3/4': '75%'
       }
     }
   },

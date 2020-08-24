@@ -14,6 +14,7 @@ cd $build_dir
 npm run build
 npm run export -- -o $GITHUB_WORKSPACE/$INPUT_OUTPUTSPATH
 
+# https://docs.github.com/en/github/working-with-github-pages/about-github-pages#static-site-generators
 touch $GITHUB_WORKSPACE/$INPUT_OUTPUTSPATH/.nojekyll
 
 if [[ -z "$INPUT_NOCOMMIT" ]]; then

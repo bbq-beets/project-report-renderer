@@ -27,5 +27,6 @@ if [[ -z "$INPUT_NOCOMMIT" ]]; then
   curl --silent --show-error --fail -X POST \
     https://api.github.com/repos/$GITHUB_REPOSITORY/pages/builds \
     -H "Accept: application/vnd.github.v3+json" \
-    -H "Authorization: Bearer $INPUT_GITHUBTOKEN"
+    -H "Authorization: Bearer $INPUT_GITHUBTOKEN" \
+    -H "User-Agent: bbq-beets/project-report-renderer"
 fi

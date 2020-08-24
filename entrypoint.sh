@@ -14,6 +14,8 @@ cd $build_dir
 npm run build
 npm run export -- -o $GITHUB_WORKSPACE/$INPUT_OUTPUTSPATH
 
+touch $GITHUB_WORKSPACE/$INPUT_OUTPUTSPATH/.nojekyll
+
 if [[ -z "$INPUT_NOCOMMIT" ]]; then
   # Commit the changes.
   cd $GITHUB_WORKSPACE

@@ -22,4 +22,10 @@ if [[ -z "$INPUT_NOCOMMIT" ]]; then
   git add $INPUT_OUTPUTSPATH
   git commit -m "Generated build from workflow run: $GITHUB_RUN_ID"
   git push
+
+  # Request a GitHub Pages build.
+  curl --silent --show-error --fail -X POST \
+    https://api.github.com/repos/$GITHUB_REPOSITORY/pages/builds \
+    -H "Accept: application/vnd.github.v3+json" \
+    -H "Authorization: Bearer $INPUT_GITHUBTOKEN"
 fi

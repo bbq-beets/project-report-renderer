@@ -12,6 +12,10 @@ inputs:
   noCommit:
     description: If set to any value, will prevent committing changes from the build
     required: false
+  githubToken:
+    description: The GitHub token used to request a Pages build. Required unless "noCommit" is set.
+    required: false
+    default: ${{ github.token }}
 runs:
   using: docker
   image: Dockerfile

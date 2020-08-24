@@ -1,0 +1,51 @@
+{
+  "identifier": 1597938296.386,
+  "issues": {
+    "bug": [
+      {
+        "number": 17,
+        "title": "state should be passed by less hacky way in universal app",
+        "html_url": "https://github.com/bryanmacfarlane/quotes-feed/issues/17",
+        "labels": [
+          {
+            "id": 2174288399,
+            "node_id": "MDU6TGFiZWwyMTc0Mjg4Mzk5",
+            "url": "https://api.github.com/repos/bryanmacfarlane/quotes-feed/labels/bug",
+            "name": "bug",
+            "color": "d73a4a",
+            "default": true,
+            "description": "Something isn't working"
+          }
+        ]
+      }
+    ],
+    "security": [],
+    "documentation": [
+      {
+        "number": 9,
+        "title": "feed frontend readme with motivations and goals",
+        "html_url": "https://github.com/bryanmacfarlane/quotes-feed/issues/9",
+        "labels": [
+          {
+            "id": 2214014823,
+            "node_id": "MDU6TGFiZWwyMjE0MDE0ODIz",
+            "url": "https://api.github.com/repos/bryanmacfarlane/quotes-feed/labels/1-dev",
+            "name": "1-dev",
+            "color": "5f94dd",
+            "default": false,
+            "description": ""
+          },
+          {
+            "id": 2174288402,
+            "node_id": "MDU6TGFiZWwyMTc0Mjg4NDAy",
+            "url": "https://api.github.com/repos/bryanmacfarlane/quotes-feed/labels/documentation",
+            "name": "documentation",
+            "color": "0e8a16",
+            "default": true,
+            "description": "Improvements or additions to documentation"
+          }
+        ]
+      }
+    ]
+  }
+}

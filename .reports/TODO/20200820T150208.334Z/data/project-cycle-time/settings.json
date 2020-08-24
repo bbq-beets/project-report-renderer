@@ -1,0 +1,8 @@
+{
+  "report-on-label": [
+    "feature",
+    "epic"
+  ],
+  "feature-cycletime-limit": 42,
+  "epic-cycletime-limit": 42
+}

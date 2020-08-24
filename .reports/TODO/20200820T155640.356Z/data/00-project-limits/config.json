@@ -1,0 +1,8 @@
+{
+  "report-on-label": "*",
+  "proposed-limit": 0,
+  "accepted-limit": 2,
+  "in-progress-limit": 2,
+  "done-limit": -1,
+  "count-label-match": "(\\d+)-dev"
+}

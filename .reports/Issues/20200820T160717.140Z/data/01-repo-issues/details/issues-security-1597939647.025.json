@@ -1,0 +1,18 @@
+[
+  {
+    "number": 5,
+    "title": "dependencies are out of date",
+    "html_url": "https://github.com/bryanmacfarlane/sanenode/issues/5",
+    "labels": [
+      {
+        "id": 2246884488,
+        "node_id": "MDU6TGFiZWwyMjQ2ODg0NDg4",
+        "url": "https://api.github.com/repos/bryanmacfarlane/sanenode/labels/security",
+        "name": "security",
+        "color": "b60205",
+        "default": false,
+        "description": ""
+      }
+    ]
+  }
+]

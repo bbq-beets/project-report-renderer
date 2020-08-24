@@ -1,0 +1,27 @@
+[
+  {
+    "number": 4,
+    "title": "Update readme",
+    "html_url": "https://github.com/bryanmacfarlane/sanenode/issues/4",
+    "labels": [
+      {
+        "id": 2246751313,
+        "node_id": "MDU6TGFiZWwyMjQ2NzUxMzEz",
+        "url": "https://api.github.com/repos/bryanmacfarlane/sanenode/labels/1-dev",
+        "name": "1-dev",
+        "color": "1d76db",
+        "default": false,
+        "description": ""
+      },
+      {
+        "id": 2246879109,
+        "node_id": "MDU6TGFiZWwyMjQ2ODc5MTA5",
+        "url": "https://api.github.com/repos/bryanmacfarlane/sanenode/labels/documentation",
+        "name": "documentation",
+        "color": "0e8a16",
+        "default": true,
+        "description": ""
+      }
+    ]
+  }
+]

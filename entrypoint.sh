@@ -14,7 +14,7 @@ cd $build_dir
 npm run build
 npm run export -- -o $GITHUB_WORKSPACE/$INPUT_OUTPUTSPATH
 
-if [[ ! -z "$INPUT_NOCOMMIT" ]]; then
+if [[ -z "$INPUT_NOCOMMIT" ]]; then
   # Commit the changes.
   cd $GITHUB_WORKSPACE
   git config user.name github-actions

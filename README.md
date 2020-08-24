@@ -28,6 +28,9 @@ directory), you can install this project's npm dependencies and run it:
 > INPUT_REPORTSPATH=.reports npx next
 ```
 
+The site will be served from a prefix, so navigate to
+`http://localhost:3000/project-report-renderer`.
+
 ## How it Works
 
 When this action runs in a repository where project reports have been

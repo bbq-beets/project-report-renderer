@@ -24,7 +24,7 @@ if [[ -z "$INPUT_NOCOMMIT" ]]; then
   git push
 
   # Request a GitHub Pages build.
-  curl --silent --show-error --fail -X POST \
+  curl --fail -X POST \
     https://api.github.com/repos/$GITHUB_REPOSITORY/pages/builds \
     -H "Accept: application/vnd.github.v3+json" \
     -H "Authorization: Bearer $INPUT_GITHUBTOKEN" \

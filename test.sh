@@ -8,8 +8,8 @@ workdir=/home/github
 docker build . -t $tag
 
 docker run \
-  -e INPUT_REPORTSPATH=./.reports \
-  -e INPUT_OUTPUTSPATH=./docs \
+  -e INPUT_REPORTS_PATH=./.reports \
+  -e INPUT_OUTPUTS_PATH=./docs \
   -e GITHUB_WORKSPACE=$workdir \
   -e GITHUB_RUN_ID=test \
   -w=$workdir \

@@ -25,7 +25,7 @@ directory), you can install this project's npm dependencies and run it:
 
 ```shell
 > npm install
-> INPUT_REPORTSPATH=.reports npx next
+> INPUT_REPORTS_PATH=.reports npx next
 ```
 
 The site will be served from a prefix, so navigate to

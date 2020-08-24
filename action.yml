@@ -9,6 +9,9 @@ inputs:
     description: The path relative to the repo root where the exported site should be placed
     required: false
     default: docs
+  noCommit:
+    description: If set to any value, will prevent committing changes from the build
+    required: false
 runs:
   using: docker
   image: Dockerfile

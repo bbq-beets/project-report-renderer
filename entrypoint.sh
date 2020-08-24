@@ -14,10 +14,12 @@ cd $build_dir
 npm run build
 npm run export -- -o $GITHUB_WORKSPACE/$INPUT_OUTPUTSPATH
 
-# Commit the changes.
-cd $GITHUB_WORKSPACE
-git config user.name github-actions
-git config user.email github-actions@github.com
-git add $INPUT_OUTPUTSPATH
-git commit -m "Generated build from workflow run: $GITHUB_RUN_ID"
-git push
+if [[ ! -z "$INPUT_NOCOMMIT" ]]; then
+  # Commit the changes.
+  cd $GITHUB_WORKSPACE
+  git config user.name github-actions
+  git config user.email github-actions@github.com
+  git add $INPUT_OUTPUTSPATH
+  git commit -m "Generated build from workflow run: $GITHUB_RUN_ID"
+  git push
+fi

@@ -1,5 +1,7 @@
 FROM node:alpine
 
+RUN apk add git
+
 # In order to avoid placing files in the user's working directory, we build in
 # /opt/build.
 

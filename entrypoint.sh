@@ -18,6 +18,6 @@ npm run export -- -o $GITHUB_WORKSPACE/$INPUT_OUTPUTSPATH
 cd $GITHUB_WORKSPACE
 git config user.name github-actions
 git config user.email github-actions@github.com
-git add $INPUT_OUTPUTSATH
+git add $INPUT_OUTPUTSPATH
 git commit -m "Generated build from workflow run: $GITHUB_RUN_ID"
 git push

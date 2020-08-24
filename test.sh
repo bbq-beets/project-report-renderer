@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ev
+set -e
 
 tag=bbq-beets/project-report-renderer
 workdir=/home/github
@@ -13,6 +13,7 @@ docker run \
   -e INPUT_NOCOMMIT=true \
   -e GITHUB_WORKSPACE=$workdir \
   -e GITHUB_RUN_ID=test \
+  -e GITHUB_REPOSITORY=bbq-beets/project-report-renderer \
   -w=$workdir \
   --mount type=bind,src=$(pwd),dst=$workdir \
   --rm -it $tag

@@ -31,7 +31,7 @@ module.exports = {
     }
   },
   variants: {
-    backgroundColor: ['even'],
+    backgroundColor: ['even', 'hover'],
     borderWidth: ['last', 'responsive']
   },
   plugins: []

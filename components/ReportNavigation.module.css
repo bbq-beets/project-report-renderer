@@ -1,0 +1,44 @@
+.reportNavigation {
+  @apply relative;
+}
+
+.navClosed .reportList {
+  @apply h-0 overflow-hidden opacity-0;
+}
+
+.closedIndicator,
+.openIndicator {
+  @apply w-4 h-4 ml-2 inline-block;
+}
+
+svg.closedIndicator {
+  @apply transform rotate-90;
+  @apply transition-transform duration-100 ease-in-out;
+}
+
+svg.openIndicator {
+  @apply transition-transform duration-100 ease-in-out;
+}
+
+.reportList {
+  @apply absolute;
+  @apply bg-gray-900 text-gray-400;
+  @apply rounded-md shadow-md;
+  @apply w-64;
+  top: 2.75rem;
+  @apply right-0;
+  @apply transition-opacity duration-100 ease-in-out;
+}
+
+.reportListItem {
+  @apply border-b border-gray-800;
+  @apply select-none;
+}
+
+.reportListItem:first-child {
+  @apply rounded-t-md;
+}
+
+.reportListItem:last-child {
+  @apply rounded-b-md;
+}

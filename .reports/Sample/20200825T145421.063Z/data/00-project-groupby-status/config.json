@@ -1,0 +1,9 @@
+{
+  "report-on-label": "feature",
+  "group-by-label-prefix": "> ",
+  "target-date-scheme": "LastCommentField",
+  "target-date-scheme-data": "Target Date",
+  "flag-in-progress-days": 21,
+  "wip-limit": 2,
+  "status-label-match": "(?:green|yellow|red)"
+}

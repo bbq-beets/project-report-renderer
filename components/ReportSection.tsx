@@ -3,6 +3,7 @@ import {ReportSection} from '../lib/reports'
 import EchoBoard from './sections/EchoBoard'
 import ProjectCycleTime from './sections/ProjectCycleTime'
 import ProjectDone from './sections/ProjectDone'
+import ProjectGroupbyStatus from './sections/ProjectGroupbyStatus'
 import ProjectInProgress from './sections/ProjectInProgress'
 import ProjectLimits from './sections/ProjectLimits'
 import ProjectNew from './sections/ProjectNew'
@@ -27,6 +28,9 @@ export default function ReportSectionComponent(props: Props) {
       break
     case 'project-done':
       SectionComponent = ProjectDone
+      break
+    case 'project-groupby-status':
+      SectionComponent = ProjectGroupbyStatus
       break
     case 'project-in-progress':
       SectionComponent = ProjectInProgress

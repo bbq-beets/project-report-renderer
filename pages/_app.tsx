@@ -1,4 +1,5 @@
 import NextApp from 'next/app'
+import Head from 'next/head'
 import {createContext, Dispatch, SetStateAction, useState} from 'react'
 import AppNav from '../components/AppNav'
 import '../styles/base.css'
@@ -33,23 +34,29 @@ export default function App({Component, pageProps}: NextApp['props']) {
   const [showReportSelector, setShowReportSelector] = useState(false)
 
   return (
-    <ReportContext.Provider
-      value={{
-        reportNames,
-        setReportNames,
-        currentReportName,
-        setCurrentReportName
-      }}
-    >
-      <SelectReportContext.Provider
-        value={{showReportSelector, setShowReportSelector}}
-      >
-        <AppNav />
+    <>
+      <Head key="app">
+        <title>Report Viewer</title>
+      </Head>
 
-        <div className="my-4 px-4">
-          <Component {...pageProps} />
-        </div>
-      </SelectReportContext.Provider>
-    </ReportContext.Provider>
+      <ReportContext.Provider
+        value={{
+          reportNames,
+          setReportNames,
+          currentReportName,
+          setCurrentReportName
+        }}
+      >
+        <SelectReportContext.Provider
+          value={{showReportSelector, setShowReportSelector}}
+        >
+          <AppNav />
+
+          <div className="my-4 px-4">
+            <Component {...pageProps} />
+          </div>
+        </SelectReportContext.Provider>
+      </ReportContext.Provider>
+    </>
   )
 }

@@ -1,17 +1,19 @@
 declare module 'project-reports/project-groupby-status' {
-  // export interface ProjectGroupbyStatusData {
-  //   type: string
-  //   output: Output
+  //   export interface ProjectGroupbyStatusData {
+  //     type:   string;
+  //     output: Output;
   // }
 
   export interface ProjectGroupbyStatusData {
     durationDays: number
-    wipLimit: number
     groups: Groups
     total: Total
   }
 
-  export type Groups = Record<string, Total>
+  export interface Groups {
+    Papercuts: Total
+    Reliability: Total
+  }
 
   export interface Total {
     stages: Stages
@@ -19,14 +21,14 @@ declare module 'project-reports/project-groupby-status' {
   }
 
   export interface Flagged {
-    red: Red[]
-    yellow: Red[]
+    red: NoTarget[]
+    yellow: NoTarget[]
     inProgressDuration: any[]
-    noTarget: any[]
-    pastTarget: any[]
+    noTarget: NoTarget[]
+    pastTarget: NoTarget[]
   }
 
-  export interface Red {
+  export interface NoTarget {
     number: number
     title: string
     html_url: string
@@ -36,7 +38,7 @@ declare module 'project-reports/project-groupby-status' {
     assignee: null
     assignees: any[]
     labels: LabelElement[]
-    comments: any[]
+    comments: Comment[]
     events: Event[]
     project_proposed_at: Date
     project_accepted_at: Date
@@ -46,21 +48,35 @@ declare module 'project-reports/project-groupby-status' {
     project_done_at?: Date
   }
 
-  export interface Event {
+  export interface Comment {
+    url: string
+    html_url: string
+    issue_url: string
     id: number
     node_id: string
-    url: string
-    actor: Actor
-    event: string
-    commit_id: null
-    commit_url: null
+    user: User
     created_at: Date
-    project_card?: ProjectCard
+    updated_at: Date
+    author_association: string
+    body: string
+    reactions: Reactions
     performed_via_github_app: null
-    label?: EventLabel
   }
 
-  export interface Actor {
+  export interface Reactions {
+    url: string
+    total_count: number
+    '+1': number
+    '-1': number
+    laugh: number
+    hooray: number
+    confused: number
+    heart: number
+    rocket: number
+    eyes: number
+  }
+
+  export interface User {
     login: string
     id: number
     node_id: string
@@ -79,6 +95,20 @@ declare module 'project-reports/project-groupby-status' {
     received_events_url: string
     type: string
     site_admin: boolean
+  }
+
+  export interface Event {
+    id: number
+    node_id: string
+    url: string
+    actor: User
+    event: string
+    commit_id: null
+    commit_url: null
+    created_at: Date
+    project_card?: ProjectCard
+    performed_via_github_app: null
+    label?: EventLabel
   }
 
   export interface EventLabel {
@@ -109,8 +139,14 @@ declare module 'project-reports/project-groupby-status' {
 
   export interface Stages {
     proposed: any[]
-    accepted: Red[]
-    inProgress: Red[]
-    done: Red[]
+    accepted: NoTarget[]
+    inProgress: NoTarget[]
+    inProgressLimits: InProgressLimits
+    done: NoTarget[]
+  }
+
+  export interface InProgressLimits {
+    limit: number
+    flag: boolean
   }
 }

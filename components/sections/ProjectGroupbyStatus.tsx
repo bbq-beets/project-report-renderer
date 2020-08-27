@@ -120,8 +120,8 @@ export default function ProjectGroupbyStatus(props: Props) {
       <SectionTitle icon="🚀">Project Execution</SectionTitle>
 
       {groups.map(group => (
-        <div className="flex items-start mb-8" key={group.key}>
-          <h1 className="w-56">{group.key}</h1>
+        <div className="block lg:flex items-start mb-8" key={group.key}>
+          <h1 className="w-56 text-xl font-semibold mr-2">{group.key}</h1>
 
           <ReportCard
             proposed={group.totals.stages.proposed.length}

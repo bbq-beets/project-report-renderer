@@ -11,7 +11,7 @@ type Props = PropsWithReportsNav<{
 
 export default withReportsNav(function ReportPage(props: Props) {
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto flex-1">
       {Object.entries(props.report).map(([name, section]) => (
         <ReportSectionComponent key={name} name={name} data={section} />
       ))}

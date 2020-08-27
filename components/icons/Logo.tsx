@@ -1,6 +1,6 @@
 type Props = JSX.IntrinsicElements['svg']
 
-export default function Eye(props: Props) {
+export default function Logo(props: Props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

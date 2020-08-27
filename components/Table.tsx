@@ -67,7 +67,7 @@ export default function Table<T extends object>(props: Props<T>) {
             prepareRow(row)
 
             return (
-              <tr {...row.getRowProps()} className="even:bg-gray-200">
+              <tr {...row.getRowProps()} className="even:bg-gray-100">
                 {row.cells.map(cell => (
                   <td {...cell.getCellProps()} className="border p-2">
                     {cell.render('Cell')}

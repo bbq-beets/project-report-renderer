@@ -46,7 +46,7 @@ export default function App({Component, pageProps}: NextApp['props']) {
       >
         <AppNav />
 
-        <div className="max-w-6xl mx-auto my-4 px-4">
+        <div className="my-4 px-4">
           <Component {...pageProps} />
         </div>
       </SelectReportContext.Provider>

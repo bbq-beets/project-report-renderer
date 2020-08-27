@@ -9,11 +9,12 @@ export default function EchoBoard(props: Props) {
     <>
       <SectionTitle icon="👂">Echo Data</SectionTitle>
 
-      <p className="subtitle">
-        There is no section component implemented for this type.
+      <p className="text-sm text-gray">
+        There is no section component implemented for this type. The full JSON
+        output of the report is below:
       </p>
 
-      <pre className="overflow-x-auto p-4 bg-gray-200 border border-gray-300 rounded-lg text-gray-800">
+      <pre className="overflow-x-auto mt-4 p-4 bg-gray-100 border border-gray-200 rounded-md text-gray-700">
         <code>{JSON.stringify(props, null, 4)}</code>
       </pre>
     </>

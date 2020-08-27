@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import {useContext} from 'react'
 import {ReportContext} from '../pages/_app'
-import Eye from './icons/Eye'
+import Logo from './icons/Logo'
 import ReportNavigation from './ReportNavigation'
 
 export default function AppNav() {
@@ -10,7 +10,8 @@ export default function AppNav() {
   return (
     <nav className="flex justify-between px-2 py-1 bg-black text-white">
       <h1 className="flex items-center text-xl">
-        <Eye className="inline-block w-6 h-6 mr-2" />
+        <Logo className="inline-block w-6 h-6 mr-2" />
+
         <span>
           <Link href="/">
             <a className="hover:opacity-75">Report Viewer</a>

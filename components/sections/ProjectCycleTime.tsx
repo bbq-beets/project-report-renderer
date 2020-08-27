@@ -3,10 +3,11 @@ import {useMemo} from 'react'
 import {CellProps, Column} from 'react-table'
 import DataWithFlag from '../DataWithFlag'
 import NullData from '../NullData'
+import {PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
-type Props = ProjectCycleTimeData
+type Props = PropsWithIndex<ProjectCycleTimeData>
 type LabelData = {label: string; data: Epic}
 
 export default function ProjectCycleTime(props: Props) {
@@ -57,7 +58,9 @@ export default function ProjectCycleTime(props: Props) {
 
   return (
     <>
-      <SectionTitle icon="🔄">Issue Count and Cycle Time</SectionTitle>
+      <SectionTitle index={props.index} icon="🔄">
+        Issue Count and Cycle Time
+      </SectionTitle>
       <Table columns={columns} data={data} />
     </>
   )

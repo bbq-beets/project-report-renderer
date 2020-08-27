@@ -1,13 +1,16 @@
 import {EchoBoardData} from 'project-reports/echo-board'
+import {PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-type Props = EchoBoardData
+type Props = PropsWithIndex<EchoBoardData>
 
 export default function EchoBoard(props: Props) {
   return (
     <>
-      <SectionTitle icon="👂">Echo Data</SectionTitle>
+      <SectionTitle index={props.index} icon="👂">
+        Echo Data
+      </SectionTitle>
 
       <p className="text-sm text-gray">
         There is no section component implemented for this type. The full JSON

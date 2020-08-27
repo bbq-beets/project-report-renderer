@@ -12,11 +12,16 @@ import RepoIssues from './sections/RepoIssues'
 type Props = {
   name: string
   data: ReportSection
+  index: number
 }
 
 export type PropsWithTitle<T> = {
   data: T
   TitleComponent: ComponentType<PropsWithChildren<unknown>>
+}
+
+export type PropsWithIndex<T> = T & {
+  index: number
 }
 
 export default function ReportSectionComponent(props: Props) {
@@ -50,7 +55,7 @@ export default function ReportSectionComponent(props: Props) {
 
   return (
     <div className="mb-8">
-      <SectionComponent {...(props.data.output as any)} />
+      <SectionComponent index={props.index} {...(props.data.output as any)} />
     </div>
   )
 }

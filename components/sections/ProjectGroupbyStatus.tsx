@@ -7,10 +7,11 @@ import {CellProps, Column} from 'react-table'
 import DataWithFlag from '../DataWithFlag'
 import NullData from '../NullData'
 import ReportCard from '../ReportCard'
+import {PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
-type Props = ProjectGroupbyStatusData
+type Props = PropsWithIndex<ProjectGroupbyStatusData>
 type StatusGroup = {key: string; totals: Total}
 
 const TOTAL_KEY = 'Total'
@@ -117,7 +118,9 @@ export default function ProjectGroupbyStatus(props: Props) {
   )
   return (
     <>
-      <SectionTitle icon="🚀">Project Execution</SectionTitle>
+      <SectionTitle index={props.index} icon="🚀">
+        Project Execution
+      </SectionTitle>
 
       {groups.map(group => (
         <div className="block lg:flex items-start mb-8" key={group.key}>

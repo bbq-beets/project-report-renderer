@@ -9,10 +9,11 @@ import {useMemo} from 'react'
 import {CellProps, Column} from 'react-table'
 import DataWithFlag from '../DataWithFlag'
 import NullData from '../NullData'
+import {PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
-type Props = ProjectLimitsData
+type Props = PropsWithIndex<ProjectLimitsData>
 type Stage = Proposed | Accepted | InProgress | Done
 type StageData = {stage: string; data: Stage}
 
@@ -53,7 +54,7 @@ export default function ProjectLimits(props: Props) {
 
   return (
     <>
-      <SectionTitle icon="🚢">
+      <SectionTitle index={props.index} icon="🚢">
         Limits {typeLabel && `(${typeLabel})`}
       </SectionTitle>
       <Table columns={columns} data={data} />

@@ -2,11 +2,12 @@ import {Card, ProjectNewData} from 'project-reports/project-new'
 import {useMemo} from 'react'
 import {CellProps, Column} from 'react-table'
 import CardAssignee, {getAssignee} from '../CardAssignee'
+import {PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 import TimeAgo from '../TimeAgo'
 
-type Props = ProjectNewData
+type Props = PropsWithIndex<ProjectNewData>
 
 export default function ProjectNew(props: Props) {
   const cards = props.cards
@@ -42,7 +43,7 @@ export default function ProjectNew(props: Props) {
 
   return (
     <>
-      <SectionTitle icon="👋">
+      <SectionTitle index={props.index} icon="👋">
         Added in Last {props.daysAgo} Days {typeLabel && `(${typeLabel})`}
       </SectionTitle>
 

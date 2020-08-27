@@ -1,10 +1,11 @@
 import {Bug, RepoIssuesData} from 'project-reports/repo-issues'
 import {useMemo} from 'react'
 import {Column, useSortBy} from 'react-table'
+import {PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
-type Props = RepoIssuesData
+type Props = PropsWithIndex<RepoIssuesData>
 type LabelData = {label: string; data: Bug[]}
 
 export default function RepoIssues(props: Props) {
@@ -39,7 +40,7 @@ export default function RepoIssues(props: Props) {
 
   return (
     <>
-      <SectionTitle>Issues for XXX</SectionTitle>
+      <SectionTitle index={props.index}>Issues for XXX</SectionTitle>
       <Table columns={columns} data={data} />
     </>
   )

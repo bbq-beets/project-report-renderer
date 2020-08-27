@@ -4,11 +4,12 @@ import {CellProps, Column} from 'react-table'
 import {getStatusEmoji} from '../../lib/util'
 import CardAssignee, {getAssignee} from '../CardAssignee'
 import DataWithFlag from '../DataWithFlag'
+import {PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 import TimeAgo from '../TimeAgo'
 
-type Props = ProjectInProgressData
+type Props = PropsWithIndex<ProjectInProgressData>
 
 export default function ProjectInProgress(props: Props) {
   const cards = props.cards
@@ -64,7 +65,9 @@ export default function ProjectInProgress(props: Props) {
 
   return (
     <>
-      <SectionTitle icon="⏳">In Progress ({props.cardType})</SectionTitle>
+      <SectionTitle index={props.index} icon="⏳">
+        In Progress ({props.cardType})
+      </SectionTitle>
 
       <p className="subtitle">
         Sorted by status and then in progress time descending

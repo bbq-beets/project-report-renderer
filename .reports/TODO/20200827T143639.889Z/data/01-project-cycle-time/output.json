@@ -1,0 +1,12 @@
+{
+  "type": "project-cycle-time",
+  "output": {
+    "feature": {
+      "title": "feature",
+      "count": 1,
+      "cycletime": 0.059224537037037034,
+      "limit": 42,
+      "flag": false
+    }
+  }
+}

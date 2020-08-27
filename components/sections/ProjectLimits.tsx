@@ -8,6 +8,7 @@ import {
 import {useMemo} from 'react'
 import {CellProps, Column} from 'react-table'
 import DataWithFlag from '../DataWithFlag'
+import NullData from '../NullData'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
@@ -39,7 +40,7 @@ export default function ProjectLimits(props: Props) {
         id: 'limit',
         accessor: cell => cell.data.limit,
         Cell: ({cell}: CellProps<StageData, number>) =>
-          cell.value >= 0 ? cell.value : ''
+          cell.value >= 0 ? cell.value : <NullData />
       }
     ],
     []
@@ -52,7 +53,9 @@ export default function ProjectLimits(props: Props) {
 
   return (
     <>
-      <SectionTitle>🚢 {typeLabel} Limits</SectionTitle>
+      <SectionTitle icon="🚢">
+        Limits {typeLabel && `(${typeLabel})`}
+      </SectionTitle>
       <Table columns={columns} data={data} />
     </>
   )

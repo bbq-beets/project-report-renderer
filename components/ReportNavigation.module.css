@@ -2,43 +2,54 @@
   @apply relative;
 }
 
-.navClosed .reportList {
-  @apply h-0 overflow-hidden opacity-0;
-}
-
 .closedIndicator,
 .openIndicator {
   @apply w-4 h-4 ml-2 inline-block;
 }
 
-svg.closedIndicator {
+.closedIndicator {
   @apply transform rotate-90;
-  @apply transition-transform duration-100 ease-in-out;
+  @apply transition-transform duration-100 ease-in;
 }
 
-svg.openIndicator {
-  @apply transition-transform duration-100 ease-in-out;
+.openIndicator {
+  @apply transition-transform duration-100 ease-in;
 }
 
 .reportList {
   @apply absolute;
-  @apply bg-gray-900 text-gray-400;
+  @apply border border-gray-200 bg-white;
   @apply rounded-md shadow-md;
+  @apply py-1;
   @apply w-64;
-  top: 2.75rem;
+  top: 2.5rem;
   @apply right-0;
-  @apply transition-opacity duration-100 ease-in-out;
+  @apply text-black;
 }
 
 .reportListItem {
-  @apply border-b border-gray-800;
   @apply select-none;
 }
 
-.reportListItem:first-child {
-  @apply rounded-t-md;
+.reportListItem:hover {
+  @apply bg-blue-500;
+  @apply text-white;
 }
 
-.reportListItem:last-child {
-  @apply rounded-b-md;
+.enter {
+  @apply opacity-0;
+}
+
+.enterActive {
+  @apply opacity-100;
+  @apply transition-all duration-150;
+}
+
+.exit {
+  @apply opacity-100;
+}
+
+.exitActive {
+  @apply opacity-0;
+  @apply transition-all duration-150;
 }

@@ -43,8 +43,8 @@ export default function ProjectDone(props: Props) {
 
   return (
     <>
-      <SectionTitle>
-        🏁 Completed {typeLabel} Last {props.daysAgo} Days
+      <SectionTitle icon="🏁">
+        Completed in Last {props.daysAgo} Days {typeLabel && `(${typeLabel})`}
       </SectionTitle>
 
       {cards.length ? (

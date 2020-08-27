@@ -6,15 +6,12 @@ import withReportsNav, {
 import {getLatestReportsData, ReportSection} from '../../lib/reports'
 
 type Props = PropsWithReportsNav<{
-  title: string
   report: Record<string, ReportSection>
 }>
 
 export default withReportsNav(function ReportPage(props: Props) {
   return (
     <>
-      <h2 className="mb-4">{props.title}</h2>
-
       {Object.entries(props.report).map(([name, section]) => (
         <ReportSectionComponent key={name} name={name} data={section} />
       ))}
@@ -34,7 +31,7 @@ export async function getStaticProps({
 
   return {
     props: {
-      title: params.name,
+      reportName: params.name,
       report,
       reportNames
     }

@@ -7,7 +7,7 @@ type Props = EchoBoardData
 export default function EchoBoard(props: Props) {
   return (
     <>
-      <SectionTitle>Echo Data</SectionTitle>
+      <SectionTitle icon="👂">Echo Data</SectionTitle>
 
       <p className="subtitle">
         There is no section component implemented for this type.

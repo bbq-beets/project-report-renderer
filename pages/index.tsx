@@ -13,6 +13,7 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<Props>> {
 
   return {
     props: {
+      reportName: null,
       reportNames
     }
   }

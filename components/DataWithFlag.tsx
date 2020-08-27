@@ -1,4 +1,5 @@
 import {PropsWithChildren} from 'react'
+import NullData from './NullData'
 
 type Props<T> = PropsWithChildren<{
   flag: boolean
@@ -10,7 +11,7 @@ export default function DataWithFlag<T>(props: Props<T>) {
       {props.children != null && props.children != '' ? (
         <span className="flex-1">{props.children}</span>
       ) : (
-        <span className="flex-1 text-gray-400">—</span>
+        <NullData />
       )}
       {props.flag && <span>🚩</span>}
     </div>

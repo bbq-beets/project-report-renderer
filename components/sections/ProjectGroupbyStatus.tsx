@@ -4,6 +4,7 @@ import {
 } from 'project-reports/project-groupby-status'
 import {useMemo} from 'react'
 import {Column} from 'react-table'
+import NullData from '../NullData'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
@@ -51,34 +52,35 @@ export default function ProjectGroupbyStatus(props: Props) {
       {
         Header: '💛',
         id: 'yellow',
-        accessor: row => row.group.flagged.yellow.length || null
+        accessor: row => row.group.flagged.yellow.length || <NullData />
       },
       {
         Header: '❤️',
         id: 'red',
-        accessor: row => row.group.flagged.red.length || null
+        accessor: row => row.group.flagged.red.length || <NullData />
       },
       {
         Header: 'Active > 3 wks',
         id: 'activeGt3Wk',
-        accessor: row => row.group.flagged.inProgressDuration.length || null
+        accessor: row =>
+          row.group.flagged.inProgressDuration.length || <NullData />
       },
       {
         Header: 'No Target Date',
         id: 'noTarget',
-        accessor: row => row.group.flagged.noTarget.length || null
+        accessor: row => row.group.flagged.noTarget.length || <NullData />
       },
       {
         Header: 'Past Target Date',
         id: 'pastTarget',
-        accessor: row => row.group.flagged.pastTarget.length || null
+        accessor: row => row.group.flagged.pastTarget.length || <NullData />
       }
     ],
     []
   )
   return (
     <>
-      <SectionTitle>🚀 Execution</SectionTitle>
+      <SectionTitle icon="🚀">Project Execution</SectionTitle>
       <Table columns={columns} data={groups} />
     </>
   )

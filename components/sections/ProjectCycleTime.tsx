@@ -2,6 +2,7 @@ import {Epic, ProjectCycleTimeData} from 'project-reports/project-cycle-time'
 import {useMemo} from 'react'
 import {CellProps, Column} from 'react-table'
 import DataWithFlag from '../DataWithFlag'
+import NullData from '../NullData'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
@@ -42,7 +43,8 @@ export default function ProjectCycleTime(props: Props) {
         Header: 'Limit',
         id: 'limit',
         accessor: row => row.data.limit,
-        Cell: ({cell}: CellProps<LabelData, number>) => getLimit(cell.value)
+        Cell: ({cell}: CellProps<LabelData, number>) =>
+          getLimit(cell.value) || <NullData />
       }
     ],
     []
@@ -55,8 +57,7 @@ export default function ProjectCycleTime(props: Props) {
 
   return (
     <>
-      <SectionTitle>Issue Count and Cycle Time</SectionTitle>
-
+      <SectionTitle icon="🔄">Issue Count and Cycle Time</SectionTitle>
       <Table columns={columns} data={data} />
     </>
   )

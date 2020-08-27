@@ -10,7 +10,7 @@ type Props = ProjectNewData
 
 export default function ProjectNew(props: Props) {
   const cards = props.cards
-  const typeLabel = props.cardType === '*' ? '' : `${props.cardType}s`
+  const typeLabel = props.cardType === '*' ? '' : `${props.cardType}`
 
   const columns = useMemo<Column<Card>[]>(
     () => [
@@ -42,8 +42,8 @@ export default function ProjectNew(props: Props) {
 
   return (
     <>
-      <SectionTitle>
-        👋 Added {typeLabel} Last {props.daysAgo} Days
+      <SectionTitle icon="👋">
+        Added in Last {props.daysAgo} Days {typeLabel && `(${typeLabel})`}
       </SectionTitle>
 
       <Table columns={columns} data={cards} />

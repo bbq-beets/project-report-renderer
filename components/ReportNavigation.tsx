@@ -1,12 +1,14 @@
 import Link from 'next/link'
-import {useContext, useState} from 'react'
+import {useContext} from 'react'
 import {CSSTransition} from 'react-transition-group'
-import {ReportContext} from '../pages/_app'
+import {ReportContext, SelectReportContext} from '../pages/_app'
 import ChevronDown from './icons/ChevronDown'
 import styles from './ReportNavigation.module.css'
 
 export default function ReportNavigation() {
-  const [open, setOpen] = useState(false)
+  const {showReportSelector: open, setShowReportSelector: setOpen} = useContext(
+    SelectReportContext
+  )
   const toggleOpen = () => setOpen(open => !open)
   const {reportNames} = useContext(ReportContext)
 

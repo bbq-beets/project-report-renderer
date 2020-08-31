@@ -1,4 +1,3 @@
-import * as core from '@actions/core'
 import fs from 'fs'
 import path from 'path'
 import {promisify} from 'util'
@@ -50,8 +49,7 @@ async function getLatestReportData(reportPath: string) {
 }
 
 function getReportPaths() {
-  // The default value as defined in action.yml is "_reports"
-  const reportsDirName = core.getInput('reportsPath') || '_reports'
+  const reportsDirName = '.reports'
   const reportsDirPath = path.resolve(reportsDirName)
   return getDirsMatching(reportsDirPath, name => !name.startsWith('.'))
 }

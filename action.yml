@@ -1,14 +1,9 @@
 name: Project Report Renderer
 description: Renders project reports to static HTML, CSS, and JavaScript
 inputs:
-  reportsPath:
-    description: The path relative to the repo root where the reports are stored
+  workingBranch:
+    description: The branch where the reports data is and where the exported site should be placed. Defaults to the checked-out branch.
     required: false
-    default: _reports
-  outputsPath:
-    description: The path relative to the repo root where the exported site should be placed
-    required: false
-    default: docs
   noCommit:
     description: If set to any value, will prevent committing changes from the build
     required: false

@@ -1,6 +1,6 @@
 FROM node:alpine
 
-RUN apk add curl git
+RUN apk add curl git rsync
 
 # In order to avoid placing files in the user's working directory, we build in
 # /opt/build.

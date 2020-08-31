@@ -9,6 +9,7 @@ docker build . -t $tag
 
 docker run \
   -e INPUT_WORKINGBRANCH=gh-pages \
+  -e INPUT_NOCOMMIT=true \
   -e GITHUB_REPOSITORY=bbq-beets/project-report-renderer \
   -e GITHUB_RUN_ID=test.sh \
   -e GITHUB_WORKSPACE=$workdir \

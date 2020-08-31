@@ -1,4 +1,4 @@
-# Project Report Renderer
+# Project Report Renderer [![Integration Test](https://github.com/bbq-beets/project-report-renderer/workflows/Integration%20Test/badge.svg?branch=main&event=push)](https://github.com/bbq-beets/project-report-renderer/actions?query=workflow%3A%22Integration+Test%22+event%3Apush+branch%3Amain)
 
 This action builds project reports to static HTML, JavaScript, and CSS.
 

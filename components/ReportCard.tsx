@@ -67,7 +67,7 @@ export default function ReportCard(props: Props) {
         total={props.totals.inProgress}
       />
 
-      <div className="w-40 h-40 grid grid-rows-2 grid-cols-1 gap-2">
+      <div className={styles.squareGroup}>
         <Square
           title="Warning"
           value={props.warn}

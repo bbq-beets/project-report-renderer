@@ -1,17 +1,28 @@
 .reportCard {
-  @apply grid grid-cols-2 grid-rows-2 gap-2 max-w-xs;
+  @apply grid grid-cols-2 gap-2;
+  @apply w-full;
+  /* @apply grid grid-cols-2 grid-rows-2 gap-2 max-w-xs; */
 }
 
 @screen md {
   .reportCard {
-    @apply grid-cols-4 max-w-2xl;
+    @apply grid-cols-4;
+
+    /* Width of columns + gaps */
+    max-width: 41.5rem;
   }
 }
 
 .square {
-  @apply flex flex-col justify-between w-40 h-40;
+  @apply h-40;
+  @apply flex flex-col justify-between;
   @apply bg-green;
   @apply text-white;
+}
+
+.squareGroup {
+  /* <div className="w-40 h-40 grid grid-rows-2 grid-cols-1 gap-2"> */
+  @apply grid grid-rows-2 gap-2;
 }
 
 .warn {

@@ -1,5 +1,5 @@
-import {ComponentType, useContext} from 'react'
-import {SelectReportContext} from '../pages/_app'
+import {ComponentType} from 'react'
+import {useReportSelectorMenu} from './contexts/ReportSelectorMenuProvider'
 
 type Props = {
   icon: ComponentType<JSX.IntrinsicElements['svg']>
@@ -7,7 +7,7 @@ type Props = {
 }
 export default function HeroPage(props: Props) {
   const Icon = props.icon
-  const {setShowReportSelector} = useContext(SelectReportContext)
+  const {setShowReportSelector} = useReportSelectorMenu()
 
   return (
     <div className="mt-16 max-w-4xl mx-auto">

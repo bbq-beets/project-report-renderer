@@ -1,11 +1,10 @@
 import Link from 'next/link'
-import {useContext} from 'react'
-import {ReportContext} from '../pages/_app'
+import {useReports} from './contexts/ReportsProvider'
 import Logo from './icons/Logo'
 import ReportNavigation from './ReportNavigation'
 
 export default function AppNav() {
-  const {currentReportName} = useContext(ReportContext)
+  const {currentReportName} = useReports()
 
   return (
     <nav className="flex justify-between px-2 py-1 bg-black text-white">

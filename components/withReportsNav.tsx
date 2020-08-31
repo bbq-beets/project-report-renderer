@@ -1,5 +1,5 @@
-import {ComponentType, useContext, useEffect} from 'react'
-import {ReportContext} from '../pages/_app'
+import {ComponentType, useEffect} from 'react'
+import {useReports} from './contexts/ReportsProvider'
 
 export type PropsWithReportsNav<T> = T & {
   reportName: string | null
@@ -8,7 +8,7 @@ export type PropsWithReportsNav<T> = T & {
 
 export default function withReportsNav<T>(Component: ComponentType<T>) {
   return function RenderWithReportsNav(props: PropsWithReportsNav<T>) {
-    const {setReportNames, setCurrentReportName} = useContext(ReportContext)
+    const {setReportNames, setCurrentReportName} = useReports()
 
     useEffect(() => {
       setReportNames(props.reportNames)

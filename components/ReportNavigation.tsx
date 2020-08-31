@@ -1,16 +1,14 @@
 import Link from 'next/link'
-import {useContext} from 'react'
 import {CSSTransition} from 'react-transition-group'
-import {ReportContext, SelectReportContext} from '../pages/_app'
+import {useReportSelectorMenu} from './contexts/ReportSelectorMenuProvider'
+import {useReports} from './contexts/ReportsProvider'
 import ChevronDown from './icons/ChevronDown'
 import styles from './ReportNavigation.module.css'
 
 export default function ReportNavigation() {
-  const {showReportSelector: open, setShowReportSelector: setOpen} = useContext(
-    SelectReportContext
-  )
-  const toggleOpen = () => setOpen(open => !open)
-  const {reportNames} = useContext(ReportContext)
+  const {showReportSelector, setShowReportSelector} = useReportSelectorMenu()
+  const toggleOpen = () => setShowReportSelector(open => !open)
+  const {reportNames} = useReports()
 
   return (
     <div className={styles.reportNavigation}>
@@ -21,12 +19,14 @@ export default function ReportNavigation() {
         <span>Select a Report</span>
 
         <ChevronDown
-          className={open ? styles.openIndicator : styles.closedIndicator}
+          className={
+            showReportSelector ? styles.openIndicator : styles.closedIndicator
+          }
         />
       </div>
 
       <CSSTransition
-        in={open}
+        in={showReportSelector}
         timeout={150}
         unmountOnExit
         classNames={{

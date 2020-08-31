@@ -17,6 +17,11 @@ type Props = PropsWithIndex<ProjectLimitsData>
 type Stage = Proposed | Accepted | InProgress | Done
 type StageData = {stage: string; data: Stage}
 
+/**
+ * Display project limts as a table.
+ *
+ * @param props
+ */
 export default function ProjectLimits(props: Props) {
   const typeLabel = props.cardType === '*' ? '' : props.cardType
 

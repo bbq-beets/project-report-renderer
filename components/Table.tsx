@@ -12,6 +12,15 @@ type Props<T extends object> = TableOptions<T>
 
 const FILTER_THRESHOLD = 4
 
+/**
+ * Represent data as a sortable, filterable table.
+ *
+ * See [react-table
+ * documentation](https://react-table.tanstack.com/docs/overview) for
+ * instructions on header configuration.
+ *
+ * @param props
+ */
 /* eslint-disable-next-line @typescript-eslint/ban-types */
 export default function Table<T extends object>(props: Props<T>) {
   const {

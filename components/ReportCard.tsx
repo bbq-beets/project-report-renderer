@@ -15,6 +15,14 @@ type Stats = {
 
 type Props = Stats & {totals: Stats}
 
+/**
+ * Render a "report card"-style view of values grouped by status.
+ *
+ * The component doesn't know about what it's representing—it just accepts
+ * status and their related numbers.
+ *
+ * @param props
+ */
 export default function ReportCard(props: Props) {
   const Square = (props: {
     title: string

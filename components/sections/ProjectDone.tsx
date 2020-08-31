@@ -9,6 +9,11 @@ import TimeAgo from '../TimeAgo'
 
 type Props = PropsWithIndex<ProjectDoneData>
 
+/**
+ * Display completed projects as a table.
+ *
+ * @param props
+ */
 export default function ProjectDone(props: Props) {
   const cards = props.cards
   const typeLabel = props.cardType === '*' ? '' : props.cardType

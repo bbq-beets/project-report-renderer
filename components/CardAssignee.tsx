@@ -1,7 +1,21 @@
 import DataWithFlag from './DataWithFlag'
 
-type Props = any
+interface Assignee {
+  avatar_url: string
+  html_url: string
+  login: string
+}
 
+type Props = {
+  card: {
+    assignee?: Assignee | null
+    assignees?: Assignee[] | null
+  }
+}
+
+/**
+ * Render an assignee of a card or issue.
+ */
 export default function CardAssignee({card}: Props) {
   const assignee = getAssignee(card)
 
@@ -22,9 +36,9 @@ export default function CardAssignee({card}: Props) {
 }
 
 export function getAssignee(card: {
-  assignee?: unknown
-  assignees?: unknown[]
-}): any {
+  assignee?: Assignee | null
+  assignees?: Assignee[] | null
+}): Assignee | null {
   const assignee = card.assignee
     ? card.assignee
     : card.assignees

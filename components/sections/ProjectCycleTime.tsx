@@ -10,6 +10,11 @@ import Table from '../Table'
 type Props = PropsWithIndex<ProjectCycleTimeData>
 type LabelData = {label: string; data: Epic}
 
+/**
+ * Display project cycle time as a table.
+ *
+ * @param props
+ */
 export default function ProjectCycleTime(props: Props) {
   const cycleData = props
 

@@ -5,6 +5,9 @@ import {useReports} from './contexts/ReportsProvider'
 import ChevronDown from './icons/ChevronDown'
 import styles from './ReportNavigation.module.css'
 
+/**
+ * Render a navigation menu that allows a user to switch between reports.
+ */
 export default function ReportNavigation() {
   const {showReportSelector, setShowReportSelector} = useReportSelectorMenu()
   const toggleOpen = () => setShowReportSelector(open => !open)

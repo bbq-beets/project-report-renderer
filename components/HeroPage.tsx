@@ -5,6 +5,13 @@ type Props = {
   icon: ComponentType<JSX.IntrinsicElements['svg']>
   title: string
 }
+
+/**
+ * A basic page with a big custom icon and title, as well as information about
+ * this project.
+ *
+ * @param props
+ */
 export default function HeroPage(props: Props) {
   const Icon = props.icon
   const {setShowReportSelector} = useReportSelectorMenu()

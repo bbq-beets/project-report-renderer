@@ -2,9 +2,13 @@ import {EchoBoardData} from 'project-reports/echo-board'
 import {PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 
-/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 type Props = PropsWithIndex<EchoBoardData>
 
+/**
+ * Represent the report section data as JSON.
+ *
+ * @param props
+ */
 export default function EchoBoard(props: Props) {
   return (
     <>

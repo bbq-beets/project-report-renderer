@@ -24,6 +24,14 @@ export type PropsWithIndex<T> = T & {
   index: number
 }
 
+/**
+ * A generic wrapper around a section of a report.
+ *
+ * This looks at the report section type and renders the appropriate component,
+ * or `EchoBoard` if no known component is associated with that section type.
+ *
+ * @param props
+ */
 export default function ReportSectionComponent(props: Props) {
   let SectionComponent
 

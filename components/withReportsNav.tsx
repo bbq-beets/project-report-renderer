@@ -1,4 +1,5 @@
-import {ComponentType, useEffect} from 'react'
+import {NextPage} from 'next'
+import {useEffect} from 'react'
 import {useReports} from './contexts/ReportsProvider'
 
 export type PropsWithReportsNav<T> = T & {
@@ -6,7 +7,13 @@ export type PropsWithReportsNav<T> = T & {
   reportNames: string[]
 }
 
-export default function withReportsNav<T>(Component: ComponentType<T>) {
+/**
+ * Wraps a page component setting the known and current report names in the
+ * reports context.
+ *
+ * @param Page The page component to wrap in reports navigation
+ */
+export default function withReportsNav<T>(Page: NextPage<T>) {
   return function RenderWithReportsNav(props: PropsWithReportsNav<T>) {
     const {setReportNames, setCurrentReportName} = useReports()
 
@@ -20,6 +27,6 @@ export default function withReportsNav<T>(Component: ComponentType<T>) {
       props.reportName
     ])
 
-    return <Component {...props} />
+    return <Page {...props} />
   }
 }

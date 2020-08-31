@@ -5,6 +5,11 @@ import {PropsWithIndex} from './ReportSection'
 
 type Props = PropsWithChildren<PropsWithIndex<{icon?: string}>>
 
+/**
+ * Renders a section title.
+ *
+ * @param props
+ */
 export default function SectionTitle(props: Props) {
   const router = useRouter()
   const path = router.asPath.split('#')[0]

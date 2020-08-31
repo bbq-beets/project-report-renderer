@@ -16,6 +16,11 @@ type StatusGroup = {key: string; totals: Total}
 
 const TOTAL_KEY = 'Total'
 
+/**
+ * Display projects grouped by status as a "report card" style view.
+ *
+ * @param props
+ */
 export default function ProjectGroupbyStatus(props: Props) {
   const groups: StatusGroup[] = Object.entries(props.groups).map(
     ([key, group]) => ({

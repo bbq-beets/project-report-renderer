@@ -3,6 +3,10 @@ import {useReports} from './contexts/ReportsProvider'
 import Logo from './icons/Logo'
 import ReportNavigation from './ReportNavigation'
 
+/**
+ * Display the application's navigation bar, including the current report name
+ * and the report navigation menu.
+ */
 export default function AppNav() {
   const {currentReportName} = useReports()
 

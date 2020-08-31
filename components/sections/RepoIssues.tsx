@@ -8,6 +8,11 @@ import Table from '../Table'
 type Props = PropsWithIndex<RepoIssuesData>
 type LabelData = {label: string; data: Bug[]}
 
+/**
+ * Display repository issues as a table.
+ *
+ * @param props
+ */
 export default function RepoIssues(props: Props) {
   // TODO: We also need strongly-typed types for this data (e.g. nullable fields marked as such)
   // TODO: We need the repository information in the output used in https://github.com/bryanmacfarlane/project-reports-action/blob/1a1451ac97f5624e4f534d4b95a7ae1f3e202047/reports/repo-issues.ts#L71-L72

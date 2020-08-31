@@ -9,6 +9,11 @@ import TimeAgo from '../TimeAgo'
 
 type Props = PropsWithIndex<ProjectNewData>
 
+/**
+ * Display new projects as a table.
+ *
+ * @param props
+ */
 export default function ProjectNew(props: Props) {
   const cards = props.cards
   const typeLabel = props.cardType === '*' ? '' : `${props.cardType}`

@@ -11,6 +11,11 @@ import TimeAgo from '../TimeAgo'
 
 type Props = PropsWithIndex<ProjectInProgressData>
 
+/**
+ * Display projects in progress as a table.
+ *
+ * @param props
+ */
 export default function ProjectInProgress(props: Props) {
   const cards = props.cards
 

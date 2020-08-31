@@ -36,3 +36,7 @@ The site will be served from a prefix, so navigate to
 When this action runs in a repository where project reports have been
 generated, it uses that data in order to build the static site defined in
 this action's [/pages](/pages) directory using [Next.js](https://nextjs.org).
+
+## Licenses
+
+- Icons in components/icons are from [heroicons](https://heroicons.com/), licensed under [MIT](/heroicons-license.md).

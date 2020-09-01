@@ -1,3 +1,4 @@
+import {Card} from 'project-reports'
 import {
   ProjectGroupbyStatusData,
   Total
@@ -13,6 +14,7 @@ import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 
 type Props = PropsWithIndex<ProjectGroupbyStatusData>
+
 type StatusGroup = {key: string; totals: Total}
 
 enum StageType {
@@ -20,10 +22,9 @@ enum StageType {
   Stages = 'stages'
 }
 
-type StageKey<T extends StageType = StageType> = keyof Omit<
-  StatusGroup['totals'][T],
-  'inProgressLimits'
->
+type StageKey<T extends StageType> = T extends StageType.Stages
+  ? keyof Exclude<StatusGroup['totals'][StageType.Stages], 'inProgressLimits'>
+  : keyof StatusGroup['totals'][StageType.Flagged]
 
 type RowState<T extends StageType = StageType> = {
   stageType: T
@@ -36,18 +37,18 @@ function getIssues(
   group: StatusGroup,
   type: StageType.Flagged,
   key: StageKey<StageType.Flagged>
-): any[]
+): Card[]
 function getIssues(
   group: StatusGroup,
   type: StageType.Stages,
   key: StageKey<StageType.Stages>
-): any[]
+): Card[]
 function getIssues(
   group: StatusGroup,
   type: StageType.Stages | StageType.Flagged,
   key: StageKey<StageType.Stages> | StageKey<StageType.Flagged>
-): any[] {
-  return (group.totals as any)[type][key]
+): Card[] {
+  return type && key ? (group.totals as any)[type][key] : []
 }
 
 /**

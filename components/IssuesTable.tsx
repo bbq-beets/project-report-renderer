@@ -1,21 +1,20 @@
+import {Card} from 'project-reports'
 import {useMemo} from 'react'
 import {CellProps, Column} from 'react-table'
 import CardAssignee, {getAssignee} from './CardAssignee'
 import Table from './Table'
 
-type Issue = any
-
 type Props = {
-  issues: Issue[]
+  issues: Card[]
 }
 
 export default function IssuesTable(props: Props) {
-  const columns = useMemo<Column<Issue>[]>(
+  const columns = useMemo<Column<Card>[]>(
     () => [
       {
         Header: 'Title',
         accessor: 'title',
-        Cell: ({row, cell}: CellProps<Issue, string>) => (
+        Cell: ({row, cell}: CellProps<Card, string>) => (
           <a href={row.original.html_url} className="font-semibold underline">
             {cell.value}
           </a>
@@ -25,7 +24,7 @@ export default function IssuesTable(props: Props) {
         Header: 'Assignee',
         id: 'assignee',
         accessor: cell => getAssignee(cell)?.login,
-        Cell: ({row}: CellProps<Issue, string>) => (
+        Cell: ({row}: CellProps<Card, string>) => (
           <CardAssignee card={row.original} />
         )
       },
@@ -37,7 +36,7 @@ export default function IssuesTable(props: Props) {
             .map((label: any) => label.name)
             .sort()
             .join(','),
-        Cell: ({row}: CellProps<Issue, string>) => (
+        Cell: ({row}: CellProps<Card, string>) => (
           <ul>
             {row.original.labels.map((label: any) => (
               <li

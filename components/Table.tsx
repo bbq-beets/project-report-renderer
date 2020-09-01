@@ -9,6 +9,7 @@ import {
   useSortBy,
   useTable
 } from 'react-table'
+import styles from './Table.module.css'
 
 /* eslint-disable-next-line @typescript-eslint/ban-types */
 type Props<T extends object> = TableOptions<T> & {expanded?: true}
@@ -51,19 +52,13 @@ export default function Table<
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table
-        {...getTableProps()}
-        className="border min-w-full lg:min-w-1/2 bg-white"
-      >
+    <div className={styles.wrapper}>
+      <table {...getTableProps()} className={styles.table}>
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                <th
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="border p-2 select-none"
-                >
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render('Header')}
                   <span>
                     {column.isSorted
@@ -78,7 +73,10 @@ export default function Table<
           ))}
           {preGlobalFilteredRows.length > FILTER_THRESHOLD ? (
             <tr key="filter">
-              <th colSpan={visibleColumns.length} className="text-left p-2">
+              <th
+                colSpan={visibleColumns.length}
+                className={styles.filterHeader}
+              >
                 <GlobalFilter
                   preGlobalFilteredRows={preGlobalFilteredRows}
                   globalFilter={state.globalFilter}
@@ -97,7 +95,7 @@ export default function Table<
               <Fragment key={row.getRowProps().key}>
                 <tr {...row.getRowProps()} className="even:bg-gray-100">
                   {row.cells.map(cell => (
-                    <td {...cell.getCellProps()} className="border p-2">
+                    <td {...cell.getCellProps()} className={styles.tableCell}>
                       {cell.render('Cell')}
                     </td>
                   ))}

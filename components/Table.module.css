@@ -1,0 +1,35 @@
+.wrapper {
+  @apply overflow-x-auto;
+}
+
+.wrapper .wrapper {
+  @apply overflow-y-scroll;
+  max-height: 36rem;
+}
+
+.table {
+  @apply border min-w-full bg-white;
+}
+
+.table th {
+  @apply border p-2 select-none;
+}
+
+.table .tableCell {
+  @apply border p-2;
+}
+
+.table table th:not(.filterHeader) {
+  @apply sticky top-0;
+  @apply bg-white z-50;
+  box-shadow: 0 1px 0 #d1d5da, 0 -1px 0 #d1d5da, 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.table table th.filterHeader {
+  @apply text-left p-2;
+}
+
+@screen lg {
+  @apply min-w-1/2;
+}

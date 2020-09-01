@@ -62,7 +62,12 @@ export default function ProjectLimits(props: Props) {
       <SectionTitle index={props.index} icon="🚢">
         Limits {typeLabel && `(${typeLabel})`}
       </SectionTitle>
-      <Table columns={columns} data={data} />
+
+      {data.length > 0 ? (
+        <Table columns={columns} data={data} />
+      ) : (
+        <p>No limits configured.</p>
+      )}
     </>
   )
 }

@@ -56,7 +56,7 @@ export default function ProjectDone(props: Props) {
       {cards.length ? (
         <Table columns={columns} data={cards} />
       ) : (
-        `No ${props.cardType}s found`
+        `No ${props.cardType}s found.`
       )}
     </>
   )

@@ -66,7 +66,12 @@ export default function ProjectCycleTime(props: Props) {
       <SectionTitle index={props.index} icon="🔄">
         Issue Count and Cycle Time
       </SectionTitle>
-      <Table columns={columns} data={data} />
+
+      {data.length ? (
+        <Table columns={columns} data={data} />
+      ) : (
+        <p>No issues to report on.</p>
+      )}
     </>
   )
 }

@@ -78,7 +78,11 @@ export default function ProjectInProgress(props: Props) {
         Sorted by status and then in progress time descending
       </p>
 
-      <Table columns={columns} data={cards} />
+      {cards.length ? (
+        <Table columns={columns} data={cards} />
+      ) : (
+        <p>No issues to report on.</p>
+      )}
     </>
   )
 }

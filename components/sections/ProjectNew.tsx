@@ -52,7 +52,11 @@ export default function ProjectNew(props: Props) {
         Added in Last {props.daysAgo} Days {typeLabel && `(${typeLabel})`}
       </SectionTitle>
 
-      <Table columns={columns} data={cards} />
+      {cards.length > 0 ? (
+        <Table columns={columns} data={cards} />
+      ) : (
+        <p>No issues to report on.</p>
+      )}
     </>
   )
 }

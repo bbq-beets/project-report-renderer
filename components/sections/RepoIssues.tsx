@@ -46,7 +46,12 @@ export default function RepoIssues(props: Props) {
   return (
     <>
       <SectionTitle index={props.index}>Issues for XXX</SectionTitle>
-      <Table columns={columns} data={data} />
+
+      {data.length > 0 ? (
+        <Table columns={columns} data={data} />
+      ) : (
+        <p>No issues.</p>
+      )}
     </>
   )
 }

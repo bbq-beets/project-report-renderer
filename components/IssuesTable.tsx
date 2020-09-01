@@ -14,6 +14,7 @@ export default function IssuesTable(props: Props) {
       {
         Header: 'Title',
         accessor: 'title',
+        className: 'w-96',
         Cell: ({row, cell}: CellProps<Card, string>) => (
           <a href={row.original.html_url} className="font-semibold underline">
             {cell.value}
@@ -23,6 +24,7 @@ export default function IssuesTable(props: Props) {
       {
         Header: 'Assignee',
         id: 'assignee',
+        className: 'w-64',
         accessor: cell => getAssignee(cell)?.login,
         Cell: ({row}: CellProps<Card, string>) => (
           <CardAssignee card={row.original} />
@@ -59,7 +61,12 @@ export default function IssuesTable(props: Props) {
   )
 
   return (
-    <Table columns={columns} data={props.issues} empty={<p>No issues.</p>} />
+    <Table
+      columns={columns}
+      data={props.issues}
+      empty={<p>No issues.</p>}
+      fixed
+    />
   )
 }
 

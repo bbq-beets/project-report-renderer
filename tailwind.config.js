@@ -128,7 +128,11 @@ module.exports = {
         'sidebar-content': '200px minmax(0, 1fr)'
       },
       width: {
-        '1/2': '50%'
+        '1/2': '50%',
+        '72': '18rem',
+        '80': '20rem',
+        '88': '22rem',
+        '96': '24rem'
       },
       minWidth: {
         '1/4': '25%',

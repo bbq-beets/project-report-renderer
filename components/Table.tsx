@@ -1,3 +1,4 @@
+import classnames from 'classnames'
 import {ComponentType, createElement, Fragment, useState} from 'react'
 import {
   PluginHook,
@@ -51,14 +52,22 @@ export default function Table<
     return props.empty
   }
 
+  const tableClassNames = classnames({
+    [styles.table]: true,
+    [styles.fixed]: props.fixed
+  })
+
   return (
     <div className={styles.wrapper}>
-      <table {...getTableProps()} className={styles.table}>
+      <table {...getTableProps()} className={tableClassNames}>
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                <th
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                  className={(column as any).className}
+                >
                   {column.render('Header')}
                   <span>
                     {column.isSorted
@@ -94,11 +103,18 @@ export default function Table<
             return (
               <Fragment key={row.getRowProps().key}>
                 <tr {...row.getRowProps()} className="even:bg-gray-100">
-                  {row.cells.map(cell => (
-                    <td {...cell.getCellProps()} className={styles.tableCell}>
-                      {cell.render('Cell')}
-                    </td>
-                  ))}
+                  {row.cells.map(cell => {
+                    const cellClassNames = `${classnames({
+                      [styles.tableCell]: true,
+                      [styles.expanded]: row.isExpanded && cell.state?.highlight
+                    })} ${(cell.column as any).cellClassName}`
+
+                    return (
+                      <td {...cell.getCellProps()} className={cellClassNames}>
+                        {cell.render('Cell')}
+                      </td>
+                    )
+                  })}
                 </tr>
 
                 {row.isExpanded && row.original.expandContent ? (

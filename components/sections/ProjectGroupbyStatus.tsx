@@ -4,7 +4,7 @@ import {
   Total
 } from 'project-reports/project-groupby-status'
 import {PropsWithChildren, useMemo} from 'react'
-import {CellProps, Column, Row} from 'react-table'
+import {Cell, CellProps, Column, Row} from 'react-table'
 import DataWithFlag from '../DataWithFlag'
 import IssuesTable from '../IssuesTable'
 import NullData from '../NullData'
@@ -30,6 +30,8 @@ type RowState<T extends StageType = StageType> = {
   stageType: T
   stageKey: StageKey<T>
 }
+
+type CellState = {highlighted?: boolean}
 
 const TOTAL_KEY = 'Total'
 
@@ -66,6 +68,7 @@ export default function ProjectGroupbyStatus(props: Props) {
 
   const toggle = <T extends StageType>(
     row: Row<StatusGroup>,
+    cell: Cell<StatusGroup, number>,
     stageType: T,
     stageKey: StageKey<T>
   ) => {
@@ -73,6 +76,11 @@ export default function ProjectGroupbyStatus(props: Props) {
     const currentStageKey = row.state.stageKey
 
     row.setState((state: RowState) => ({...state, stageType, stageKey}))
+
+    row.allCells.forEach(cell =>
+      cell.setState((state: CellState) => ({...state, highlight: false}))
+    )
+    cell.setState((state: CellState) => ({...state, highlight: true}))
 
     if (
       row.isExpanded &&
@@ -116,8 +124,10 @@ export default function ProjectGroupbyStatus(props: Props) {
   ) => {
     return (
       <span
-        className="cursor-pointer block p-2 -m-2"
-        onClick={() => toggle(props.row, props.stageType, props.stageKey)}
+        className="cursor-pointer block p-2 -m-2 font-semibold underline"
+        onClick={() =>
+          toggle(props.row, props.cell, props.stageType, props.stageKey)
+        }
       >
         {props.children}
       </span>

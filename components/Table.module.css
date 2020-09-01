@@ -3,12 +3,16 @@
 }
 
 .wrapper .wrapper {
-  @apply overflow-y-scroll;
+  @apply overflow-y-scroll overscroll-y-contain;
   max-height: 36rem;
 }
 
 .table {
   @apply border min-w-full bg-white;
+}
+
+.fixed {
+  @apply table-fixed;
 }
 
 .table th {
@@ -17,6 +21,10 @@
 
 .table .tableCell {
   @apply border p-2;
+}
+
+.table .tableCell.expanded {
+  @apply bg-blue-500 text-white;
 }
 
 .table table th:not(.filterHeader) {

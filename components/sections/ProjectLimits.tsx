@@ -68,8 +68,6 @@ export default function ProjectLimits(props: Props) {
     []
   )
 
-  type Issue = StageData['data']['items'][0]
-
   const data = Object.entries(props.data).map<StageData>(([stage, data]) => ({
     stage,
     data,

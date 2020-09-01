@@ -1,6 +1,7 @@
 import {Bug, RepoIssuesData} from 'project-reports/repo-issues'
 import {useMemo} from 'react'
-import {Column, useSortBy} from 'react-table'
+import {CellProps, Column, useSortBy} from 'react-table'
+import IssuesTable from '../IssuesTable'
 import {PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
@@ -23,6 +24,21 @@ export default function RepoIssues(props: Props) {
   const columns: Array<Column<LabelData>> = useMemo(
     () => [
       {
+        id: 'expander',
+        Header: ({getToggleAllRowsExpandedProps, isAllRowsExpanded}) => (
+          <span {...getToggleAllRowsExpandedProps()}>
+            {isAllRowsExpanded ? '👇' : '👉'}
+          </span>
+        ),
+        Cell: ({row}: CellProps<Bug, null>) => (
+          // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
+          // to build the toggle for expanding a row
+          <span {...row.getToggleRowExpandedProps()}>
+            {row.isExpanded ? '👇' : '👉'}
+          </span>
+        )
+      },
+      {
         Header: 'Label',
         accessor: 'label',
         Cell: ({cell: {value}}) => <code>{value}</code>
@@ -38,7 +54,10 @@ export default function RepoIssues(props: Props) {
   const data: LabelData[] = Object.entries(issues).map(
     ([label, data]) => ({
       label,
-      data
+      data,
+      expandContent: () => {
+        return <IssuesTable issues={data} />
+      }
     }),
     useSortBy
   )
@@ -46,7 +65,7 @@ export default function RepoIssues(props: Props) {
   return (
     <>
       <SectionTitle index={props.index}>Issues for XXX</SectionTitle>
-      <Table columns={columns} data={data} empty={<p>No issues.</p>} />
+      <Table columns={columns} data={data} empty={<p>No issues.</p>} expanded />
     </>
   )
 }

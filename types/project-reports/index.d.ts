@@ -10,8 +10,8 @@ declare module 'project-reports' {
     number: number
     title: string
     html_url: string
-    assignee: Assignee
-    assignees: Assignee[]
+    assignee?: Assignee
+    assignees?: Assignee[]
     labels: Label[]
   }
 

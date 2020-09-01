@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {ReactElement, useState} from 'react'
 import {
   Row,
   TableOptions,
@@ -8,7 +8,9 @@ import {
 } from 'react-table'
 
 /* eslint-disable-next-line @typescript-eslint/ban-types */
-type Props<T extends object> = TableOptions<T>
+type Props<T extends object> = TableOptions<T> & {
+  empty?: ReactElement
+}
 
 const FILTER_THRESHOLD = 4
 
@@ -34,6 +36,10 @@ export default function Table<T extends object>(props: Props<T>) {
     state,
     visibleColumns
   } = useTable(props, useGlobalFilter, useSortBy)
+
+  if (props.empty && props.data.length === 0) {
+    return props.empty
+  }
 
   return (
     <div className="overflow-x-auto">

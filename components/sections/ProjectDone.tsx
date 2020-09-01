@@ -53,11 +53,11 @@ export default function ProjectDone(props: Props) {
         Completed in Last {props.daysAgo} Days {typeLabel && `(${typeLabel})`}
       </SectionTitle>
 
-      {cards.length ? (
-        <Table columns={columns} data={cards} />
-      ) : (
-        `No ${props.cardType}s found.`
-      )}
+      <Table
+        columns={columns}
+        data={cards}
+        empty={<p>No {props.cardType}s found.</p>}
+      />
     </>
   )
 }

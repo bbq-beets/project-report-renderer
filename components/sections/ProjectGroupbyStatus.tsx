@@ -155,6 +155,7 @@ export default function ProjectGroupbyStatus(props: Props) {
           />
         </div>
       ))}
+
       <Table columns={columns} data={tableGroups} />
     </>
   )

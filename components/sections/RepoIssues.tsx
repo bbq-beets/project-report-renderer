@@ -35,7 +35,7 @@ export default function RepoIssues(props: Props) {
         Header: 'Count',
         id: 'count',
         accessor: row => row.data.length,
-        cellClassName: (cell: Cell) =>
+        cellClassName: (cell: Cell<LabelData>) =>
           classnames({[tableStyles.expanded]: cell.row.isExpanded}),
         Cell: ({row, cell}: CellProps<LabelData, number>) => (
           <DataWithFlag>

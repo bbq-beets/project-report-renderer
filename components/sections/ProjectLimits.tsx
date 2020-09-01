@@ -38,7 +38,7 @@ export default function ProjectLimits(props: Props) {
         Header: 'Count',
         id: 'count',
         accessor: cell => cell.data.items.length,
-        cellClassName: (cell: Cell) =>
+        cellClassName: (cell: Cell<StageData>) =>
           classnames({[tableStyles.expanded]: cell.row.isExpanded}),
         Cell: ({row, cell}: CellProps<StageData, number>) => (
           <DataWithFlag flag={row.original.data.flag}>

@@ -76,6 +76,7 @@ declare module 'react-table' {
     D extends Record<string, unknown> = Record<string, unknown>
   >
     extends UseFiltersColumnOptions<D>,
+      UseClassNameOptions<D>,
       UseGlobalFiltersColumnOptions<D>,
       // UseGroupByColumnOptions<D>,
       // UseResizeColumnsColumnOptions<D>,

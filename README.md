@@ -25,7 +25,7 @@ directory), you can install this project's npm dependencies and run it:
 
 ```shell
 > npm install
-> npx next
+> npm run dev
 ```
 
 The site will be served from a prefix, so navigate to

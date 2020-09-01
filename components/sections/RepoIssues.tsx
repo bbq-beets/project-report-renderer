@@ -1,10 +1,13 @@
+import classnames from 'classnames'
 import {Bug, RepoIssuesData} from 'project-reports/repo-issues'
 import {useMemo} from 'react'
-import {CellProps, Column, useSortBy} from 'react-table'
+import {Cell, CellProps, Column, useSortBy} from 'react-table'
+import DataWithFlag from '../DataWithFlag'
 import IssuesTable from '../IssuesTable'
 import {PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
+import tableStyles from '../Table.module.css'
 
 type Props = PropsWithIndex<RepoIssuesData>
 type LabelData = {label: string; data: Bug[]}
@@ -24,28 +27,28 @@ export default function RepoIssues(props: Props) {
   const columns: Array<Column<LabelData>> = useMemo(
     () => [
       {
-        id: 'expander',
-        Header: ({getToggleAllRowsExpandedProps, isAllRowsExpanded}) => (
-          <span {...getToggleAllRowsExpandedProps()}>
-            {isAllRowsExpanded ? '👇' : '👉'}
-          </span>
-        ),
-        Cell: ({row}: CellProps<Bug, null>) => (
-          // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
-          // to build the toggle for expanding a row
-          <span {...row.getToggleRowExpandedProps()}>
-            {row.isExpanded ? '👇' : '👉'}
-          </span>
-        )
-      },
-      {
         Header: 'Label',
         accessor: 'label',
         Cell: ({cell: {value}}) => <code>{value}</code>
       },
       {
         Header: 'Count',
-        accessor: row => row.data.length
+        id: 'count',
+        accessor: row => row.data.length,
+        cellClassName: (cell: Cell) =>
+          classnames({[tableStyles.expanded]: cell.row.isExpanded}),
+        Cell: ({row, cell}: CellProps<LabelData, number>) => (
+          <DataWithFlag>
+            {cell.value ? (
+              <span
+                onClick={() => row.toggleRowExpanded()}
+                className={tableStyles.expander}
+              >
+                {cell.value}
+              </span>
+            ) : null}
+          </DataWithFlag>
+        )
       }
     ],
     []
@@ -65,7 +68,7 @@ export default function RepoIssues(props: Props) {
   return (
     <>
       <SectionTitle index={props.index}>Issues for XXX</SectionTitle>
-      <Table columns={columns} data={data} empty={<p>No issues.</p>} expanded />
+      <Table columns={columns} data={data} empty={<p>No issues.</p>} />
     </>
   )
 }

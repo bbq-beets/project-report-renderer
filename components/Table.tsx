@@ -13,7 +13,7 @@ import {
 import styles from './Table.module.css'
 
 /* eslint-disable-next-line @typescript-eslint/ban-types */
-type Props<T extends object> = TableOptions<T> & {expanded?: true}
+type Props<T extends object> = TableOptions<T>
 
 const FILTER_THRESHOLD = 4
 
@@ -30,11 +30,12 @@ export default function Table<
   /* eslint-disable-next-line @typescript-eslint/ban-types */
   T extends {[key: string]: any; expandContent?: ComponentType<{row: Row<T>}>}
 >(props: Props<T>) {
-  const plugins: PluginHook<T>[] = [useRowState, useGlobalFilter, useSortBy]
-
-  if (props.expanded) {
-    plugins.push(useExpanded)
-  }
+  const plugins: PluginHook<T>[] = [
+    useRowState,
+    useGlobalFilter,
+    useSortBy,
+    useExpanded
+  ]
 
   const {
     getTableBodyProps,
@@ -66,7 +67,13 @@ export default function Table<
               {headerGroup.headers.map(column => (
                 <th
                   {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className={(column as any).className}
+                  className={
+                    column.className
+                      ? typeof column.className === 'string'
+                        ? column.className
+                        : column.className(column)
+                      : ''
+                  }
                 >
                   {column.render('Header')}
                   <span>
@@ -107,7 +114,13 @@ export default function Table<
                     const cellClassNames = `${classnames({
                       [styles.tableCell]: true,
                       [styles.expanded]: row.isExpanded && cell.state?.highlight
-                    })} ${(cell.column as any).cellClassName}`
+                    })} ${
+                      cell.column.cellClassName
+                        ? typeof cell.column.cellClassName === 'string'
+                          ? cell.column.cellClassName
+                          : cell.column.cellClassName(cell)
+                        : ''
+                    }`
 
                     return (
                       <td {...cell.getCellProps()} className={cellClassNames}>

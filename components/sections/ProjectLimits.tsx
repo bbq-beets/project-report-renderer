@@ -1,3 +1,4 @@
+import classnames from 'classnames'
 import {
   Accepted,
   Done,
@@ -6,13 +7,14 @@ import {
   Proposed
 } from 'project-reports/project-limits'
 import {useMemo} from 'react'
-import {CellProps, Column} from 'react-table'
+import {Cell, CellProps, Column} from 'react-table'
 import DataWithFlag from '../DataWithFlag'
 import IssuesTable from '../IssuesTable'
 import NullData from '../NullData'
 import {PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
+import tableStyles from '../Table.module.css'
 
 type Props = PropsWithIndex<ProjectLimitsData>
 type Stage = Proposed | Accepted | InProgress | Done
@@ -29,21 +31,6 @@ export default function ProjectLimits(props: Props) {
   const columns = useMemo<Column<StageData>[]>(
     () => [
       {
-        id: 'expander',
-        Header: ({getToggleAllRowsExpandedProps, isAllRowsExpanded}) => (
-          <span {...getToggleAllRowsExpandedProps()}>
-            {isAllRowsExpanded ? '👇' : '👉'}
-          </span>
-        ),
-        Cell: ({row}: CellProps<StageData, null>) => (
-          // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
-          // to build the toggle for expanding a row
-          <span {...row.getToggleRowExpandedProps()}>
-            {row.isExpanded ? '👇' : '👉'}
-          </span>
-        )
-      },
-      {
         Header: 'Stage',
         accessor: 'stage'
       },
@@ -51,9 +38,18 @@ export default function ProjectLimits(props: Props) {
         Header: 'Count',
         id: 'count',
         accessor: cell => cell.data.items.length,
+        cellClassName: (cell: Cell) =>
+          classnames({[tableStyles.expanded]: cell.row.isExpanded}),
         Cell: ({row, cell}: CellProps<StageData, number>) => (
           <DataWithFlag flag={row.original.data.flag}>
-            {cell.value}
+            {cell.value ? (
+              <span
+                onClick={() => row.toggleRowExpanded()}
+                className={tableStyles.expander}
+              >
+                {cell.value}
+              </span>
+            ) : null}
           </DataWithFlag>
         )
       },
@@ -86,7 +82,6 @@ export default function ProjectLimits(props: Props) {
         columns={columns}
         data={data}
         empty={<p>No limits configured.</p>}
-        expanded
       />
     </>
   )

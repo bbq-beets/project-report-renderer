@@ -11,6 +11,12 @@
   @apply border min-w-full bg-white;
 }
 
+@screen lg {
+  .table {
+    @apply min-w-1/2;
+  }
+}
+
 .fixed {
   @apply table-fixed;
 }
@@ -27,6 +33,10 @@
   @apply bg-blue-500 text-white;
 }
 
+.table .expander {
+  @apply cursor-pointer block p-2 -m-2 font-semibold underline;
+}
+
 .table table th:not(.filterHeader) {
   @apply sticky top-0;
   @apply bg-white z-50;
@@ -36,8 +46,4 @@
 
 .table table th.filterHeader {
   @apply text-left p-2;
-}
-
-@screen lg {
-  @apply min-w-1/2;
 }

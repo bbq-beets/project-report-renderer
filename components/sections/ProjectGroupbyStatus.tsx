@@ -12,6 +12,7 @@ import ReportCard from '../ReportCard'
 import {PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
+import tableStyles from '../Table.module.css'
 
 type Props = PropsWithIndex<ProjectGroupbyStatusData>
 
@@ -124,7 +125,7 @@ export default function ProjectGroupbyStatus(props: Props) {
   ) => {
     return (
       <span
-        className="cursor-pointer block p-2 -m-2 font-semibold underline"
+        className={tableStyles.expander}
         onClick={() =>
           toggle(props.row, props.cell, props.stageType, props.stageKey)
         }
@@ -276,7 +277,7 @@ export default function ProjectGroupbyStatus(props: Props) {
         Project Execution
       </SectionTitle>
 
-      {groups.map(group => (
+      {[totals, ...groups].map(group => (
         <div className="block lg:flex items-start mb-8" key={group.key}>
           <h1 className="w-56 mb-2 text-xl font-semibold mr-2">{group.key}</h1>
 
@@ -305,7 +306,7 @@ export default function ProjectGroupbyStatus(props: Props) {
         </div>
       ))}
 
-      <Table columns={columns} data={tableGroups} expanded />
+      <Table columns={columns} data={tableGroups} />
     </>
   )
 }

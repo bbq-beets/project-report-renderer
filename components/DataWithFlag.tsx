@@ -2,7 +2,7 @@ import {PropsWithChildren} from 'react'
 import NullData from './NullData'
 
 type Props<T> = PropsWithChildren<{
-  flag: boolean
+  flag?: boolean
 }>
 
 /**

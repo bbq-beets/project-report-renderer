@@ -2,9 +2,10 @@ import {
   ProjectGroupbyStatusData,
   Total
 } from 'project-reports/project-groupby-status'
-import {useMemo} from 'react'
-import {CellProps, Column} from 'react-table'
+import {PropsWithChildren, useMemo} from 'react'
+import {CellProps, Column, Row} from 'react-table'
 import DataWithFlag from '../DataWithFlag'
+import IssuesTable from '../IssuesTable'
 import NullData from '../NullData'
 import ReportCard from '../ReportCard'
 import {PropsWithIndex} from '../ReportSection'
@@ -14,7 +15,40 @@ import Table from '../Table'
 type Props = PropsWithIndex<ProjectGroupbyStatusData>
 type StatusGroup = {key: string; totals: Total}
 
+enum StageType {
+  Flagged = 'flagged',
+  Stages = 'stages'
+}
+
+type StageKey<T extends StageType = StageType> = keyof Omit<
+  StatusGroup['totals'][T],
+  'inProgressLimits'
+>
+
+type RowState<T extends StageType = StageType> = {
+  stageType: T
+  stageKey: StageKey<T>
+}
+
 const TOTAL_KEY = 'Total'
+
+function getIssues(
+  group: StatusGroup,
+  type: StageType.Flagged,
+  key: StageKey<StageType.Flagged>
+): any[]
+function getIssues(
+  group: StatusGroup,
+  type: StageType.Stages,
+  key: StageKey<StageType.Stages>
+): any[]
+function getIssues(
+  group: StatusGroup,
+  type: StageType.Stages | StageType.Flagged,
+  key: StageKey<StageType.Stages> | StageKey<StageType.Flagged>
+): any[] {
+  return (group.totals as any)[type][key]
+}
 
 /**
  * Display projects grouped by status as a "report card" style view.
@@ -29,14 +63,65 @@ export default function ProjectGroupbyStatus(props: Props) {
     })
   )
 
+  const toggle = <T extends StageType>(
+    row: Row<StatusGroup>,
+    stageType: T,
+    stageKey: StageKey<T>
+  ) => {
+    const currentStageType = row.state.stageType
+    const currentStageKey = row.state.stageKey
+
+    row.setState((state: RowState) => ({...state, stageType, stageKey}))
+
+    if (
+      row.isExpanded &&
+      (currentStageType !== stageType || currentStageKey !== stageKey)
+    ) {
+      return
+    }
+
+    row.toggleRowExpanded()
+  }
+
   const totals = {
     key: TOTAL_KEY,
     totals: props.total
   }
 
-  const tableGroups = [...groups, totals]
+  const tableGroups: StatusGroup[] = [...groups, totals].map(group => {
+    return {
+      ...group,
+      expandContent: (props: {row: Row<StatusGroup>}) => {
+        const rowState = props.row.state as RowState<StageType.Stages>
+
+        return (
+          <IssuesTable
+            issues={getIssues(group, rowState.stageType, rowState.stageKey)}
+          />
+        )
+      }
+    }
+  })
 
   // TODO: What do yellow/red hearts actually mean?
+
+  const RowExpander = <T extends StageType>(
+    props: PropsWithChildren<
+      CellProps<StatusGroup, number> & {
+        stageType: T
+        stageKey: StageKey<T>
+      }
+    >
+  ) => {
+    return (
+      <span
+        className="cursor-pointer block p-2 -m-2"
+        onClick={() => toggle(props.row, props.stageType, props.stageKey)}
+      >
+        {props.children}
+      </span>
+    )
+  }
 
   const columns = useMemo<Column<StatusGroup>[]>(
     () => [
@@ -66,57 +151,110 @@ export default function ProjectGroupbyStatus(props: Props) {
       {
         Header: 'Accepted',
         id: 'accepted',
-        accessor: row => row.totals.stages.accepted.length
+        accessor: row => row.totals.stages.accepted.length,
+        Cell: (props: CellProps<StatusGroup, number>) => (
+          <RowExpander
+            {...props}
+            stageType={StageType.Stages}
+            stageKey="accepted"
+          >
+            {props.cell.value}
+          </RowExpander>
+        )
       },
       {
         Header: 'In Progress',
         id: 'inProgress',
         accessor: row => row.totals.stages.inProgress.length,
-        Cell: ({row, cell}: CellProps<StatusGroup, number | null>) => (
-          <DataWithFlag flag={row.original.totals.stages.inProgressLimits.flag}>
-            {cell.value}
-          </DataWithFlag>
+        Cell: (props: CellProps<StatusGroup, number>) => (
+          <RowExpander
+            {...props}
+            stageType={StageType.Stages}
+            stageKey="inProgress"
+          >
+            <DataWithFlag
+              flag={props.row.original.totals.stages.inProgressLimits.flag}
+            >
+              {props.cell.value}
+            </DataWithFlag>
+          </RowExpander>
         )
       },
       {
         Header: 'Done',
         id: 'done',
-        accessor: row => row.totals.stages.done.length
+        accessor: row => row.totals.stages.done.length,
+        Cell: (props: CellProps<StatusGroup, number>) => (
+          <RowExpander {...props} stageType={StageType.Stages} stageKey="done">
+            {props.cell.value}
+          </RowExpander>
+        )
       },
       {
         Header: '💛',
         id: 'yellow',
         accessor: row => row.totals.flagged.yellow.length,
-        Cell: ({cell}: CellProps<StatusGroup, number | null>) =>
-          cell.value ?? <NullData />
+        Cell: (props: CellProps<StatusGroup, number>) => (
+          <RowExpander
+            {...props}
+            stageType={StageType.Flagged}
+            stageKey="yellow"
+          >
+            {props.cell.value ?? <NullData />}
+          </RowExpander>
+        )
       },
       {
         Header: '❤️',
         id: 'red',
         accessor: row => row.totals.flagged.red.length,
-        Cell: ({cell}: CellProps<StatusGroup, number | null>) =>
-          cell.value ?? <NullData />
+        Cell: (props: CellProps<StatusGroup, number>) => (
+          <RowExpander {...props} stageType={StageType.Flagged} stageKey="red">
+            {props.cell.value ?? <NullData />}
+          </RowExpander>
+        )
       },
       {
         Header: 'Active > 3 wks',
         id: 'activeGt3Wk',
         accessor: row => row.totals.flagged.inProgressDuration.length,
-        Cell: ({cell}: CellProps<StatusGroup, number | null>) =>
-          cell.value ?? <NullData />
+        Cell: (props: CellProps<StatusGroup, number>) => (
+          <RowExpander
+            {...props}
+            stageType={StageType.Flagged}
+            stageKey="inProgressDuration"
+          >
+            {props.cell.value ?? <NullData />}
+          </RowExpander>
+        )
       },
       {
         Header: 'No Target Date',
         id: 'noTarget',
         accessor: row => row.totals.flagged.noTarget.length,
-        Cell: ({cell}: CellProps<StatusGroup, number | null>) =>
-          cell.value ?? <NullData />
+        Cell: (props: CellProps<StatusGroup, number>) => (
+          <RowExpander
+            {...props}
+            stageType={StageType.Flagged}
+            stageKey="noTarget"
+          >
+            {props.cell.value ?? <NullData />}
+          </RowExpander>
+        )
       },
       {
         Header: 'Past Target Date',
         id: 'pastTarget',
         accessor: row => row.totals.flagged.pastTarget.length,
-        Cell: ({cell}: CellProps<StatusGroup, number | null>) =>
-          cell.value ?? <NullData />
+        Cell: (props: CellProps<StatusGroup, number>) => (
+          <RowExpander
+            {...props}
+            stageType={StageType.Flagged}
+            stageKey="pastTarget"
+          >
+            {props.cell.value ?? <NullData />}
+          </RowExpander>
+        )
       }
     ],
     []
@@ -156,7 +294,7 @@ export default function ProjectGroupbyStatus(props: Props) {
         </div>
       ))}
 
-      <Table columns={columns} data={tableGroups} />
+      <Table columns={columns} data={tableGroups} expanded />
     </>
   )
 }

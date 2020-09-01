@@ -5,6 +5,7 @@ import {
   TableOptions,
   useExpanded,
   useGlobalFilter,
+  useRowState,
   useSortBy,
   useTable
 } from 'react-table'
@@ -25,9 +26,9 @@ const FILTER_THRESHOLD = 4
  */
 export default function Table<
   /* eslint-disable-next-line @typescript-eslint/ban-types */
-  T extends {[key: string]: any; expandContent?: ComponentType}
+  T extends {[key: string]: any; expandContent?: ComponentType<{row: Row<T>}>}
 >(props: Props<T>) {
-  const plugins: PluginHook<T>[] = [useGlobalFilter, useSortBy]
+  const plugins: PluginHook<T>[] = [useRowState, useGlobalFilter, useSortBy]
 
   if (props.expanded) {
     plugins.push(useExpanded)
@@ -108,7 +109,7 @@ export default function Table<
                       colSpan={visibleColumns.length}
                       className="p-4 bg-gray-200 shadow-inner"
                     >
-                      {createElement(row.original.expandContent)}
+                      {createElement(row.original.expandContent, {row})}
                     </td>
                   </tr>
                 ) : null}

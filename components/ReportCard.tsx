@@ -29,8 +29,6 @@ type Props = Stats & {totals: Stats}
 export default function ReportCard(props: Props) {
   const [activeExpand, setActiveExpand] = useState<keyof Stats | null>(null)
 
-  console.log(activeExpand)
-
   const Square = useCallback(
     (props: {
       title: string

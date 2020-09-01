@@ -1,16 +1,16 @@
-import {ReactElement, useState} from 'react'
+import {ComponentType, createElement, Fragment, useState} from 'react'
 import {
+  PluginHook,
   Row,
   TableOptions,
+  useExpanded,
   useGlobalFilter,
   useSortBy,
   useTable
 } from 'react-table'
 
 /* eslint-disable-next-line @typescript-eslint/ban-types */
-type Props<T extends object> = TableOptions<T> & {
-  empty?: ReactElement
-}
+type Props<T extends object> = TableOptions<T> & {expanded?: true}
 
 const FILTER_THRESHOLD = 4
 
@@ -23,8 +23,16 @@ const FILTER_THRESHOLD = 4
  *
  * @param props
  */
-/* eslint-disable-next-line @typescript-eslint/ban-types */
-export default function Table<T extends object>(props: Props<T>) {
+export default function Table<
+  /* eslint-disable-next-line @typescript-eslint/ban-types */
+  T extends {[key: string]: any; expandContent?: ComponentType}
+>(props: Props<T>) {
+  const plugins: PluginHook<T>[] = [useGlobalFilter, useSortBy]
+
+  if (props.expanded) {
+    plugins.push(useExpanded)
+  }
+
   const {
     getTableBodyProps,
     getTableProps,
@@ -35,7 +43,7 @@ export default function Table<T extends object>(props: Props<T>) {
     setGlobalFilter,
     state,
     visibleColumns
-  } = useTable(props, useGlobalFilter, useSortBy)
+  } = useTable({...props, autoResetExpanded: false}, ...plugins)
 
   if (props.empty && props.data.length === 0) {
     return props.empty
@@ -43,7 +51,10 @@ export default function Table<T extends object>(props: Props<T>) {
 
   return (
     <div className="overflow-x-auto">
-      <table {...getTableProps()} className="border min-w-full lg:min-w-1/2">
+      <table
+        {...getTableProps()}
+        className="border min-w-full lg:min-w-1/2 bg-white"
+      >
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -82,13 +93,26 @@ export default function Table<T extends object>(props: Props<T>) {
             prepareRow(row)
 
             return (
-              <tr {...row.getRowProps()} className="even:bg-gray-100">
-                {row.cells.map(cell => (
-                  <td {...cell.getCellProps()} className="border p-2">
-                    {cell.render('Cell')}
-                  </td>
-                ))}
-              </tr>
+              <Fragment key={row.getRowProps().key}>
+                <tr {...row.getRowProps()} className="even:bg-gray-100">
+                  {row.cells.map(cell => (
+                    <td {...cell.getCellProps()} className="border p-2">
+                      {cell.render('Cell')}
+                    </td>
+                  ))}
+                </tr>
+
+                {row.isExpanded && row.original.expandContent ? (
+                  <tr>
+                    <td
+                      colSpan={visibleColumns.length}
+                      className="p-4 bg-gray-200 shadow-inner"
+                    >
+                      {createElement(row.original.expandContent)}
+                    </td>
+                  </tr>
+                ) : null}
+              </Fragment>
             )
           })}
         </tbody>

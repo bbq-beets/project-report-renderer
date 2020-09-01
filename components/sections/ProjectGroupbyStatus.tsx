@@ -282,25 +282,25 @@ export default function ProjectGroupbyStatus(props: Props) {
           <h1 className="w-56 mb-2 text-xl font-semibold mr-2">{group.key}</h1>
 
           <ReportCard
-            proposed={group.totals.stages.proposed.length}
-            accepted={group.totals.stages.accepted.length}
-            inProgress={group.totals.stages.inProgress.length}
-            done={group.totals.stages.done.length}
-            warn={group.totals.flagged.yellow.length}
-            alert={group.totals.flagged.red.length}
-            activeGt3Wk={group.totals.flagged.inProgressDuration.length}
-            noTarget={group.totals.flagged.noTarget.length}
-            pastTarget={group.totals.flagged.pastTarget.length}
+            proposed={group.totals.stages.proposed}
+            accepted={group.totals.stages.accepted}
+            inProgress={group.totals.stages.inProgress}
+            done={group.totals.stages.done}
+            warn={group.totals.flagged.yellow}
+            alert={group.totals.flagged.red}
+            activeGt3Wk={group.totals.flagged.inProgressDuration}
+            noTarget={group.totals.flagged.noTarget}
+            pastTarget={group.totals.flagged.pastTarget}
             totals={{
-              proposed: totals.totals.stages.proposed.length,
-              accepted: totals.totals.stages.accepted.length,
-              inProgress: totals.totals.stages.inProgress.length,
-              done: totals.totals.stages.done.length,
-              warn: totals.totals.flagged.yellow.length,
-              alert: totals.totals.flagged.red.length,
-              activeGt3Wk: totals.totals.flagged.inProgressDuration.length,
-              noTarget: totals.totals.flagged.noTarget.length,
-              pastTarget: totals.totals.flagged.pastTarget.length
+              proposed: totals.totals.stages.proposed,
+              accepted: totals.totals.stages.accepted,
+              inProgress: totals.totals.stages.inProgress,
+              done: totals.totals.stages.done,
+              warn: totals.totals.flagged.yellow,
+              alert: totals.totals.flagged.red,
+              activeGt3Wk: totals.totals.flagged.inProgressDuration,
+              noTarget: totals.totals.flagged.noTarget,
+              pastTarget: totals.totals.flagged.pastTarget
             }}
           />
         </div>

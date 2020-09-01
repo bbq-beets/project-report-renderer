@@ -16,8 +16,10 @@
 .square {
   @apply h-40;
   @apply flex flex-col justify-between;
+  @apply border-4 border-green;
   @apply bg-green;
   @apply text-white;
+  @apply cursor-pointer;
 }
 
 .squareGroup {
@@ -26,15 +28,21 @@
 }
 
 .warn {
+  @apply border-yellow;
   @apply bg-yellow text-black;
 }
 
 .alert {
+  @apply border-red;
   @apply bg-red;
 }
 
 .halfSize {
   @apply h-auto;
+}
+
+.active {
+  @apply border-black;
 }
 
 .title {

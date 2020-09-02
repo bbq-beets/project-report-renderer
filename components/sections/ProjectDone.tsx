@@ -15,8 +15,8 @@ type Props = PropsWithIndex<ProjectDoneData>
  * @param props
  */
 export default function ProjectDone(props: Props) {
-  const cards = props.cards
-  const typeLabel = props.cardType === '*' ? '' : props.cardType
+  const cards = props.output.cards
+  const typeLabel = props.output.cardType === '*' ? '' : props.output.cardType
 
   const columns = useMemo<Column<Card>[]>(
     () => [
@@ -50,13 +50,14 @@ export default function ProjectDone(props: Props) {
   return (
     <>
       <SectionTitle index={props.index} icon="🏁">
-        Completed in Last {props.daysAgo} Days {typeLabel && `(${typeLabel})`}
+        Completed in Last {props.output.daysAgo} Days{' '}
+        {typeLabel && `(${typeLabel})`}
       </SectionTitle>
 
       <Table
         columns={columns}
         data={cards}
-        empty={<p>No {props.cardType}s found.</p>}
+        empty={<p>No {props.output.cardType}s found.</p>}
       />
     </>
   )

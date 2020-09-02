@@ -22,7 +22,7 @@ export default function RepoIssues(props: Props) {
   // TODO: We need the repository information in the output used in https://github.com/bryanmacfarlane/project-reports-action/blob/1a1451ac97f5624e4f534d4b95a7ae1f3e202047/reports/repo-issues.ts#L71-L72
   // TODO: Implement drill-downs
 
-  const issues = props.issues
+  const issues = props.output.issues
 
   const columns: Array<Column<LabelData>> = useMemo(
     () => [

@@ -15,8 +15,9 @@ type Props = PropsWithIndex<ProjectNewData>
  * @param props
  */
 export default function ProjectNew(props: Props) {
-  const cards = props.cards
-  const typeLabel = props.cardType === '*' ? '' : `${props.cardType}`
+  const cards = props.output.cards
+  const typeLabel =
+    props.output.cardType === '*' ? '' : `${props.output.cardType}`
 
   const columns = useMemo<Column<Card>[]>(
     () => [
@@ -49,7 +50,8 @@ export default function ProjectNew(props: Props) {
   return (
     <>
       <SectionTitle index={props.index} icon="👋">
-        Added in Last {props.daysAgo} Days {typeLabel && `(${typeLabel})`}
+        Added in Last {props.output.daysAgo} Days{' '}
+        {typeLabel && `(${typeLabel})`}
       </SectionTitle>
 
       <Table

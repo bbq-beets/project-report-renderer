@@ -60,7 +60,7 @@ function getIssues(
  * @param props
  */
 export default function ProjectGroupbyStatus(props: Props) {
-  const groups: StatusGroup[] = Object.entries(props.groups).map(
+  const groups: StatusGroup[] = Object.entries(props.output.groups).map(
     ([key, group]) => ({
       key,
       totals: group
@@ -95,7 +95,7 @@ export default function ProjectGroupbyStatus(props: Props) {
 
   const totals = {
     key: TOTAL_KEY,
-    totals: props.total
+    totals: props.output.total
   }
 
   const tableGroups: StatusGroup[] = [...groups, totals].map(group => {

@@ -26,7 +26,7 @@ type StageData = {stage: string; data: Stage}
  * @param props
  */
 export default function ProjectLimits(props: Props) {
-  const typeLabel = props.cardType === '*' ? '' : props.cardType
+  const typeLabel = props.output.cardType === '*' ? '' : props.output.cardType
 
   const columns = useMemo<Column<StageData>[]>(
     () => [
@@ -64,13 +64,15 @@ export default function ProjectLimits(props: Props) {
     []
   )
 
-  const data = Object.entries(props.data).map<StageData>(([stage, data]) => ({
-    stage,
-    data,
-    expandContent: () => {
-      return <IssuesTable issues={data.items} />
-    }
-  }))
+  const data = Object.entries(props.output.data).map<StageData>(
+    ([stage, data]) => ({
+      stage,
+      data,
+      expandContent: () => {
+        return <IssuesTable issues={data.items} />
+      }
+    })
+  )
 
   return (
     <>

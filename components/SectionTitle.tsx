@@ -1,9 +1,11 @@
 import {useRouter} from 'next/dist/client/router'
 import Link from 'next/link'
 import {PropsWithChildren} from 'react'
-import {PropsWithIndex} from './ReportSection'
 
-type Props = PropsWithChildren<PropsWithIndex<{icon?: string}>>
+type Props = PropsWithChildren<{
+  index: number
+  icon?: string
+}>
 
 /**
  * Renders a section title.

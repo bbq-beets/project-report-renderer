@@ -17,7 +17,7 @@ type Props = PropsWithIndex<ProjectInProgressData>
  * @param props
  */
 export default function ProjectInProgress(props: Props) {
-  const cards = props.cards
+  const cards = props.output.cards
 
   const columns = useMemo<Column<Card>[]>(
     () => [
@@ -71,7 +71,7 @@ export default function ProjectInProgress(props: Props) {
   return (
     <>
       <SectionTitle index={props.index} icon="⏳">
-        In Progress ({props.cardType})
+        In Progress ({props.output.cardType})
       </SectionTitle>
 
       <p className="subtitle">

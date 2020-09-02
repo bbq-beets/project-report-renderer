@@ -20,8 +20,9 @@ export type PropsWithTitle<T> = {
   TitleComponent: ComponentType<PropsWithChildren<unknown>>
 }
 
-export type PropsWithIndex<T> = T & {
+export type PropsWithIndex<T> = {
   index: number
+  output: T
 }
 
 /**
@@ -63,7 +64,7 @@ export default function ReportSectionComponent(props: Props) {
 
   return (
     <div className="mb-8">
-      <SectionComponent index={props.index} {...(props.data.output as any)} />
+      <SectionComponent index={props.index} output={props.data.output as any} />
     </div>
   )
 }

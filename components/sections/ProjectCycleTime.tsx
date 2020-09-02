@@ -21,7 +21,7 @@ type Props = PropsWithIndex<ProjectCycleTimeData>
  * @param props
  */
 export default function ProjectCycleTime(props: Props) {
-  const chartData = Object.entries(props)
+  const chartData = Object.entries(props.output)
     .sort(([aKey], [bKey]) => (aKey > bKey ? -1 : 1))
     .filter(([key]) => key !== 'index') // Omit the "index" prop
     .map(([date, output]) => ({

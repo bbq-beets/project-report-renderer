@@ -23,7 +23,6 @@ type Props = PropsWithIndex<ProjectCycleTimeData>
 export default function ProjectCycleTime(props: Props) {
   const chartData = Object.entries(props.output)
     .sort(([aKey], [bKey]) => (aKey > bKey ? -1 : 1))
-    .filter(([key]) => key !== 'index') // Omit the "index" prop
     .map(([date, output]) => ({
       date: new Date(date).toLocaleDateString(),
       'Average Cycle Time': round(output.averageCycleTime),

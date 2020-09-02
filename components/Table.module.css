@@ -25,6 +25,13 @@
   @apply border p-2 select-none;
 }
 
+.table td {
+  hyphens: auto;
+  /* Both of these are required to prevent overflow of very long words. */
+  @apply break-words;
+  word-break: break-word;
+}
+
 .table .tableCell {
   @apply border p-2;
 }

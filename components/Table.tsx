@@ -180,6 +180,8 @@ function GlobalFilter({
       <span>Filter:</span>
       <input
         type="text"
+        autoCapitalize="off"
+        autoCorrect="off"
         value={value || ''}
         onChange={e => {
           setValue(e.target.value)

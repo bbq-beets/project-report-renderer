@@ -2,6 +2,7 @@ declare module 'project-reports/repo-issues' {
   export interface RepoIssuesData {
     identifier: number
     issues: Issues
+    repositories: string[]
   }
 
   // export type Issues

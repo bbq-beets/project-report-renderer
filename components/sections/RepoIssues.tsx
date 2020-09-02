@@ -65,9 +65,18 @@ export default function RepoIssues(props: Props) {
     useSortBy
   )
 
+  const repoIssues = props.output.repositories.map((nwo, i, nwos) => (
+    <>
+      <a key={nwo} href={`https://github.com/${nwo}`} className="text-blue-400">
+        {nwo}
+      </a>
+      {i < nwos.length - 1 ? ', ' : ''}
+    </>
+  ))
+
   return (
     <>
-      <SectionTitle index={props.index}>Issues for XXX</SectionTitle>
+      <SectionTitle index={props.index}>Issues for {repoIssues}</SectionTitle>
       <Table columns={columns} data={data} empty={<p>No issues.</p>} />
     </>
   )

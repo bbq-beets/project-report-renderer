@@ -2,6 +2,7 @@
   "type": "repo-issues",
   "output": {
     "identifier": 1598539011.609,
+    "repositories": ["foo/bar", "baz/qux"],
     "issues": {
       "bug": [],
       "security": [

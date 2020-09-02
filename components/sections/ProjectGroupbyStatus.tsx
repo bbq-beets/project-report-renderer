@@ -285,6 +285,7 @@ export default function ProjectGroupbyStatus(props: Props) {
             proposed={group.totals.stages.proposed}
             accepted={group.totals.stages.accepted}
             inProgress={group.totals.stages.inProgress}
+            inProgressFlag={group.totals.stages.inProgressLimits.flag}
             done={group.totals.stages.done}
             warn={group.totals.flagged.yellow}
             alert={group.totals.flagged.red}

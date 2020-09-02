@@ -16,7 +16,7 @@ type Stats = {
   pastTarget: Card[]
 }
 
-type Props = Stats & {totals: Stats}
+type Props = Stats & {totals: Stats; inProgressFlag: boolean}
 
 /**
  * Render a "report card"-style view of values grouped by status.

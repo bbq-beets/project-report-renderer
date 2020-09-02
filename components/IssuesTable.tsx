@@ -66,6 +66,7 @@ export default function IssuesTable(props: Props) {
       data={props.issues}
       empty={<p>No issues.</p>}
       fixed
+      constrainHeight
     />
   )
 }

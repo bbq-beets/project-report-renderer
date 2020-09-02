@@ -1,10 +1,9 @@
 import classnames from 'classnames'
 import {Card} from 'project-reports'
-import {useCallback, useState} from 'react'
-import IssuesTable from './IssuesTable'
+import {useCallback} from 'react'
 import styles from './ReportCard.module.css'
 
-type Stats = {
+export type Stats = {
   proposed: Card[]
   accepted: Card[]
   inProgress: Card[]
@@ -16,7 +15,12 @@ type Stats = {
   pastTarget: Card[]
 }
 
-type Props = Stats & {totals: Stats; inProgressFlag: boolean}
+type Props = Stats & {
+  totals: Stats
+  inProgressFlag: boolean
+  activeExpand: keyof Stats | null
+  setExpand: (key: keyof Stats) => void
+}
 
 /**
  * Render a "report card"-style view of values grouped by status.
@@ -27,7 +31,7 @@ type Props = Stats & {totals: Stats; inProgressFlag: boolean}
  * @param props
  */
 export default function ReportCard(props: Props) {
-  const [activeExpand, setActiveExpand] = useState<keyof Stats | null>(null)
+  const {activeExpand, setExpand} = props
 
   const Square = useCallback(
     (props: {
@@ -42,14 +46,6 @@ export default function ReportCard(props: Props) {
       height?: string | null
       halfSize?: boolean
     }) => {
-      const setExpand = (key: keyof Stats) => {
-        if (key === activeExpand) {
-          setActiveExpand(null)
-        } else {
-          setActiveExpand(key)
-        }
-      }
-
       const classNames = classnames({
         [styles.square]: true,
         [styles.halfSize]: props.halfSize,
@@ -71,7 +67,7 @@ export default function ReportCard(props: Props) {
         </div>
       )
     },
-    [activeExpand, setActiveExpand]
+    [setExpand]
   )
 
   return (
@@ -159,12 +155,6 @@ export default function ReportCard(props: Props) {
           total={props.totals.done.length}
         />
       </div>
-
-      {activeExpand ? (
-        <div className="mt-4">
-          <IssuesTable issues={props[activeExpand]} />
-        </div>
-      ) : null}
     </div>
   )
 }

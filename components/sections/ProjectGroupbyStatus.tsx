@@ -3,12 +3,12 @@ import {
   ProjectGroupbyStatusData,
   Total
 } from 'project-reports/project-groupby-status'
-import {PropsWithChildren, useMemo} from 'react'
+import {PropsWithChildren, useMemo, useState} from 'react'
 import {Cell, CellProps, Column, Row} from 'react-table'
 import DataWithFlag from '../DataWithFlag'
 import IssuesTable from '../IssuesTable'
 import NullData from '../NullData'
-import ReportCard from '../ReportCard'
+import ReportCard, {Stats} from '../ReportCard'
 import {PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
@@ -278,36 +278,75 @@ export default function ProjectGroupbyStatus(props: Props) {
       </SectionTitle>
 
       {[totals, ...groups].map(group => (
-        <div className="block lg:flex items-start mb-8" key={group.key}>
-          <h1 className="w-56 mb-2 text-xl font-semibold mr-2">{group.key}</h1>
-
-          <ReportCard
-            proposed={group.totals.stages.proposed}
-            accepted={group.totals.stages.accepted}
-            inProgress={group.totals.stages.inProgress}
-            inProgressFlag={group.totals.stages.inProgressLimits.flag}
-            done={group.totals.stages.done}
-            warn={group.totals.flagged.yellow}
-            alert={group.totals.flagged.red}
-            activeGt3Wk={group.totals.flagged.inProgressDuration}
-            noTarget={group.totals.flagged.noTarget}
-            pastTarget={group.totals.flagged.pastTarget}
-            totals={{
-              proposed: totals.totals.stages.proposed,
-              accepted: totals.totals.stages.accepted,
-              inProgress: totals.totals.stages.inProgress,
-              done: totals.totals.stages.done,
-              warn: totals.totals.flagged.yellow,
-              alert: totals.totals.flagged.red,
-              activeGt3Wk: totals.totals.flagged.inProgressDuration,
-              noTarget: totals.totals.flagged.noTarget,
-              pastTarget: totals.totals.flagged.pastTarget
-            }}
-          />
-        </div>
+        <ReportCardWrapper group={group} totals={totals} />
       ))}
 
       <Table columns={columns} data={tableGroups} />
+    </>
+  )
+}
+
+function ReportCardWrapper({
+  group,
+  totals
+}: {
+  group: StatusGroup
+  totals: StatusGroup
+}) {
+  const [activeExpand, setActiveExpand] = useState<keyof Stats | null>(null)
+
+  const setExpand = (key: keyof Stats) => {
+    if (key === activeExpand) {
+      setActiveExpand(null)
+    } else {
+      setActiveExpand(key)
+    }
+  }
+
+  const stats: Stats = useMemo(
+    () => ({
+      proposed: group.totals.stages.proposed,
+      accepted: group.totals.stages.accepted,
+      inProgress: group.totals.stages.inProgress,
+      done: group.totals.stages.done,
+      warn: group.totals.flagged.yellow,
+      alert: group.totals.flagged.red,
+      activeGt3Wk: group.totals.flagged.inProgressDuration,
+      noTarget: group.totals.flagged.noTarget,
+      pastTarget: group.totals.flagged.pastTarget
+    }),
+    [group.totals]
+  )
+
+  return (
+    <>
+      <div className="block lg:flex items-start mb-8" key={group.key}>
+        <h1 className="w-56 mb-2 text-xl font-semibold mr-2">{group.key}</h1>
+
+        <ReportCard
+          activeExpand={activeExpand}
+          setExpand={setExpand}
+          inProgressFlag={group.totals.stages.inProgressLimits.flag}
+          {...stats}
+          totals={{
+            proposed: totals.totals.stages.proposed,
+            accepted: totals.totals.stages.accepted,
+            inProgress: totals.totals.stages.inProgress,
+            done: totals.totals.stages.done,
+            warn: totals.totals.flagged.yellow,
+            alert: totals.totals.flagged.red,
+            activeGt3Wk: totals.totals.flagged.inProgressDuration,
+            noTarget: totals.totals.flagged.noTarget,
+            pastTarget: totals.totals.flagged.pastTarget
+          }}
+        />
+      </div>
+
+      {activeExpand ? (
+        <div className="mt-4 mb-8">
+          <IssuesTable issues={stats[activeExpand]} />
+        </div>
+      ) : null}
     </>
   )
 }

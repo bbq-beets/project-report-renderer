@@ -2,8 +2,10 @@
   @apply overflow-x-auto;
 }
 
-.wrapper .wrapper {
+.constrainHeight {
+  @apply inline-block;
   @apply overflow-y-scroll overscroll-y-contain;
+  @apply border-b;
   max-height: 36rem;
 }
 
@@ -44,13 +46,15 @@
   @apply cursor-pointer block p-2 -m-2 font-semibold underline;
 }
 
-.table table th:not(.filterHeader) {
+.constrainHeight table th {
   @apply sticky top-0;
   @apply bg-white z-50;
-  box-shadow: 0 1px 0 #d1d5da, 0 -1px 0 #d1d5da, 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 0 #d1d5da, 0 -1px 0 #d1d5da;
 }
 
-.table table th.filterHeader {
+.constrainHeight table th.filterHeader {
+  top: 41px;
+  @apply border-t-0;
+  box-shadow: 0 1px 0 #d1d5da, 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   @apply text-left p-2;
 }

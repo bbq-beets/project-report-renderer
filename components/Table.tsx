@@ -53,13 +53,18 @@ export default function Table<
     return props.empty
   }
 
+  const wrapperClassNames = classnames({
+    [styles.wrapper]: true,
+    [styles.constrainHeight]: props.constrainHeight
+  })
+
   const tableClassNames = classnames({
     [styles.table]: true,
     [styles.fixed]: props.fixed
   })
 
   return (
-    <div className={styles.wrapper}>
+    <div className={wrapperClassNames}>
       <table {...getTableProps()} className={tableClassNames}>
         <thead>
           {headerGroups.map(headerGroup => (

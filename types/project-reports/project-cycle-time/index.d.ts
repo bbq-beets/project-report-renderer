@@ -1,14 +1,9 @@
 declare module 'project-reports/project-cycle-time' {
-  export interface ProjectCycleTimeData {
-    feature: Epic
-    epic: Epic
-  }
+  export type ProjectCycleTimeData = {[key: string]: Output}
 
-  export interface Epic {
-    title: string
+  export interface Output {
     count: number
-    cycletime: number
-    limit: number
+    averageCycleTime: number
     flag: boolean
   }
 }

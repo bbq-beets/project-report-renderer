@@ -30,6 +30,11 @@ export default function ProjectCycleTime(props: Props) {
       flag: output.flag
     }))
 
+  const domain = getDomain(
+    chartData.map(datum => datum['Average Cycle Time']),
+    5
+  )
+
   return (
     <>
       <SectionTitle index={props.index} icon="🔄">
@@ -48,6 +53,7 @@ export default function ProjectCycleTime(props: Props) {
           <XAxis
             type="number"
             padding={{left: 0, right: 48}}
+            domain={domain}
             dy={10}
             tick={{fontSize: 12}}
           />
@@ -73,6 +79,20 @@ export default function ProjectCycleTime(props: Props) {
       </div>
     </>
   )
+}
+
+/**
+ * Get the domain for the chart—it sets a max equal to the highest multiple of
+ * `domainMaxWindow` above the maximum value.
+ */
+function getDomain(
+  values: number[],
+  domainMaxWindow: number
+): [number, number] {
+  const domainMax =
+    Math.ceil(Math.max(...values) / domainMaxWindow) * domainMaxWindow
+
+  return [0, domainMax]
 }
 
 function round(value: number): number {

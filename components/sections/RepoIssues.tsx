@@ -70,7 +70,7 @@ export default function RepoIssues(props: Props) {
       <a key={nwo} href={`https://github.com/${nwo}`} className="text-blue-400">
         {nwo}
       </a>
-      {i < nwos.length - 1 ? ', ' : ''}
+      {i === nwos.length - 2 ? ' and ' : i < nwos.length - 1 ? ', ' : ''}
     </>
   ))
 

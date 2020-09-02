@@ -2,7 +2,13 @@
   "type": "repo-issues",
   "output": {
     "identifier": 1598539011.603,
-    "repositories": ["foo/bar", "baz/qux"],
+    "repositories": [
+      "foo/bar",
+      "baz/qux",
+      "jclem/jclem.github.io",
+      "foo/qux",
+      "hello/there"
+    ],
     "issues": {
       "bug": [
         {

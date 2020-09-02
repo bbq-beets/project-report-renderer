@@ -278,7 +278,11 @@ export default function ProjectGroupbyStatus(props: Props) {
       </SectionTitle>
 
       {[totals, ...groups].map(group => (
-        <ReportCardWrapper group={group} totals={totals} />
+        <ReportCardWrapper
+          group={group}
+          totals={totals}
+          limit={group.totals.stages.inProgressLimits.limit}
+        />
       ))}
 
       <Table columns={columns} data={tableGroups} />
@@ -288,10 +292,12 @@ export default function ProjectGroupbyStatus(props: Props) {
 
 function ReportCardWrapper({
   group,
-  totals
+  totals,
+  limit
 }: {
   group: StatusGroup
   totals: StatusGroup
+  limit: number
 }) {
   const [activeExpand, setActiveExpand] = useState<keyof Stats | null>(null)
 
@@ -321,7 +327,13 @@ function ReportCardWrapper({
   return (
     <>
       <div className="block lg:flex items-start mb-8" key={group.key}>
-        <h1 className="w-56 mb-2 text-xl font-semibold mr-2">{group.key}</h1>
+        <header className="mb-2">
+          <h1 className="w-56 text-xl font-semibold mr-2">{group.key}</h1>
+
+          <p className="text-lg text-gray-500">
+            <span className="font-semibold">In Progress Limit:</span> {limit}
+          </p>
+        </header>
 
         <ReportCard
           activeExpand={activeExpand}

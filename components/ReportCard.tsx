@@ -96,6 +96,7 @@ export default function ReportCard(props: Props) {
         <Square
           title="In Progress"
           isActive={activeExpand === 'inProgress'}
+          alert={props.inProgressFlag}
           statKey="inProgress"
           value={props.inProgress.length}
           total={props.totals.inProgress.length}

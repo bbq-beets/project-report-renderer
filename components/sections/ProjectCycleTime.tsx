@@ -40,14 +40,14 @@ export default function ProjectCycleTime(props: Props) {
         <BarChart
           layout="vertical"
           width={730}
-          height={250}
+          height={chartData.length * 42} // Just based on what looks OK
           data={chartData}
           barSize={16}
           margin={{left: 34}}
         >
           <XAxis
             type="number"
-            padding={{left: 0, right: 36}}
+            padding={{left: 0, right: 48}}
             dy={10}
             tick={{fontSize: 12}}
           />

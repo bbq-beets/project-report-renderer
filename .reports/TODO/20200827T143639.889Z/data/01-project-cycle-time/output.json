@@ -26,6 +26,36 @@
       "averageCycleTime": 1,
       "flag": false
     },
+    "2020/07/16": {
+      "count": 0,
+      "averageCycleTime": 0,
+      "flag": false
+    },
+    "2020/09/02": {
+      "count": 3,
+      "averageCycleTime": 99.991,
+      "flag": true
+    },
+    "2020/08/24": {
+      "count": 0,
+      "averageCycleTime": 71,
+      "flag": true
+    },
+    "2020/08/10": {
+      "count": 0,
+      "averageCycleTime": 10,
+      "flag": false
+    },
+    "2020/07/22": {
+      "count": 0,
+      "averageCycleTime": 4,
+      "flag": false
+    },
+    "2020/10/01": {
+      "count": 0,
+      "averageCycleTime": 1,
+      "flag": false
+    },
     "2020/07/19": {
       "count": 0,
       "averageCycleTime": 0,

@@ -4,7 +4,6 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  LabelProps,
   Rectangle,
   RectangleProps,
   Tooltip,
@@ -64,7 +63,11 @@ export default function ProjectCycleTime(props: Props) {
             isAnimationActive={false} // This prevents a bug where labels do not show up.
             dataKey="Average Cycle Time"
             shape={CustomBar}
-            label={<CustomLabel />}
+            label={{
+              fontSize: '12',
+              position: 'right',
+              className: 'text-gray-600 fill-current'
+            }}
           />
         </BarChart>
       </div>
@@ -84,28 +87,4 @@ function CustomBar(props: RectangleProps & {flag?: boolean}) {
   })
 
   return <Rectangle {...props} className={className} />
-}
-
-function CustomLabel(props: LabelProps) {
-  // These numbers just came about by fiddling. In particular, the `offsetY`
-  // constant added to `height` is based on font size, and the others are just
-  // guesses. Special thanks to hot module reloading.
-
-  const width = props.width ?? 0
-  const x = props.x ?? 0
-  const offsetX = width + x + 4
-  const height = props.height ?? 0
-  const y = props.y ?? 0
-  const offsetY = y + (height + 10) / 2
-  console.log(props.value)
-
-  return (
-    <text
-      x={offsetX}
-      y={offsetY}
-      className="text-sm text-gray-600 fill-current"
-    >
-      {props.value}
-    </text>
-  )
 }

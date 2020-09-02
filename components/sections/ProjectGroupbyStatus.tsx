@@ -35,6 +35,8 @@ type RowState<T extends StageType = StageType> = {
 type CellState = {highlighted?: boolean}
 
 const TOTAL_KEY = 'Total'
+// The output uses Number.MAX_VALUE to represent an undefined limit
+const NULL_LIMIT = Number.MAX_VALUE
 
 function getIssues(
   group: StatusGroup,
@@ -148,7 +150,7 @@ export default function ProjectGroupbyStatus(props: Props) {
         Cell: ({row, cell}: CellProps<StatusGroup, number | null>) => {
           // We don't display total for the "Total" row, it's considered
           // meaningless.
-          if (row.original.key === TOTAL_KEY) {
+          if (cell.value === NULL_LIMIT) {
             return <NullData />
           }
 
@@ -330,9 +332,11 @@ function ReportCardWrapper({
         <header className="mb-2">
           <h1 className="w-56 text-xl font-semibold mr-2">{group.key}</h1>
 
-          <p className="text-lg text-gray-500">
-            <span className="font-semibold">In Progress Limit:</span> {limit}
-          </p>
+          {limit != NULL_LIMIT && (
+            <p className="text-lg text-gray-500">
+              <span className="font-semibold">In Progress Limit:</span> {limit}
+            </p>
+          )}
         </header>
 
         <ReportCard

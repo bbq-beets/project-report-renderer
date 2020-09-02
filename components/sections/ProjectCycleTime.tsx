@@ -1,5 +1,6 @@
 import classnames from 'classnames'
 import {ProjectCycleTimeData} from 'project-reports/project-cycle-time'
+import {useCallback} from 'react'
 import {
   Bar,
   BarChart,
@@ -34,7 +35,7 @@ export default function ProjectCycleTime(props: Props) {
 
   const CustomBar: ContentRenderer<
     RectangleProps & {flag?: boolean}
-  > = props => {
+  > = useCallback(props => {
     const className = classnames({
       'text-red-500': props.flag,
       'text-green-500': !props.flag,
@@ -42,9 +43,13 @@ export default function ProjectCycleTime(props: Props) {
     })
 
     return <Rectangle {...props} className={className} />
-  }
+  }, [])
 
-  const CustomLabel = (props: LabelProps) => {
+  const CustomLabel = useCallback((props: LabelProps) => {
+    // These numbers just came about by fiddling. In particular, the `offsetY`
+    // constant added to `height` is based on font size, and the others are just
+    // guesses. Special thanks to hot module reloading.
+
     const width = props.width ?? 0
     const x = props.x ?? 0
     const offsetX = width + x + 4
@@ -62,7 +67,7 @@ export default function ProjectCycleTime(props: Props) {
         {value}
       </text>
     )
-  }
+  }, [])
 
   return (
     <>
@@ -91,10 +96,10 @@ export default function ProjectCycleTime(props: Props) {
             dx={-10}
             tick={{fontSize: 12}}
           />
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="2 3" />
           <Tooltip cursor={{fill: '#d1d5da', opacity: 0.4}} />
           <Bar
-            isAnimationActive={false}
+            isAnimationActive={false} // This prevents a bug where labels do not show up.
             dataKey="Average Cycle Time"
             shape={CustomBar}
             label={<CustomLabel />}

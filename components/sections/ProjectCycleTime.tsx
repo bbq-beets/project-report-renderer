@@ -1,11 +1,9 @@
 import classnames from 'classnames'
 import {ProjectCycleTimeData} from 'project-reports/project-cycle-time'
-import {useCallback} from 'react'
 import {
   Bar,
   BarChart,
   CartesianGrid,
-  ContentRenderer,
   LabelProps,
   Rectangle,
   RectangleProps,
@@ -29,45 +27,9 @@ export default function ProjectCycleTime(props: Props) {
     .filter(([key]) => key !== 'index') // Omit the "index" prop
     .map(([date, output]) => ({
       date: new Date(date).toLocaleDateString(),
-      'Average Cycle Time': output.averageCycleTime,
+      'Average Cycle Time': round(output.averageCycleTime),
       flag: output.flag
     }))
-
-  const CustomBar: ContentRenderer<
-    RectangleProps & {flag?: boolean}
-  > = useCallback(props => {
-    const className = classnames({
-      'text-red-500': props.flag,
-      'text-green-500': !props.flag,
-      'fill-current': true
-    })
-
-    return <Rectangle {...props} className={className} />
-  }, [])
-
-  const CustomLabel = useCallback((props: LabelProps) => {
-    // These numbers just came about by fiddling. In particular, the `offsetY`
-    // constant added to `height` is based on font size, and the others are just
-    // guesses. Special thanks to hot module reloading.
-
-    const width = props.width ?? 0
-    const x = props.x ?? 0
-    const offsetX = width + x + 4
-    const height = props.height ?? 0
-    const y = props.y ?? 0
-    const offsetY = y + (height + 10) / 2
-    const value = Math.round(Number(props.value))
-
-    return (
-      <text
-        x={offsetX}
-        y={offsetY}
-        className="text-sm text-gray-600 fill-current"
-      >
-        {value}
-      </text>
-    )
-  }, [])
 
   return (
     <>
@@ -107,5 +69,43 @@ export default function ProjectCycleTime(props: Props) {
         </BarChart>
       </div>
     </>
+  )
+}
+
+function round(value: number): number {
+  return Number(Math.round(Number(`${value}e2`)) + 'e-2')
+}
+
+function CustomBar(props: RectangleProps & {flag?: boolean}) {
+  const className = classnames({
+    'text-red-500': props.flag,
+    'text-green-500': !props.flag,
+    'fill-current': true
+  })
+
+  return <Rectangle {...props} className={className} />
+}
+
+function CustomLabel(props: LabelProps) {
+  // These numbers just came about by fiddling. In particular, the `offsetY`
+  // constant added to `height` is based on font size, and the others are just
+  // guesses. Special thanks to hot module reloading.
+
+  const width = props.width ?? 0
+  const x = props.x ?? 0
+  const offsetX = width + x + 4
+  const height = props.height ?? 0
+  const y = props.y ?? 0
+  const offsetY = y + (height + 10) / 2
+  console.log(props.value)
+
+  return (
+    <text
+      x={offsetX}
+      y={offsetY}
+      className="text-sm text-gray-600 fill-current"
+    >
+      {props.value}
+    </text>
   )
 }

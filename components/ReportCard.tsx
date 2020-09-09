@@ -100,7 +100,7 @@ export default function ReportCard(props: Props) {
 
         <div className={styles.squareGroup}>
           <Square
-            title="Warning"
+            title="Status Yellow"
             isActive={activeExpand === 'warn'}
             statKey="warn"
             value={props.warn.length}
@@ -110,7 +110,7 @@ export default function ReportCard(props: Props) {
           />
 
           <Square
-            title="Alert"
+            title="Status Red"
             isActive={activeExpand === 'alert'}
             statKey="alert"
             value={props.alert.length}

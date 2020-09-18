@@ -4,12 +4,12 @@ import {useMemo} from 'react'
 import {Cell, CellProps, Column, useSortBy} from 'react-table'
 import DataWithFlag from '../DataWithFlag'
 import IssuesTable from '../IssuesTable'
-import {PropsWithIndex} from '../ReportSection'
+import {ProjectBaseConfig, PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 import tableStyles from '../Table.module.css'
 
-type Props = PropsWithIndex<RepoIssuesData>
+type Props = PropsWithIndex<RepoIssuesData, ProjectBaseConfig>
 type LabelData = {label: string; data: Bug[]}
 
 /**
@@ -76,7 +76,9 @@ export default function RepoIssues(props: Props) {
 
   return (
     <>
-      <SectionTitle index={props.index}>Issues for {repoIssues}</SectionTitle>
+      <SectionTitle index={props.index} asof={props.config._asof}>
+        Issues for {repoIssues}
+      </SectionTitle>
       <Table columns={columns} data={data} empty={<p>No issues.</p>} />
     </>
   )

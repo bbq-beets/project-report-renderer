@@ -1,8 +1,8 @@
 import {EchoBoardData} from 'project-reports/echo-board'
-import {PropsWithIndex} from '../ReportSection'
+import {ProjectBaseConfig, PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 
-type Props = PropsWithIndex<EchoBoardData>
+type Props = PropsWithIndex<EchoBoardData, ProjectBaseConfig>
 
 /**
  * Represent the report section data as JSON.
@@ -12,7 +12,7 @@ type Props = PropsWithIndex<EchoBoardData>
 export default function EchoBoard(props: Props) {
   return (
     <>
-      <SectionTitle index={props.index} icon="👂">
+      <SectionTitle index={props.index} icon="👂" asof={props.config._asof}>
         Echo Data
       </SectionTitle>
 

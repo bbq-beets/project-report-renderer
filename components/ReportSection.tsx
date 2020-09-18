@@ -5,7 +5,6 @@ import ProjectCycleTime from './sections/ProjectCycleTime'
 import ProjectDone from './sections/ProjectDone'
 import ProjectGroupbyStatus from './sections/ProjectGroupbyStatus'
 import ProjectInProgress from './sections/ProjectInProgress'
-import ProjectLimits from './sections/ProjectLimits'
 import ProjectNew from './sections/ProjectNew'
 import RepoIssues from './sections/RepoIssues'
 
@@ -18,6 +17,10 @@ type Props = {
 export type PropsWithTitle<T> = {
   data: T
   TitleComponent: ComponentType<PropsWithChildren<unknown>>
+}
+
+export type ProjectBaseConfig = {
+  _asof: string
 }
 
 export type PropsWithIndex<O, C = null> = {
@@ -49,9 +52,6 @@ export default function ReportSectionComponent(props: Props) {
       break
     case 'project-in-progress':
       SectionComponent = ProjectInProgress
-      break
-    case 'project-limits':
-      SectionComponent = ProjectLimits
       break
     case 'project-new':
       SectionComponent = ProjectNew

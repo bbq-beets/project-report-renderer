@@ -37,7 +37,7 @@ export default function ProjectCycleTime(props: Props) {
 
   return (
     <>
-      <SectionTitle index={props.index} icon="🔄">
+      <SectionTitle index={props.index} icon="🔄" asof={props.config._asof}>
         {props.config['report-on-label']} Cycle Time
       </SectionTitle>
 

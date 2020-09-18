@@ -4,12 +4,12 @@ import {CellProps, Column} from 'react-table'
 import {getStatusEmoji} from '../../lib/util'
 import CardAssignee, {getAssignee} from '../CardAssignee'
 import DataWithFlag from '../DataWithFlag'
-import {PropsWithIndex} from '../ReportSection'
+import {ProjectBaseConfig, PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 import TimeAgo from '../TimeAgo'
 
-type Props = PropsWithIndex<ProjectInProgressData>
+type Props = PropsWithIndex<ProjectInProgressData, ProjectBaseConfig>
 
 /**
  * Display projects in progress as a table.
@@ -70,7 +70,7 @@ export default function ProjectInProgress(props: Props) {
 
   return (
     <>
-      <SectionTitle index={props.index} icon="⏳">
+      <SectionTitle index={props.index} icon="⏳" asof={props.config._asof}>
         In Progress ({props.output.cardType})
       </SectionTitle>
 

@@ -32,11 +32,6 @@ export default function ProjectCycleTime(props: Props) {
       flag: output.flag
     }))
 
-  const domain = getDomain(
-    chartData.map(datum => datum['80th Percentile']),
-    5
-  )
-
   return (
     <>
       <SectionTitle index={props.index} icon="🔄">
@@ -62,14 +57,18 @@ export default function ProjectCycleTime(props: Props) {
             type="monotone"
             dataKey="Average"
             stroke="#8884d8"
-            activeDot={{r: 8}}
+            activeDot={{
+              r: 8
+            }}
           />
           <Line
             isAnimationActive={false}
             type="monotone"
             dataKey="80th Percentile"
             stroke="#82ca9d"
-            activeDot={{r: 8}}
+            activeDot={{
+              r: 8
+            }}
           />
           <Area
             type="monotone"

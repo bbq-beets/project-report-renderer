@@ -2,12 +2,12 @@ import {Card, ProjectDoneData} from 'project-reports/project-done'
 import {useMemo} from 'react'
 import {CellProps, Column} from 'react-table'
 import CardAssignee, {getAssignee} from '../CardAssignee'
-import {PropsWithIndex} from '../ReportSection'
+import {ProjectBaseConfig, PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 import TimeAgo from '../TimeAgo'
 
-type Props = PropsWithIndex<ProjectDoneData>
+type Props = PropsWithIndex<ProjectDoneData, ProjectBaseConfig>
 
 /**
  * Display completed projects as a table.
@@ -49,7 +49,7 @@ export default function ProjectDone(props: Props) {
 
   return (
     <>
-      <SectionTitle index={props.index} icon="🏁">
+      <SectionTitle index={props.index} icon="🏁" asof={props.config._asof}>
         Completed in Last {props.output.daysAgo} Days{' '}
         {typeLabel && `(${typeLabel})`}
       </SectionTitle>

@@ -4,6 +4,7 @@ import {PropsWithChildren} from 'react'
 
 type Props = PropsWithChildren<{
   index: number
+  asof: string
   icon?: string
 }>
 
@@ -16,7 +17,7 @@ export default function SectionTitle(props: Props) {
   const router = useRouter()
   const path = router.asPath.split('#')[0]
   const id = `section-${props.index}`
-  const generated = new Date()
+  const generated = new Date(props.asof)
 
   return (
     <div className="mb-8 border-b-2 border-black">

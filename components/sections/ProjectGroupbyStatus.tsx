@@ -9,12 +9,12 @@ import DataWithFlag from '../DataWithFlag'
 import IssuesTable from '../IssuesTable'
 import NullData from '../NullData'
 import ReportCard, {Stats} from '../ReportCard'
-import {PropsWithIndex} from '../ReportSection'
+import {ProjectBaseConfig, PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 import tableStyles from '../Table.module.css'
 
-type Props = PropsWithIndex<ProjectGroupbyStatusData>
+type Props = PropsWithIndex<ProjectGroupbyStatusData, ProjectBaseConfig>
 
 type StatusGroup = {key: string; totals: Total}
 
@@ -275,7 +275,7 @@ export default function ProjectGroupbyStatus(props: Props) {
   )
   return (
     <>
-      <SectionTitle index={props.index} icon="🚀">
+      <SectionTitle index={props.index} icon="🚀" asof={props.config['_asof']}>
         Project Execution
       </SectionTitle>
 

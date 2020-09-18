@@ -2,6 +2,7 @@ declare module 'project-reports/project-cycle-time' {
   export type ProjectCycleTimeData = {[key: string]: Output}
 
   export type ProjectCycleTimeConfig = {
+    _asof: string
     limit: number
     ['report-on-label']: string
     ['window-days']: number

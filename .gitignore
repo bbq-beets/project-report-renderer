@@ -1,6 +1,6 @@
 !/.vscode/
 /.next/
 /node_modules/
-.reports
-docs
+/.reports/
+/docs/
 copy.sh

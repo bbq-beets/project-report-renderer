@@ -82,20 +82,6 @@ export default function ProjectCycleTime(props: Props) {
   )
 }
 
-/**
- * Get the domain for the chart—it sets a max equal to the highest multiple of
- * `domainMaxWindow` above the maximum value.
- */
-function getDomain(
-  values: number[],
-  domainMaxWindow: number
-): [number, number] {
-  const domainMax =
-    Math.ceil(Math.max(...values) / domainMaxWindow) * domainMaxWindow
-
-  return [0, domainMax]
-}
-
 function round(value: number): number {
   return Number(Math.round(Number(`${value}e2`)) + 'e-2')
 }

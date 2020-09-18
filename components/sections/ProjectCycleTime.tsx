@@ -1,11 +1,12 @@
-import classnames from 'classnames'
-import {ProjectCycleTimeData} from 'project-reports/project-cycle-time'
 import {
-  Bar,
-  BarChart,
+  ProjectCycleTimeConfig,
+  ProjectCycleTimeData
+} from 'project-reports/project-cycle-time'
+import {
+  Area,
   CartesianGrid,
-  Rectangle,
-  RectangleProps,
+  ComposedChart,
+  Line,
   Tooltip,
   XAxis,
   YAxis
@@ -13,7 +14,7 @@ import {
 import {PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 
-type Props = PropsWithIndex<ProjectCycleTimeData>
+type Props = PropsWithIndex<ProjectCycleTimeData, ProjectCycleTimeConfig>
 
 /**
  * Display project cycle time as a table.
@@ -22,88 +23,65 @@ type Props = PropsWithIndex<ProjectCycleTimeData>
  */
 export default function ProjectCycleTime(props: Props) {
   const chartData = Object.entries(props.output)
-    .sort(([aKey], [bKey]) => (aKey > bKey ? -1 : 1))
+    .sort(([aKey], [bKey]) => (aKey < bKey ? -1 : 1))
     .map(([date, output]) => ({
       date: new Date(date).toLocaleDateString(),
-      'Average Cycle Time': round(output.averageCycleTime),
+      Average: round(output.averageCycleTime),
+      '80th Percentile': round(output.eightiethCycleTime),
+      limit: props.config.limit,
       flag: output.flag
     }))
-
-  const domain = getDomain(
-    chartData.map(datum => datum['Average Cycle Time']),
-    5
-  )
 
   return (
     <>
       <SectionTitle index={props.index} icon="🔄">
-        Cycle Time
+        {props.config['report-on-label']} Cycle Time
       </SectionTitle>
 
+      <div className="mb-8 pb-2">
+        Rolling {props.config['window-days']} day window
+      </div>
+
       <div className="overflow-x-scroll">
-        <BarChart
-          layout="vertical"
+        <ComposedChart
           width={730}
-          height={chartData.length * 42} // Just based on what looks OK
+          height={chartData.length * 100} // Just based on what looks OK
           data={chartData}
-          barSize={16}
-          margin={{left: 34}}
         >
-          <XAxis
-            type="number"
-            padding={{left: 0, right: 48}}
-            domain={domain}
-            dy={10}
-            tick={{fontSize: 12}}
-          />
-          <YAxis
-            type="category"
-            dataKey="date"
-            dx={-10}
-            tick={{fontSize: 12}}
-          />
-          <CartesianGrid strokeDasharray="2 3" />
-          <Tooltip cursor={{fill: '#d1d5da', opacity: 0.4}} />
-          <Bar
-            isAnimationActive={false} // This prevents a bug where labels do not show up.
-            dataKey="Average Cycle Time"
-            shape={CustomBar}
-            label={{
-              fontSize: '12',
-              position: 'right',
-              className: 'text-gray-600 fill-current'
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" interval="preserveEnd" />
+          <YAxis interval="preserveEnd" />
+          <Tooltip />
+          <Line
+            isAnimationActive={false}
+            type="monotone"
+            dataKey="Average"
+            stroke="#8884d8"
+            activeDot={{
+              r: 8
             }}
           />
-        </BarChart>
+          <Line
+            isAnimationActive={false}
+            type="monotone"
+            dataKey="80th Percentile"
+            stroke="#82ca9d"
+            activeDot={{
+              r: 8
+            }}
+          />
+          <Area
+            type="monotone"
+            dataKey="limit"
+            fill="#dddddd"
+            stroke="#8884d8"
+          />
+        </ComposedChart>
       </div>
     </>
   )
 }
 
-/**
- * Get the domain for the chart—it sets a max equal to the highest multiple of
- * `domainMaxWindow` above the maximum value.
- */
-function getDomain(
-  values: number[],
-  domainMaxWindow: number
-): [number, number] {
-  const domainMax =
-    Math.ceil(Math.max(...values) / domainMaxWindow) * domainMaxWindow
-
-  return [0, domainMax]
-}
-
 function round(value: number): number {
   return Number(Math.round(Number(`${value}e2`)) + 'e-2')
-}
-
-function CustomBar(props: RectangleProps & {flag?: boolean}) {
-  const className = classnames({
-    'text-red-500': props.flag,
-    'text-green-500': !props.flag,
-    'fill-current': true
-  })
-
-  return <Rectangle {...props} className={className} />
 }

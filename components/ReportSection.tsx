@@ -20,9 +20,10 @@ export type PropsWithTitle<T> = {
   TitleComponent: ComponentType<PropsWithChildren<unknown>>
 }
 
-export type PropsWithIndex<T> = {
+export type PropsWithIndex<O, C = null> = {
   index: number
-  output: T
+  config: C
+  output: O
 }
 
 /**
@@ -34,7 +35,7 @@ export type PropsWithIndex<T> = {
  * @param props
  */
 export default function ReportSectionComponent(props: Props) {
-  let SectionComponent
+  let SectionComponent: ComponentType<PropsWithIndex<any, any>>
 
   switch (props.data.type) {
     case 'project-cycle-time':
@@ -64,7 +65,11 @@ export default function ReportSectionComponent(props: Props) {
 
   return (
     <div className="mb-8">
-      <SectionComponent index={props.index} output={props.data.output as any} />
+      <SectionComponent
+        index={props.index}
+        output={props.data.output as any}
+        config={props.data.config as any}
+      />
     </div>
   )
 }

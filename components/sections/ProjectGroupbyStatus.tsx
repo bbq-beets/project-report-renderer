@@ -282,6 +282,7 @@ export default function ProjectGroupbyStatus(props: Props) {
       {[totals, ...groups].map(group => (
         <ReportCardWrapper
           group={group}
+          key={group.key}
           totals={totals}
           limit={group.totals.stages.inProgressLimits.limit}
         />

@@ -1,11 +1,9 @@
-import classnames from 'classnames'
 import {ProjectCycleTimeData} from 'project-reports/project-cycle-time'
 import {
-  Bar,
-  BarChart,
+  Area,
   CartesianGrid,
-  Rectangle,
-  RectangleProps,
+  ComposedChart,
+  Line,
   Tooltip,
   XAxis,
   YAxis
@@ -22,59 +20,61 @@ type Props = PropsWithIndex<ProjectCycleTimeData>
  */
 export default function ProjectCycleTime(props: Props) {
   const chartData = Object.entries(props.output)
-    .sort(([aKey], [bKey]) => (aKey > bKey ? -1 : 1))
+    .sort(([aKey], [bKey]) => (aKey < bKey ? -1 : 1))
     .map(([date, output]) => ({
       date: new Date(date).toLocaleDateString(),
-      'Average Cycle Time': round(output.averageCycleTime),
+      Average: round(output.averageCycleTime),
+      '80th Percentile': round(output.eightiethCycleTime),
+      limit: props.config.limit,
       flag: output.flag
     }))
 
   const domain = getDomain(
-    chartData.map(datum => datum['Average Cycle Time']),
+    chartData.map(datum => datum['80th Percentile']),
     5
   )
 
   return (
     <>
       <SectionTitle index={props.index} icon="🔄">
-        Cycle Time
+        {props.config['report-on-label']} Cycle Time
       </SectionTitle>
 
+      <div className="mb-8 pb-2">
+        Rolling {props.config['window-days']} day window
+      </div>
+
       <div className="overflow-x-scroll">
-        <BarChart
-          layout="vertical"
+        <ComposedChart
           width={730}
-          height={chartData.length * 42} // Just based on what looks OK
+          height={chartData.length * 100} // Just based on what looks OK
           data={chartData}
-          barSize={16}
-          margin={{left: 34}}
         >
-          <XAxis
-            type="number"
-            padding={{left: 0, right: 48}}
-            domain={domain}
-            dy={10}
-            tick={{fontSize: 12}}
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" interval="preserveEnd" />
+          <YAxis interval="preserveEnd" />
+          <Tooltip />
+          <Line
+            isAnimationActive={false}
+            type="monotone"
+            dataKey="Average"
+            stroke="#8884d8"
+            activeDot={{r: 8}}
           />
-          <YAxis
-            type="category"
-            dataKey="date"
-            dx={-10}
-            tick={{fontSize: 12}}
+          <Line
+            isAnimationActive={false}
+            type="monotone"
+            dataKey="80th Percentile"
+            stroke="#82ca9d"
+            activeDot={{r: 8}}
           />
-          <CartesianGrid strokeDasharray="2 3" />
-          <Tooltip cursor={{fill: '#d1d5da', opacity: 0.4}} />
-          <Bar
-            isAnimationActive={false} // This prevents a bug where labels do not show up.
-            dataKey="Average Cycle Time"
-            shape={CustomBar}
-            label={{
-              fontSize: '12',
-              position: 'right',
-              className: 'text-gray-600 fill-current'
-            }}
+          <Area
+            type="monotone"
+            dataKey="limit"
+            fill="#dddddd"
+            stroke="#8884d8"
           />
-        </BarChart>
+        </ComposedChart>
       </div>
     </>
   )
@@ -96,14 +96,4 @@ function getDomain(
 
 function round(value: number): number {
   return Number(Math.round(Number(`${value}e2`)) + 'e-2')
-}
-
-function CustomBar(props: RectangleProps & {flag?: boolean}) {
-  const className = classnames({
-    'text-red-500': props.flag,
-    'text-green-500': !props.flag,
-    'fill-current': true
-  })
-
-  return <Rectangle {...props} className={className} />
 }

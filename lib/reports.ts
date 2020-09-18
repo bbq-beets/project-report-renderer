@@ -10,6 +10,7 @@ const REPORT_REGEX = /^\d{4}\d{2}\d{2}T\d{2}\d{2}\d{2}\.\d{3}Z$/
 
 export type ReportSection = {
   type: string
+  config: any
   output: {[key: string]: unknown} // TODO: Collect types
 }
 

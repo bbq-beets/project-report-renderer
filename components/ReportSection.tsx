@@ -22,6 +22,7 @@ export type PropsWithTitle<T> = {
 
 export type PropsWithIndex<T> = {
   index: number
+  config: any
   output: T
 }
 
@@ -64,7 +65,11 @@ export default function ReportSectionComponent(props: Props) {
 
   return (
     <div className="mb-8">
-      <SectionComponent index={props.index} output={props.data.output as any} />
+      <SectionComponent
+        index={props.index}
+        output={props.data.output as any}
+        config={props.data.config as any}
+      />
     </div>
   )
 }

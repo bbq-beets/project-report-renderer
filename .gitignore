@@ -1,3 +1,6 @@
 !/.vscode/
 /.next/
 /node_modules/
+.reports
+docs
+copy.sh

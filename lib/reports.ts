@@ -8,10 +8,10 @@ const stat = promisify(fs.stat)
 const isDir = async (node: string) => (await stat(node)).isDirectory()
 const REPORT_REGEX = /^\d{4}\d{2}\d{2}T\d{2}\d{2}\d{2}\.\d{3}Z$/
 
-export type ReportSection = {
+export type ReportSection<O = {[key: string]: unknown}, C = null> = {
   type: string
-  config: any
-  output: {[key: string]: unknown} // TODO: Collect types
+  config: C
+  output: O // TODO: Collect types
 }
 
 /**

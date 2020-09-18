@@ -1,4 +1,7 @@
-import {ProjectCycleTimeData} from 'project-reports/project-cycle-time'
+import {
+  ProjectCycleTimeConfig,
+  ProjectCycleTimeData
+} from 'project-reports/project-cycle-time'
 import {
   Area,
   CartesianGrid,
@@ -11,7 +14,7 @@ import {
 import {PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 
-type Props = PropsWithIndex<ProjectCycleTimeData>
+type Props = PropsWithIndex<ProjectCycleTimeData, ProjectCycleTimeConfig>
 
 /**
  * Display project cycle time as a table.

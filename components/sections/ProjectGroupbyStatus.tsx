@@ -177,6 +177,20 @@ export default function ProjectGroupbyStatus(props: Props) {
         )
       },
       {
+        Header: 'Blocked',
+        id: 'blocked',
+        accessor: row => row.totals.stages.blocked.length,
+        Cell: (props: CellProps<StatusGroup, number>) => (
+          <RowExpander
+            {...props}
+            stageType={StageType.Stages}
+            stageKey="blocked"
+          >
+            {props.cell.value}
+          </RowExpander>
+        )
+      },
+      {
         Header: 'In Progress',
         id: 'inProgress',
         accessor: row => row.totals.stages.inProgress.length,
@@ -317,6 +331,7 @@ function ReportCardWrapper({
       proposed: group.totals.stages.proposed,
       accepted: group.totals.stages.accepted,
       inProgress: group.totals.stages.inProgress,
+      blocked: group.totals.stages.blocked,
       done: group.totals.stages.done,
       warn: group.totals.flagged.yellow,
       alert: group.totals.flagged.red,
@@ -349,6 +364,7 @@ function ReportCardWrapper({
             proposed: totals.totals.stages.proposed,
             accepted: totals.totals.stages.accepted,
             inProgress: totals.totals.stages.inProgress,
+            blocked: totals.totals.stages.blocked,
             done: totals.totals.stages.done,
             warn: totals.totals.flagged.yellow,
             alert: totals.totals.flagged.red,

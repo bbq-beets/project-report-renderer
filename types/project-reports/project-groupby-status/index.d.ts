@@ -140,6 +140,7 @@ declare module 'project-reports/project-groupby-status' {
   export interface Stages {
     proposed: any[]
     accepted: NoTarget[]
+    blocked: NoTarget[]
     inProgress: NoTarget[]
     inProgressLimits: InProgressLimits
     done: NoTarget[]

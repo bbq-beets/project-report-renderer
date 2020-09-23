@@ -7,6 +7,7 @@ export type Stats = {
   proposed: Card[]
   accepted: Card[]
   inProgress: Card[]
+  blocked: Card[]
   done: Card[]
   warn: Card[]
   alert: Card[]
@@ -98,6 +99,15 @@ export default function ReportCard(props: Props) {
           total={props.totals.inProgress.length}
         />
 
+        <Square
+          title="Blocked"
+          isActive={activeExpand === 'blocked'}
+          alert={props.blocked.length > 0}
+          statKey="blocked"
+          value={props.blocked.length}
+          total={props.totals.blocked.length}
+        />
+
         <div className={styles.squareGroup}>
           <Square
             title="Status Yellow"
@@ -129,23 +139,27 @@ export default function ReportCard(props: Props) {
           total={props.totals.activeGt3Wk.length}
         />
 
-        <Square
-          title="Past Target Date"
-          isActive={activeExpand === 'pastTarget'}
-          statKey="pastTarget"
-          value={props.pastTarget.length}
-          warn={props.pastTarget.length > 0}
-          total={props.totals.pastTarget.length}
-        />
+        <div className={styles.squareGroup}>
+          <Square
+            title="Past Target Date"
+            isActive={activeExpand === 'pastTarget'}
+            statKey="pastTarget"
+            value={props.pastTarget.length}
+            warn={props.pastTarget.length > 0}
+            total={props.totals.pastTarget.length}
+            halfSize
+          />
 
-        <Square
-          title="No Target Date"
-          isActive={activeExpand === 'noTarget'}
-          statKey="noTarget"
-          value={props.noTarget.length}
-          warn={props.noTarget.length > 0}
-          total={props.totals.noTarget.length}
-        />
+          <Square
+            title="No Target Date"
+            isActive={activeExpand === 'noTarget'}
+            statKey="noTarget"
+            value={props.noTarget.length}
+            alert={props.noTarget.length > 0}
+            total={props.totals.noTarget.length}
+            halfSize
+          />
+        </div>
 
         <Square
           title="Done"

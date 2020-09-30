@@ -9,7 +9,7 @@
     @apply grid-cols-4;
 
     /* Width of columns + gaps */
-    max-width: 41.5rem;
+    max-width: 46.5rem;
   }
 }
 

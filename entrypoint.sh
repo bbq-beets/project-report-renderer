@@ -10,7 +10,7 @@ cp -R $GITHUB_WORKSPACE/.reports $build_dir/.reports
 # Only keep latest reports run.
 if [[ -z "$INPUT_NOCOMMIT" ]]; then
   cd $GITHUB_WORKSPACE
-  git rm ./docs
+  git -r rm ./docs
 fi 
 
 # Export back to the workspace output path.

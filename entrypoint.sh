@@ -27,7 +27,8 @@ if [[ -z "$INPUT_NOCOMMIT" ]]; then
   git config user.name github-actions
   git config user.email github-actions@github.com
 
-  git add .
+  ls -la 
+  git add ./docs
   git commit -m "Build from https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
   git push
 fi

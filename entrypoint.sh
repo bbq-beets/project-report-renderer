@@ -7,7 +7,11 @@ build_dir=/opt/build
 # Copy the data to the build location.
 cp -R $GITHUB_WORKSPACE/.reports $build_dir/.reports
 
-# TODO: Implement use of the Next.js cache.
+# Only keep latest reports run.
+if [[ -z "$INPUT_NOCOMMIT" ]]; then
+  cd $GITHUB_WORKSPACE
+  git rm ./docs
+fi 
 
 # Export back to the workspace output path.
 cd $build_dir

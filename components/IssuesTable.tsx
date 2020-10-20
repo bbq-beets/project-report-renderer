@@ -1,11 +1,12 @@
-import {Card} from 'project-reports'
-import {useMemo} from 'react'
-import {CellProps, Column} from 'react-table'
-import CardAssignee, {getAssignee} from './CardAssignee'
+import { Card } from 'project-reports'
+import { useMemo } from 'react'
+import { CellProps, Column } from 'react-table'
+import CardAssignee, { getAssignee } from './CardAssignee'
 import Table from './Table'
 
 type Props = {
-  issues: Card[]
+  issues: Card[],
+  showTargetDate: boolean
 }
 
 export default function IssuesTable(props: Props) {
@@ -60,6 +61,18 @@ export default function IssuesTable(props: Props) {
     []
   )
 
+  if (props.showTargetDate) {
+    columns.push({
+      Header: 'Target Date',
+      accessor: 'target_date',
+      className: 'w-96',
+      Cell: ({row}: CellProps<Card, string>) => (
+        <div>
+            {row.original.target_date}
+        </div>
+      )
+    })
+  }
   return (
     <Table
       columns={columns}

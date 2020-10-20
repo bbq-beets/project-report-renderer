@@ -13,6 +13,7 @@ declare module 'project-reports' {
     assignee?: Assignee | null
     assignees?: Assignee[] | null
     labels: Label[]
+    target_date?: string
   }
 
   export interface Label {

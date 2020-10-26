@@ -1,15 +1,15 @@
-import { Card } from 'project-reports'
+import {Card} from 'project-reports'
 import {
-    ProjectGroupbyStatusData,
-    Total
+  ProjectGroupbyStatusData,
+  Total
 } from 'project-reports/project-groupby-status'
-import { PropsWithChildren, useMemo, useState } from 'react'
-import { Cell, CellProps, Column, Row } from 'react-table'
+import {PropsWithChildren, useMemo, useState} from 'react'
+import {Cell, CellProps, Column, Row} from 'react-table'
 import DataWithFlag from '../DataWithFlag'
 import IssuesTable from '../IssuesTable'
 import NullData from '../NullData'
-import ReportCard, { Stats } from '../ReportCard'
-import { ProjectBaseConfig, PropsWithIndex } from '../ReportSection'
+import ReportCard, {Stats} from '../ReportCard'
+import {ProjectBaseConfig, PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 import tableStyles from '../Table.module.css'
@@ -378,7 +378,7 @@ function ReportCardWrapper({
 
       {activeExpand ? (
         <div className="mt-4 mb-8">
-          <IssuesTable issues={stats[activeExpand]} />
+          <IssuesTable issues={stats[activeExpand]} showTargetDate={true} />
         </div>
       ) : null}
     </>

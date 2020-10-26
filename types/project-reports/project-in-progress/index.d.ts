@@ -20,6 +20,7 @@ declare module 'project-reports/project-in-progress' {
     project_accepted_at: Date
     project_in_progress_at: Date
     project_added_at: Date
+    project_target_date?: Date
     project_stage: string
     lastUpdatedAgo: string
     lastUpdatedAt: string | undefined

@@ -59,7 +59,7 @@ export default function RepoIssues(props: Props) {
       label,
       data,
       expandContent: () => {
-        return <IssuesTable issues={data} />
+        return <IssuesTable issues={data} showTargetDate={false} />
       }
     }),
     useSortBy

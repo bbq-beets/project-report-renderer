@@ -1,12 +1,13 @@
-import {Card, ProjectInProgressData} from 'project-reports/project-in-progress'
-import {useMemo} from 'react'
-import {CellProps, Column} from 'react-table'
-import {getStatusEmoji} from '../../lib/util'
-import CardAssignee, {getAssignee} from '../CardAssignee'
+import { Card, ProjectInProgressData } from 'project-reports/project-in-progress'
+import { useMemo } from 'react'
+import { CellProps, Column } from 'react-table'
+import { getStatusEmoji } from '../../lib/util'
+import CardAssignee, { getAssignee } from '../CardAssignee'
 import DataWithFlag from '../DataWithFlag'
-import {ProjectBaseConfig, PropsWithIndex} from '../ReportSection'
+import { ProjectBaseConfig, PropsWithIndex } from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
+import TargetDate from '../TargetDate'
 import TimeAgo from '../TimeAgo'
 
 type Props = PropsWithIndex<ProjectInProgressData, ProjectBaseConfig>
@@ -63,6 +64,11 @@ export default function ProjectInProgress(props: Props) {
         accessor: 'project_in_progress_at',
         sortInverted: true,
         Cell: ({cell}) => <TimeAgo dateTime={cell.value} />
+      },
+      {
+        Header: 'Target Date',
+        accessor: 'project_target_date',
+        Cell: ({cell}) => <TargetDate targetDate={cell.value} />
       }
     ],
     []

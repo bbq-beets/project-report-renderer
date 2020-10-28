@@ -3,8 +3,7 @@ type Props = {
 }
 
 /**
- * Renders a datetime as "time ago", and ensures there are no React hydration
- * warnings.
+ * Renders a datetime as a local date
  *
  * @param props
  */

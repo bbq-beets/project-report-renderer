@@ -1,16 +1,16 @@
 import classnames from 'classnames'
-import {Bug, RepoIssuesData} from 'project-reports/repo-issues'
-import {useMemo} from 'react'
-import {Cell, CellProps, Column, useSortBy} from 'react-table'
+import { Bug, RepoIssuesData } from 'project-reports/repo-issues'
+import { useMemo } from 'react'
+import { Cell, CellProps, Column, useSortBy } from 'react-table'
 import DataWithFlag from '../DataWithFlag'
 import IssuesTable from '../IssuesTable'
-import {ProjectBaseConfig, PropsWithIndex} from '../ReportSection'
+import { ProjectBaseConfig, PropsWithIndex } from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 import tableStyles from '../Table.module.css'
 
 type Props = PropsWithIndex<RepoIssuesData, ProjectBaseConfig>
-type LabelData = {label: string; data: Bug[]}
+type LabelData = { label: string; data: Bug[] }
 
 /**
  * Display repository issues as a table.
@@ -29,15 +29,15 @@ export default function RepoIssues(props: Props) {
       {
         Header: 'Label',
         accessor: 'label',
-        Cell: ({cell: {value}}) => <code>{value}</code>
+        Cell: ({ cell: { value } }) => <code>{value}</code>
       },
       {
         Header: 'Count',
         id: 'count',
         accessor: row => row.data.length,
         cellClassName: (cell: Cell<LabelData>) =>
-          classnames({[tableStyles.expanded]: cell.row.isExpanded}),
-        Cell: ({row, cell}: CellProps<LabelData, number>) => (
+          classnames({ [tableStyles.expanded]: cell.row.isExpanded }),
+        Cell: ({ row, cell }: CellProps<LabelData, number>) => (
           <DataWithFlag>
             {cell.value ? (
               <span
@@ -59,7 +59,7 @@ export default function RepoIssues(props: Props) {
       label,
       data,
       expandContent: () => {
-        return <IssuesTable issues={data} />
+        return <IssuesTable issues={data} showTargetDate />
       }
     }),
     useSortBy

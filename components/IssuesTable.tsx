@@ -7,7 +7,7 @@ import TargetDate from './TargetDate'
 
 type Props = {
   issues: Card[]
-  showTargetDate: boolean // why to add it and not just being part of the card?
+  showTargetDate: boolean
 }
 
 export default function IssuesTable(props: Props) {

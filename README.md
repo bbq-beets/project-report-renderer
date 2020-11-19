@@ -31,6 +31,13 @@ directory), you can install this project's npm dependencies and run it:
 The site will be served from a prefix, so navigate to
 `http://localhost:3000/project-report-renderer`.
 
+Formatting and linting can be run via an npm script, and should also run via
+a git pre-commit hook installed when you `npm install`. To run manually:
+
+```shell
+> npm run check
+```
+
 ## How it Works
 
 When this action runs in a repository where project reports have been

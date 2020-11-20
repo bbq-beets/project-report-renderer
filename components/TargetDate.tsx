@@ -1,5 +1,5 @@
 import moment from 'moment'
-//import NullData from 'next/nulldata'
+import NullData from './NullData'
 
 type Props = {
   targetDate?: Date
@@ -17,7 +17,7 @@ export default function TargetDate(props: Props) {
       </time>
     )
   } else {
-    return <div></div> //<NullData />
+    return <NullData />
   }
 }
 

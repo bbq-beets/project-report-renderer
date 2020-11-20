@@ -1,7 +1,7 @@
-import { Card } from 'project-reports'
-import { useMemo } from 'react'
-import { CellProps, Column } from 'react-table'
-import CardAssignee, { getAssignee } from './CardAssignee'
+import {Card} from 'project-reports'
+import {useMemo} from 'react'
+import {CellProps, Column} from 'react-table'
+import CardAssignee, {getAssignee} from './CardAssignee'
 import Table from './Table'
 import TargetDate from './TargetDate'
 
@@ -11,13 +11,13 @@ type Props = {
 }
 
 export default function IssuesTable(props: Props) {
-  const columns = useMemo<Column<Card>[]>(() => {
-    var calculatedColumns = [
+  const columns = useMemo<Column<Card>[]>(
+    () => [
       {
         Header: 'Title',
         accessor: 'title',
         className: 'w-96',
-        Cell: ({ row, cell }: CellProps<Card, string>) => (
+        Cell: ({row, cell}: CellProps<Card, string>) => (
           <a href={row.original.html_url} className="font-semibold underline">
             {cell.value}
           </a>
@@ -28,7 +28,7 @@ export default function IssuesTable(props: Props) {
         id: 'assignee',
         className: 'w-64',
         accessor: cell => getAssignee(cell)?.login,
-        Cell: ({ row }: CellProps<Card, string>) => (
+        Cell: ({row}: CellProps<Card, string>) => (
           <CardAssignee card={row.original} />
         )
       },
@@ -40,7 +40,7 @@ export default function IssuesTable(props: Props) {
             .map((label: any) => label.name)
             .sort()
             .join(','),
-        Cell: ({ row }: CellProps<Card, string>) => (
+        Cell: ({row}: CellProps<Card, string>) => (
           <ul>
             {row.original.labels.map((label: any) => (
               <li
@@ -57,25 +57,30 @@ export default function IssuesTable(props: Props) {
           </ul>
         ),
         defaultCanSort: false
-      }
-    ]
-
-    if (props.showTargetDate) {
-      calculatedColumns.push({
+      },
+      {
         Header: 'Target Date',
+        id: 'targetDate',
         accessor: 'project_target_date',
         className: 'w-64',
-        Cell: ({ cell }) => <TargetDate targetDate={cell.value} />
-      })
-    }
+        Cell: ({row, cell}: CellProps<Card, Date>) => (
+          <TargetDate targetDate={cell.value} />
+        )
+      }
+    ],
+    [props.showTargetDate]
+  )
 
-    return calculatedColumns
-  }, [])
+  let initialState = undefined
+  if (!props.showTargetDate) {
+    initialState = {hiddenColumns: ['targetDate']}
+  }
 
   return (
     <Table
       columns={columns}
       data={props.issues}
+      initialState={initialState}
       empty={<p>No issues.</p>}
       fixed
       constrainHeight

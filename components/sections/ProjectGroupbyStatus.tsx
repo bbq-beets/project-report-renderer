@@ -1,22 +1,22 @@
-import { Card } from 'project-reports'
+import {Card} from 'project-reports'
 import {
   ProjectGroupbyStatusData,
   Total
 } from 'project-reports/project-groupby-status'
-import { PropsWithChildren, useMemo, useState } from 'react'
-import { Cell, CellProps, Column, Row } from 'react-table'
+import {PropsWithChildren, useMemo, useState} from 'react'
+import {Cell, CellProps, Column, Row} from 'react-table'
 import DataWithFlag from '../DataWithFlag'
 import IssuesTable from '../IssuesTable'
 import NullData from '../NullData'
-import ReportCard, { Stats } from '../ReportCard'
-import { ProjectBaseConfig, PropsWithIndex } from '../ReportSection'
+import ReportCard, {Stats} from '../ReportCard'
+import {ProjectBaseConfig, PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
 import tableStyles from '../Table.module.css'
 
 type Props = PropsWithIndex<ProjectGroupbyStatusData, ProjectBaseConfig>
 
-type StatusGroup = { key: string; totals: Total }
+type StatusGroup = {key: string; totals: Total}
 
 enum StageType {
   Flagged = 'flagged',
@@ -32,7 +32,7 @@ type RowState<T extends StageType = StageType> = {
   stageKey: StageKey<T>
 }
 
-type CellState = { highlighted?: boolean }
+type CellState = {highlighted?: boolean}
 
 const TOTAL_KEY = 'Total'
 // The output uses Number.MAX_VALUE to represent an undefined limit
@@ -78,12 +78,12 @@ export default function ProjectGroupbyStatus(props: Props) {
     const currentStageType = row.state.stageType
     const currentStageKey = row.state.stageKey
 
-    row.setState((state: RowState) => ({ ...state, stageType, stageKey }))
+    row.setState((state: RowState) => ({...state, stageType, stageKey}))
 
     row.allCells.forEach(cell =>
-      cell.setState((state: CellState) => ({ ...state, highlight: false }))
+      cell.setState((state: CellState) => ({...state, highlight: false}))
     )
-    cell.setState((state: CellState) => ({ ...state, highlight: true }))
+    cell.setState((state: CellState) => ({...state, highlight: true}))
 
     if (
       row.isExpanded &&
@@ -103,12 +103,13 @@ export default function ProjectGroupbyStatus(props: Props) {
   const tableGroups: StatusGroup[] = [...groups, totals].map(group => {
     return {
       ...group,
-      expandContent: (props: { row: Row<StatusGroup> }) => {
+      expandContent: (props: {row: Row<StatusGroup>}) => {
         const rowState = props.row.state as RowState<StageType.Stages>
 
         return (
           <IssuesTable
-            issues={getIssues(group, rowState.stageType, rowState.stageKey)} showTargetDate
+            issues={getIssues(group, rowState.stageType, rowState.stageKey)}
+            showTargetDate
           />
         )
       }
@@ -147,7 +148,7 @@ export default function ProjectGroupbyStatus(props: Props) {
         Header: 'Limit',
         id: 'limit',
         accessor: row => row.totals.stages.inProgressLimits.limit,
-        Cell: ({ row, cell }: CellProps<StatusGroup, number | null>) => {
+        Cell: ({row, cell}: CellProps<StatusGroup, number | null>) => {
           // We don't display total for the "Total" row, it's considered
           // meaningless.
           if (cell.value === NULL_LIMIT) {

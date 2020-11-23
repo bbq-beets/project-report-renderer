@@ -109,6 +109,7 @@ export default function ProjectGroupbyStatus(props: Props) {
         return (
           <IssuesTable
             issues={getIssues(group, rowState.stageType, rowState.stageKey)}
+            showTargetDate
           />
         )
       }
@@ -377,7 +378,7 @@ function ReportCardWrapper({
 
       {activeExpand ? (
         <div className="mt-4 mb-8">
-          <IssuesTable issues={stats[activeExpand]} />
+          <IssuesTable issues={stats[activeExpand]} showTargetDate />
         </div>
       ) : null}
     </>

@@ -3,9 +3,11 @@ import {useMemo} from 'react'
 import {CellProps, Column} from 'react-table'
 import CardAssignee, {getAssignee} from './CardAssignee'
 import Table from './Table'
+import TargetDate from './TargetDate'
 
 type Props = {
   issues: Card[]
+  showTargetDate: boolean
 }
 
 export default function IssuesTable(props: Props) {
@@ -55,15 +57,30 @@ export default function IssuesTable(props: Props) {
           </ul>
         ),
         defaultCanSort: false
+      },
+      {
+        Header: 'Target Date',
+        id: 'targetDate',
+        accessor: 'project_target_date',
+        className: 'w-64',
+        Cell: ({row, cell}: CellProps<Card, Date>) => (
+          <TargetDate targetDate={cell.value} />
+        )
       }
     ],
-    []
+    [props.showTargetDate]
   )
+
+  let initialState = undefined
+  if (!props.showTargetDate) {
+    initialState = {hiddenColumns: ['targetDate']}
+  }
 
   return (
     <Table
       columns={columns}
       data={props.issues}
+      initialState={initialState}
       empty={<p>No issues.</p>}
       fixed
       constrainHeight

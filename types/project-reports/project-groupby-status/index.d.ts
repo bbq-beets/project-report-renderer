@@ -46,6 +46,7 @@ declare module 'project-reports/project-groupby-status' {
     project_added_at: Date
     project_stage: string
     project_done_at?: Date
+    project_target_date?: Date
   }
 
   export interface Comment {

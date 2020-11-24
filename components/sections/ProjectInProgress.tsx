@@ -52,6 +52,7 @@ export default function ProjectInProgress(props: Props) {
         Header: 'Last Update',
         id: 'lastUpdate',
         accessor: 'lastUpdatedAt',
+        className: 'w-32',
         sortInverted: true,
         Cell: ({row, cell}: CellProps<Card, string>) => (
           <DataWithFlag flag={row.original.flagHoursLastUpdated}>
@@ -62,12 +63,14 @@ export default function ProjectInProgress(props: Props) {
       {
         Header: 'In Progress',
         accessor: 'project_in_progress_at',
+        className: 'w-32',
         sortInverted: true,
         Cell: ({cell}) => <TimeAgo dateTime={cell.value} />
       },
       {
         Header: 'Target Date',
         accessor: 'project_target_date',
+        className: 'w-32',
         Cell: ({cell}) => <TargetDate targetDate={cell.value} />
       }
     ],

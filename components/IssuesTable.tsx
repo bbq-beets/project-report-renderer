@@ -3,7 +3,7 @@ import {useMemo} from 'react'
 import {CellProps, Column} from 'react-table'
 import CardAssignee, {getAssignee} from './CardAssignee'
 import Table from './Table'
-import TargetDate from './TargetDate'
+import ReportDate from './ReportDate'
 
 type Props = {
   issues: Card[]
@@ -65,7 +65,7 @@ export default function IssuesTable(props: Props) {
         accessor: 'project_in_progress_at',
         className: 'w-32',
         Cell: ({row, cell}: CellProps<Card, Date>) => (
-          <TargetDate targetDate={cell.value} />
+          <ReportDate targetDate={cell.value} />
         )
       },
       {
@@ -74,7 +74,7 @@ export default function IssuesTable(props: Props) {
         accessor: 'project_target_date',
         className: 'w-32',
         Cell: ({row, cell}: CellProps<Card, Date>) => (
-          <TargetDate targetDate={cell.value} />
+          <ReportDate targetDate={cell.value} />
         )
       }
     ],

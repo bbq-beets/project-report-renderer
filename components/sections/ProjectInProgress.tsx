@@ -7,7 +7,7 @@ import DataWithFlag from '../DataWithFlag'
 import {ProjectBaseConfig, PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
-import TargetDate from '../TargetDate'
+import ReportDate from '../ReportDate'
 import TimeAgo from '../TimeAgo'
 
 type Props = PropsWithIndex<ProjectInProgressData, ProjectBaseConfig>
@@ -71,7 +71,7 @@ export default function ProjectInProgress(props: Props) {
         Header: 'Target Date',
         accessor: 'project_target_date',
         className: 'w-32',
-        Cell: ({cell}) => <TargetDate targetDate={cell.value} />
+        Cell: ({cell}) => <ReportDate targetDate={cell.value} />
       }
     ],
     []

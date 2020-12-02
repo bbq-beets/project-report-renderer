@@ -9,7 +9,7 @@ type Props = {
  * Renders a datetime as a local date
  * @param props
  */
-export default function TargetDate(props: Props) {
+export default function ReportDate(props: Props) {
   if (props.targetDate) {
     return (
       <time dateTime={moment(props.targetDate).format('YYYY-MM-DD')}>

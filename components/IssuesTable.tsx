@@ -3,7 +3,7 @@ import {useMemo} from 'react'
 import {CellProps, Column} from 'react-table'
 import CardAssignee, {getAssignee} from './CardAssignee'
 import Table from './Table'
-import TargetDate from './TargetDate'
+import ReportDate from './ReportDate'
 
 type Props = {
   issues: Card[]
@@ -35,6 +35,7 @@ export default function IssuesTable(props: Props) {
       {
         Header: 'Labels',
         id: 'labels',
+        className: 'w-64',
         accessor: cell =>
           cell.labels
             .map((label: any) => label.name)
@@ -59,12 +60,21 @@ export default function IssuesTable(props: Props) {
         defaultCanSort: false
       },
       {
+        Header: 'Start Date',
+        id: 'startDate',
+        accessor: 'project_in_progress_at',
+        className: 'w-32',
+        Cell: ({row, cell}: CellProps<Card, Date>) => (
+          <ReportDate targetDate={cell.value} />
+        )
+      },
+      {
         Header: 'Target Date',
         id: 'targetDate',
         accessor: 'project_target_date',
-        className: 'w-64',
+        className: 'w-32',
         Cell: ({row, cell}: CellProps<Card, Date>) => (
-          <TargetDate targetDate={cell.value} />
+          <ReportDate targetDate={cell.value} />
         )
       }
     ],
@@ -73,7 +83,7 @@ export default function IssuesTable(props: Props) {
 
   let initialState = undefined
   if (!props.showTargetDate) {
-    initialState = {hiddenColumns: ['targetDate']}
+    initialState = {hiddenColumns: ['targetDate', 'startDate']}
   }
 
   return (

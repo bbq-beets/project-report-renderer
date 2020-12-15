@@ -7,6 +7,7 @@ declare module 'project-reports/project-in-progress' {
   export interface Card {
     number: number
     title: string
+    body: string
     html_url: string
     closed_at: null
     created_at: Date
@@ -29,6 +30,7 @@ declare module 'project-reports/project-in-progress' {
     previousStatus: string
     hoursInProgress: number
     inProgressSince: string
+    task_completion: string
   }
 
   export interface Assignee {

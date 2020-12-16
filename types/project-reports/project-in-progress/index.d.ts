@@ -30,7 +30,6 @@ declare module 'project-reports/project-in-progress' {
     previousStatus: string
     hoursInProgress: number
     inProgressSince: string
-    task_completion: string
   }
 
   export interface Assignee {

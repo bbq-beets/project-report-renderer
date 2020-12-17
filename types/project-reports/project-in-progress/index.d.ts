@@ -29,6 +29,22 @@ declare module 'project-reports/project-in-progress' {
     previousStatus: string
     hoursInProgress: number
     inProgressSince: string
+    additionalColumns: AdditionalColumnData[]
+  }
+
+  export interface AdditionalColumnData {
+    columnName: string
+    value: string
+  }
+
+  export interface AdditionalColumnDataAggregated {
+    columnName: string
+    value: CallOutCell[]
+  }
+
+  export interface CallOutCell {
+    issueName: string
+    callOutValue: string
   }
 
   export interface Assignee {

@@ -1,4 +1,4 @@
-import { Card, ProjectInProgressData } from 'project-reports/project-in-progress'
+import { CallOutDataBySection, Card, ProjectInProgressData } from 'project-reports/project-in-progress'
 import { useMemo } from 'react'
 import { CellProps, Column } from 'react-table'
 import { getStatusEmoji } from '../../lib/util'
@@ -77,7 +77,7 @@ export default function ProjectInProgress(props: Props) {
     []
   )
 
-  var callOuts = {}
+  var callOuts: CallOutDataBySection = {}
 
   cards.forEach((card) => {
     if (card.additionalColumns && card.additionalColumns.length > 0) {
@@ -92,17 +92,17 @@ export default function ProjectInProgress(props: Props) {
         }
 
         if (callOuts[additionalData.columnName]) {
-          callOuts[additionalData.columnName].push({ 'value': value, 'issueName': card.title, 'callout': additionalData.columnName, 'url': card.html_url })
+          callOuts[additionalData.columnName].push({ 'value': value, 'issueName': card.title, 'url': card.html_url })
         } else {
           callOuts[additionalData.columnName] = []
-          callOuts[additionalData.columnName].push({ 'value': value, 'issueName': card.title, 'callout': additionalData.columnName, 'url': card.html_url })
+          callOuts[additionalData.columnName].push({ 'value': value, 'issueName': card.title, 'url': card.html_url })
         }
       })
     }
   });
 
   const callOutRendered = function () {
-    var callOutData = []
+    var callOutData: (JSX.Element | JSX.Element[])[] = []
     Object.keys(callOuts).forEach(key => {
       console.log(key);
       console.log(callOuts[key])

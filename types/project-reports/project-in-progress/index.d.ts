@@ -37,14 +37,14 @@ declare module 'project-reports/project-in-progress' {
     value: string
   }
 
-  export interface AdditionalColumnDataAggregated {
-    columnName: string
-    value: CallOutCell[]
+  export interface CallOutDataBySection {
+    [key: string]: CallOutCell[]
   }
 
   export interface CallOutCell {
-    issueName: string
-    callOutValue: string
+    issueName: string,
+    url: string,
+    value: string
   }
 
   export interface Assignee {

@@ -2,8 +2,9 @@ import {Card} from 'project-reports'
 import {useMemo} from 'react'
 import {CellProps, Column} from 'react-table'
 import CardAssignee, {getAssignee} from './CardAssignee'
-import Table from './Table'
 import ReportDate from './ReportDate'
+import Table from './Table'
+import TaskCompletion from './TaskCompletion'
 
 type Props = {
   issues: Card[]
@@ -58,6 +59,15 @@ export default function IssuesTable(props: Props) {
           </ul>
         ),
         defaultCanSort: false
+      },
+      {
+        Header: 'Tasks',
+        id: 'taskCompletiton',
+        accessor: 'body',
+        className: 'w-32',
+        Cell: ({row, cell}: CellProps<Card, string>) => (
+          <TaskCompletion body={cell.value} />
+        )
       },
       {
         Header: 'Start Date',

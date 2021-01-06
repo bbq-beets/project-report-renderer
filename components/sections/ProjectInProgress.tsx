@@ -4,11 +4,10 @@ import {CellProps, Column} from 'react-table'
 import {getStatusEmoji} from '../../lib/util'
 import CardAssignee, {getAssignee} from '../CardAssignee'
 import DataWithFlag from '../DataWithFlag'
-import ReportDate from '../ReportDate'
 import {ProjectBaseConfig, PropsWithIndex} from '../ReportSection'
 import SectionTitle from '../SectionTitle'
 import Table from '../Table'
-import TaskCompletion from '../TaskCompletion'
+import ReportDate from '../ReportDate'
 import TimeAgo from '../TimeAgo'
 
 type Props = PropsWithIndex<ProjectInProgressData, ProjectBaseConfig>
@@ -59,15 +58,6 @@ export default function ProjectInProgress(props: Props) {
           <DataWithFlag flag={row.original.flagHoursLastUpdated}>
             {cell.value ? <TimeAgo dateTime={cell.value} /> : null}
           </DataWithFlag>
-        )
-      },
-      {
-        Header: 'Tasks',
-        id: 'taskCompletiton',
-        accessor: 'body',
-        className: 'w-32',
-        Cell: ({row, cell}: CellProps<Card, string>) => (
-          <TaskCompletion body={cell.value} />
         )
       },
       {

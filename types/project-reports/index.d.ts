@@ -9,7 +9,6 @@ declare module 'project-reports' {
   export interface Card {
     number: number
     title: string
-    body: string
     html_url: string
     assignee?: Assignee | null
     assignees?: Assignee[] | null

@@ -1,6 +1,8 @@
 import { CallOutDataBySection, Card, ProjectInProgressData } from 'project-reports/project-in-progress'
 import { useMemo } from 'react'
+import ReactMarkdown from 'react-markdown'
 import { CellProps, Column } from 'react-table'
+import gfm from 'remark-gfm'
 import { getStatusEmoji } from '../../lib/util'
 import CardAssignee, { getAssignee } from '../CardAssignee'
 import DataWithFlag from '../DataWithFlag'
@@ -109,7 +111,7 @@ export default function ProjectInProgress(props: Props) {
       callOutData.push(<SectionTitle icon="🚨" index={props.index} asof={props.config._asof}>
         {key}
       </SectionTitle>)
-      callOutData.push(callOuts[key].map((item) => <><h3 key={item['issueName']}><b><a href={item['url']}>{item['issueName']}</a></b></h3><h3 key={item['value']}>{item['value']}</h3></>))
+      callOutData.push(callOuts[key].map((item) => <><h3 key={item['issueName']}><b><a href={item['url']}>{item['issueName']}</a></b></h3><h3 key={item['value']}><ReactMarkdown plugins={[gfm]} children={item['value']} /></h3></>))
     })
     return (
       <>

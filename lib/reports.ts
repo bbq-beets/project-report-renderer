@@ -50,7 +50,7 @@ async function getLatestReportData(reportPath: string) {
 }
 
 function getReportPaths() {
-  const reportsDirName = '.reports'
+  const reportsDirName = '../.reports'
   const reportsDirPath = path.resolve(reportsDirName)
   return getDirsMatching(reportsDirPath, name => !name.startsWith('.'))
 }

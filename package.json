@@ -32,7 +32,7 @@
   },
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build:production": "next build",
     "dev": "next dev",
     "export": "next export",
     "check": "run-s check:format check:lint check:compile",

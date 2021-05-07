@@ -7,7 +7,6 @@ RUN apk add curl git rsync
 
 # Install npm dependencies
 COPY package* /opt/build/
-# RUN npm install
 RUN npm ci --prefix /opt/build
 
 # Copy our build configuration

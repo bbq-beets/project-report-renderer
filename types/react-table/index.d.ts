@@ -20,9 +20,8 @@ type UseConstrainHeightOptions = {
 declare module 'react-table' {
   // take this file as-is, or comment out the sections that don't apply to your plugin configuration
 
-  export interface TableOptions<
-    D extends Record<string, unknown>
-  > extends UseExpandedOptions<D>,
+  export interface TableOptions<D extends Record<string, unknown>>
+    extends UseExpandedOptions<D>,
       UseConstrainHeightOptions,
       UseFiltersOptions<D>,
       UseGlobalFiltersOptions<D>,
@@ -43,7 +42,8 @@ declare module 'react-table' {
 
   export interface Hooks<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseExpandedHooks<D>,
+  >
+    extends UseExpandedHooks<D>,
       UseExpandedHooks<D>,
       // UseGroupByHooks<D>,
       // UseRowSelectHooks<D>,
@@ -51,7 +51,8 @@ declare module 'react-table' {
 
   export interface TableInstance<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseColumnOrderInstanceProps<D>,
+  >
+    extends UseColumnOrderInstanceProps<D>,
       UseExpandedInstanceProps<D>,
       // UseFiltersInstanceProps<D>,
       UseGlobalFiltersInstanceProps<D>,
@@ -63,7 +64,8 @@ declare module 'react-table' {
 
   export interface TableState<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseColumnOrderState<D>,
+  >
+    extends UseColumnOrderState<D>,
       UseExpandedState<D>,
       // UseFiltersState<D>,
       UseGlobalFiltersState<D>,
@@ -76,7 +78,8 @@ declare module 'react-table' {
 
   export interface ColumnInterface<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseFiltersColumnOptions<D>,
+  >
+    extends UseFiltersColumnOptions<D>,
       UseClassNameOptions<D>,
       UseGlobalFiltersColumnOptions<D>,
       // UseGroupByColumnOptions<D>,
@@ -85,7 +88,8 @@ declare module 'react-table' {
 
   export interface ColumnInstance<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseFiltersColumnProps<D>,
+  >
+    extends UseFiltersColumnProps<D>,
       // UseGroupByColumnProps<D>,
       // UseResizeColumnsColumnProps<D>,
       UseClassNameOptions<D>,
@@ -99,7 +103,8 @@ declare module 'react-table' {
 
   export interface Row<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseExpandedRowProps<D>,
+  >
+    extends UseExpandedRowProps<D>,
       // UseGroupByRowProps<D>,
       // UseRowSelectRowProps<D>,
       UseRowStateRowProps<D> {}

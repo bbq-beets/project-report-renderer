@@ -45,11 +45,11 @@ export async function getStaticProps({
 
 export async function getStaticPaths() {
   const reports = await getLatestReportsData()
-  console.log(reports)
+
   const paths = Object.entries(reports).map(([name, _report]) => ({
     params: {name}
   }))
-  console.log(paths)
+
   return {
     paths,
     fallback: false
